@@ -16,11 +16,11 @@ class MVSenseController(BaseController):
     """A Controller to access Endpoints in the meraki API."""
 
 
-    def get_device_camera_analytics_live(self,
-                                         serial):
-        """Does a GET request to /devices/{serial}/camera/analytics/live.
+    def get_device_camera_analytics_zones(self,
+                                          serial):
+        """Does a GET request to /devices/{serial}/camera/analytics/zones.
 
-        Returns live state from camera of analytics zones
+        Returns all configured analytic zones for this camera
 
         Args:
             serial (string): TODO: type description here. Example: 
@@ -40,7 +40,7 @@ class MVSenseController(BaseController):
         self.validate_parameters(serial=serial)
 
         # Prepare query URL
-        _url_path = '/devices/{serial}/camera/analytics/live'
+        _url_path = '/devices/{serial}/camera/analytics/zones'
         _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
             'serial': serial
         })
@@ -108,11 +108,11 @@ class MVSenseController(BaseController):
         # Return appropriate type
         return APIHelper.json_deserialize(_context.response.raw_body)
 
-    def get_device_camera_analytics_zones(self,
-                                          serial):
-        """Does a GET request to /devices/{serial}/camera/analytics/zones.
+    def get_device_camera_analytics_live(self,
+                                         serial):
+        """Does a GET request to /devices/{serial}/camera/analytics/live.
 
-        Returns all configured analytic zones for this camera
+        Returns live state from camera of analytics zones
 
         Args:
             serial (string): TODO: type description here. Example: 
@@ -132,7 +132,7 @@ class MVSenseController(BaseController):
         self.validate_parameters(serial=serial)
 
         # Prepare query URL
-        _url_path = '/devices/{serial}/camera/analytics/zones'
+        _url_path = '/devices/{serial}/camera/analytics/live'
         _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
             'serial': serial
         })
