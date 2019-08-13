@@ -6,8 +6,6 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
-import meraki.models.definition_model
-import meraki.models.per_client_bandwidth_limits_model
 
 class Rule10Model(object):
 
@@ -16,39 +14,58 @@ class Rule10Model(object):
     TODO: type model description here.
 
     Attributes:
-        definitions (list of DefinitionModel): A list of objects describing
-            the definitions of your traffic shaping rule. At least one
-            definition is required.
-        per_client_bandwidth_limits (PerClientBandwidthLimitsModel): An object
-            describing the bandwidth settings for your rule.
-        dscp_tag_value (int): The DSCP tag applied by your rule. null means
-            'Do not change DSCP tag'.     For a list of possible tag values,
-            use the trafficShaping/dscpTaggingOptions endpoint.
-        priority (string): A string, indicating the priority level for packets
-            bound to your rule.     Can be 'low', 'normal' or 'high'.
+        name (string): A descriptive name for the rule
+        public_ip (string): The IP address that will be used to access the
+            internal resource from the WAN
+        lan_ip (string): The IP address of the server or device that hosts the
+            internal resource that you wish to make available on the WAN
+        uplink (string): The physical WAN interface on which the traffic will
+            arrive ('internet1' or, if available, 'internet2')
+        allowed_inbound (list of object): The ports this mapping will provide
+            access on, and the remote IPs that will be allowed access to the
+            resource
+        protocol (string): Either of the following: 'tcp', 'udp', 'icmp-ping'
+            or 'any'
+        destination_ports (string): An array of ports or port ranges that will
+            be forwarded to the host on the LAN
+        allowed_ips (string): An array of ranges of WAN IP addresses that are
+            allowed to make inbound connections on the specified ports or port
+            ranges, or 'any'
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "definitions":'definitions',
-        "per_client_bandwidth_limits":'perClientBandwidthLimits',
-        "dscp_tag_value":'dscpTagValue',
-        "priority":'priority'
+        "name":'name',
+        "public_ip":'publicIp',
+        "lan_ip":'lanIp',
+        "uplink":'uplink',
+        "allowed_inbound":'allowedInbound',
+        "protocol":'protocol',
+        "destination_ports":'destinationPorts',
+        "allowed_ips":'allowedIps'
     }
 
     def __init__(self,
-                 definitions=None,
-                 per_client_bandwidth_limits=None,
-                 dscp_tag_value=None,
-                 priority=None):
+                 name=None,
+                 public_ip=None,
+                 lan_ip=None,
+                 uplink=None,
+                 allowed_inbound=None,
+                 protocol=None,
+                 destination_ports=None,
+                 allowed_ips=None):
         """Constructor for the Rule10Model class"""
 
         # Initialize members of the class
-        self.definitions = definitions
-        self.per_client_bandwidth_limits = per_client_bandwidth_limits
-        self.dscp_tag_value = dscp_tag_value
-        self.priority = priority
+        self.name = name
+        self.public_ip = public_ip
+        self.lan_ip = lan_ip
+        self.uplink = uplink
+        self.allowed_inbound = allowed_inbound
+        self.protocol = protocol
+        self.destination_ports = destination_ports
+        self.allowed_ips = allowed_ips
 
 
     @classmethod
@@ -69,19 +86,23 @@ class Rule10Model(object):
             return None
 
         # Extract variables from the dictionary
-        definitions = None
-        if dictionary.get('definitions') != None:
-            definitions = list()
-            for structure in dictionary.get('definitions'):
-                definitions.append(meraki.models.definition_model.DefinitionModel.from_dictionary(structure))
-        per_client_bandwidth_limits = meraki.models.per_client_bandwidth_limits_model.PerClientBandwidthLimitsModel.from_dictionary(dictionary.get('perClientBandwidthLimits')) if dictionary.get('perClientBandwidthLimits') else None
-        dscp_tag_value = dictionary.get('dscpTagValue')
-        priority = dictionary.get('priority')
+        name = dictionary.get('name')
+        public_ip = dictionary.get('publicIp')
+        lan_ip = dictionary.get('lanIp')
+        uplink = dictionary.get('uplink')
+        allowed_inbound = dictionary.get('allowedInbound')
+        protocol = dictionary.get('protocol')
+        destination_ports = dictionary.get('destinationPorts')
+        allowed_ips = dictionary.get('allowedIps')
 
         # Return an object of this model
-        return cls(definitions,
-                   per_client_bandwidth_limits,
-                   dscp_tag_value,
-                   priority)
+        return cls(name,
+                   public_ip,
+                   lan_ip,
+                   uplink,
+                   allowed_inbound,
+                   protocol,
+                   destination_ports,
+                   allowed_ips)
 
 

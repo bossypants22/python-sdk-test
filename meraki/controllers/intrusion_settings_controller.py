@@ -124,7 +124,7 @@ class IntrusionSettingsController(BaseController):
                                                    options=dict()):
         """Does a PUT request to /networks/{networkId}/security/intrusionSettings.
 
-        Set the supported intrusion settings for an MX network
+        Set the supported instrusion settings for an MX network
 
         Args:
             options (dict, optional): Key-value pairs for any of the

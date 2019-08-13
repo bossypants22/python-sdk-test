@@ -16,24 +16,14 @@ class NetworksController(BaseController):
     """A Controller to access Endpoints in the meraki API."""
 
 
-    def combine_organization_networks(self,
-                                      options=dict()):
-        """Does a POST request to /organizations/{organizationId}/networks/combine.
+    def get_network(self,
+                    network_id):
+        """Does a GET request to /networks/{networkId}.
 
-        Combine multiple networks into a single network
+        Return a network
 
         Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    organization_id -- string -- TODO: type description here.
-                        Example: 
-                    combine_organization_networks --
-                        CombineOrganizationNetworksModel -- TODO: type
-                        description here. Example: 
+            network_id (string): TODO: type description here. Example: 
 
         Returns:
             mixed: Response from the API. Successful operation
@@ -47,13 +37,12 @@ class NetworksController(BaseController):
         """
 
         # Validate required parameters
-        self.validate_parameters(organization_id=options.get("organization_id"),
-                                 combine_organization_networks=options.get("combine_organization_networks"))
+        self.validate_parameters(network_id=network_id)
 
         # Prepare query URL
-        _url_path = '/organizations/{organizationId}/networks/combine'
+        _url_path = '/networks/{networkId}'
         _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'organizationId': options.get('organization_id', None)
+            'networkId': network_id
         })
         _query_builder = Configuration.base_uri
         _query_builder += _url_path
@@ -61,12 +50,11 @@ class NetworksController(BaseController):
 
         # Prepare headers
         _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
+            'accept': 'application/json'
         }
 
         # Prepare and execute request
-        _request = self.http_client.post(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('combine_organization_networks')))
+        _request = self.http_client.get(_query_url, headers=_headers)
         CustomHeaderAuth.apply(_request)
         _context = self.execute_request(_request)
         self.validate_response(_context)
@@ -193,275 +181,6 @@ class NetworksController(BaseController):
         # Return appropriate type
         return APIHelper.json_deserialize(_context.response.raw_body)
 
-    def unbind_network(self,
-                       network_id):
-        """Does a POST request to /networks/{networkId}/unbind.
-
-        Unbind a network from a template.
-
-        Args:
-            network_id (string): TODO: type description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=network_id)
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/unbind'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': network_id
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.post(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def split_network(self,
-                      network_id):
-        """Does a POST request to /networks/{networkId}/split.
-
-        Split a combined network into individual networks for each type of
-        device
-
-        Args:
-            network_id (string): TODO: type description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=network_id)
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/split'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': network_id
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.post(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def update_network_site_to_site_vpn(self,
-                                        options=dict()):
-        """Does a PUT request to /networks/{networkId}/siteToSiteVpn.
-
-        Update the site-to-site VPN settings of a network. Only valid for MX
-        networks in NAT mode.
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    update_network_site_to_site_vpn --
-                        UpdateNetworkSiteToSiteVpnModel -- TODO: type
-                        description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/siteToSiteVpn'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('update_network_site_to_site_vpn')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_site_to_site_vpn(self,
-                                     network_id):
-        """Does a GET request to /networks/{networkId}/siteToSiteVpn.
-
-        Return the site-to-site VPN settings of a network. Only valid for MX
-        networks.
-
-        Args:
-            network_id (string): TODO: type description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=network_id)
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/siteToSiteVpn'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': network_id
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_traffic(self,
-                            options=dict()):
-        """Does a GET request to /networks/{networkId}/traffic.
-
-        The traffic analysis data for this network.
-        <a
-        href="https://documentation.meraki.com/MR/Monitoring_and_Reporting/Host
-        name_Visibility">Traffic Analysis with Hostname Visibility</a> must be
-        enabled on the network.
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    timespan -- string -- The timespan for the data. Must be
-                        an integer representing a duration in seconds between
-                        two hours and one month. (Mandatory.)
-                    device_type -- string -- Filter the data by device type:
-                        combined (default), wireless, switch, appliance. When
-                        using combined, for each rule the data will come from
-                        the device type with the most usage.
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 timespan=options.get("timespan"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/traffic'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_parameters = {
-            'timespan': options.get('timespan', None),
-            'deviceType': options.get('device_type', None)
-        }
-        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
-            _query_parameters, Configuration.array_serialization)
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
     def update_network_bluetooth_settings(self,
                                           options=dict()):
         """Does a PUT request to /networks/{networkId}/bluetoothSettings.
@@ -548,110 +267,6 @@ class NetworksController(BaseController):
 
         # Prepare query URL
         _url_path = '/networks/{networkId}/bluetoothSettings'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': network_id
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def bind_network(self,
-                     options=dict()):
-        """Does a POST request to /networks/{networkId}/bind.
-
-        Bind a network to a template.
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    bind_network -- BindNetworkModel -- TODO: type description
-                        here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 bind_network=options.get("bind_network"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/bind'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.post(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('bind_network')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_access_policies(self,
-                                    network_id):
-        """Does a GET request to /networks/{networkId}/accessPolicies.
-
-        List the access policies for this network. Only valid for MS
-        networks.
-
-        Args:
-            network_id (string): TODO: type description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=network_id)
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/accessPolicies'
         _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
             'networkId': network_id
         })
@@ -767,11 +382,70 @@ class NetworksController(BaseController):
         # Return appropriate type
         return APIHelper.json_deserialize(_context.response.raw_body)
 
-    def get_network(self,
-                    network_id):
-        """Does a GET request to /networks/{networkId}.
+    def update_network_site_to_site_vpn(self,
+                                        options=dict()):
+        """Does a PUT request to /networks/{networkId}/siteToSiteVpn.
 
-        Return a network
+        Update the site-to-site VPN settings of a network. Only valid for MX
+        networks in NAT mode.
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    update_network_site_to_site_vpn --
+                        UpdateNetworkSiteToSiteVpnModel -- TODO: type
+                        description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/siteToSiteVpn'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json',
+            'content-type': 'application/json; charset=utf-8'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('update_network_site_to_site_vpn')))
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_site_to_site_vpn(self,
+                                     network_id):
+        """Does a GET request to /networks/{networkId}/siteToSiteVpn.
+
+        Return the site-to-site VPN settings of a network. Only valid for MX
+        networks.
 
         Args:
             network_id (string): TODO: type description here. Example: 
@@ -791,7 +465,7 @@ class NetworksController(BaseController):
         self.validate_parameters(network_id=network_id)
 
         # Prepare query URL
-        _url_path = '/networks/{networkId}'
+        _url_path = '/networks/{networkId}/siteToSiteVpn'
         _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
             'networkId': network_id
         })
@@ -806,6 +480,261 @@ class NetworksController(BaseController):
 
         # Prepare and execute request
         _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def split_network(self,
+                      network_id):
+        """Does a POST request to /networks/{networkId}/split.
+
+        Split a combined network into individual networks for each type of
+        device
+
+        Args:
+            network_id (string): TODO: type description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=network_id)
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/split'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': network_id
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.post(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def combine_organization_networks(self,
+                                      options=dict()):
+        """Does a POST request to /organizations/{organizationId}/networks/combine.
+
+        Combine multiple networks into a single network
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    organization_id -- string -- TODO: type description here.
+                        Example: 
+                    combine_organization_networks --
+                        CombineOrganizationNetworksModel -- TODO: type
+                        description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(organization_id=options.get("organization_id"),
+                                 combine_organization_networks=options.get("combine_organization_networks"))
+
+        # Prepare query URL
+        _url_path = '/organizations/{organizationId}/networks/combine'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'organizationId': options.get('organization_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json',
+            'content-type': 'application/json; charset=utf-8'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.post(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('combine_organization_networks')))
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_access_policies(self,
+                                    network_id):
+        """Does a GET request to /networks/{networkId}/accessPolicies.
+
+        List the access policies for this network. Only valid for MS
+        networks.
+
+        Args:
+            network_id (string): TODO: type description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=network_id)
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/accessPolicies'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': network_id
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def unbind_network(self,
+                       network_id):
+        """Does a POST request to /networks/{networkId}/unbind.
+
+        Unbind a network from a template.
+
+        Args:
+            network_id (string): TODO: type description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=network_id)
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/unbind'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': network_id
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.post(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def bind_network(self,
+                     options=dict()):
+        """Does a POST request to /networks/{networkId}/bind.
+
+        Bind a network to a template.
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    bind_network -- BindNetworkModel -- TODO: type description
+                        here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 bind_network=options.get("bind_network"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/bind'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json',
+            'content-type': 'application/json; charset=utf-8'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.post(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('bind_network')))
         CustomHeaderAuth.apply(_request)
         _context = self.execute_request(_request)
         self.validate_response(_context)
@@ -861,6 +790,77 @@ class NetworksController(BaseController):
         _query_parameters = {
             't0': options.get('t0', None),
             'timespan': options.get('timespan', None)
+        }
+        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
+            _query_parameters, Configuration.array_serialization)
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_traffic(self,
+                            options=dict()):
+        """Does a GET request to /networks/{networkId}/traffic.
+
+        The traffic analysis data for this network.
+        <a
+        href="https://documentation.meraki.com/MR/Monitoring_and_Reporting/Host
+        name_Visibility">Traffic Analysis with Hostname Visibility</a> must be
+        enabled on the network.
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    timespan -- string -- The timespan for the data. Must be
+                        an integer representing a duration in seconds between
+                        two hours and one month. (Mandatory.)
+                    device_type -- string -- Filter the data by device type:
+                        combined (default), wireless, switch, appliance. When
+                        using combined, for each rule the data will come from
+                        the device type with the most usage.
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 timespan=options.get("timespan"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/traffic'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_parameters = {
+            'timespan': options.get('timespan', None),
+            'deviceType': options.get('device_type', None)
         }
         _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
             _query_parameters, Configuration.array_serialization)

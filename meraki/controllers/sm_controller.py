@@ -16,12 +16,197 @@ class SMController(BaseController):
     """A Controller to access Endpoints in the meraki API."""
 
 
-    def get_network_sm_performance_history(self,
-                                           options=dict()):
-        """Does a GET request to /networks/{network_id}/sm/{id}/performanceHistory.
+    def get_network_sm_softwares(self,
+                                 options=dict()):
+        """Does a GET request to /networks/{networkId}/sm/{deviceId}/softwares.
 
-        Return historical records of various Systems Manager client metrics
-        for desktop devices.
+        Get a list of softwares associated with a device
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    device_id -- string -- TODO: type description here.
+                        Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 device_id=options.get("device_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/{deviceId}/softwares'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None),
+            'deviceId': options.get('device_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_user_softwares(self,
+                                      options=dict()):
+        """Does a GET request to /networks/{networkId}/sm/user/{userId}/softwares.
+
+        Get a list of softwares associated with a user
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    user_id -- string -- TODO: type description here. Example:
+                        
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 user_id=options.get("user_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/user/{userId}/softwares'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None),
+            'userId': options.get('user_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_users(self,
+                             options=dict()):
+        """Does a GET request to /networks/{networkId}/sm/users.
+
+        List the owners in an SM network with various specified fields and
+        filters
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    ids -- string -- Filter users by id(s). Multiple ids can
+                        be passed in as comma separated values.
+                    usernames -- string -- Filter users by username(s).
+                        Multiple usernames can be passed in as comma separated
+                        values.
+                    emails -- string -- Filter users by email(s). Multiple
+                        emails can be passed in as comma separated values.
+                    scope -- string -- Specifiy a scope (one of all, none,
+                        withAny, withAll, withoutAny, withoutAll) and a set of
+                        tags as comma separated values.
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/users'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_parameters = {
+            'ids': options.get('ids', None),
+            'usernames': options.get('usernames', None),
+            'emails': options.get('emails', None),
+            'scope': options.get('scope', None)
+        }
+        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
+            _query_parameters, Configuration.array_serialization)
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_connectivity(self,
+                                    options=dict()):
+        """Does a GET request to /networks/{network_id}/sm/{id}/connectivity.
+
+        Returns historical connectivity data (whether a device is regularly
+        checking in to Dashboard).
 
         Args:
             options (dict, optional): Key-value pairs for any of the
@@ -64,7 +249,7 @@ class SMController(BaseController):
                                  id=options.get("id"))
 
         # Prepare query URL
-        _url_path = '/networks/{network_id}/sm/{id}/performanceHistory'
+        _url_path = '/networks/{network_id}/sm/{id}/connectivity'
         _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
             'network_id': options.get('network_id', None),
             'id': options.get('id', None)
@@ -170,6 +355,1287 @@ class SMController(BaseController):
 
         # Prepare and execute request
         _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_desktop_logs(self,
+                                    options=dict()):
+        """Does a GET request to /networks/{network_id}/sm/{id}/desktopLogs.
+
+        Return historical records of various Systems Manager network
+        connection details for desktop devices.
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    id -- string -- TODO: type description here. Example: 
+                    per_page -- string -- The number of entries per page
+                        returned
+                    starting_after -- string -- A token used by the server to
+                        indicate the start of the page. Often this is a
+                        timestamp or an ID but it is not limited to those.
+                        This parameter should not be defined by client
+                        applications. The link for the first, last, next or
+                        prev page in the HTTP Link header should define it.
+                    ending_before -- string -- A token used by the server to
+                        indicate the end of the page. Often this is a
+                        timestamp or an ID but it is not limited to those.
+                        This parameter should not be defined by client
+                        applications. The link for the first, last, next or
+                        prev page in the HTTP Link header should define it.
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 id=options.get("id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{network_id}/sm/{id}/desktopLogs'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'network_id': options.get('network_id', None),
+            'id': options.get('id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_parameters = {
+            'perPage': options.get('per_page', None),
+            'startingAfter': options.get('starting_after', None),
+            'endingBefore': options.get('ending_before', None)
+        }
+        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
+            _query_parameters, Configuration.array_serialization)
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_performance_history(self,
+                                           options=dict()):
+        """Does a GET request to /networks/{network_id}/sm/{id}/performanceHistory.
+
+        Return historical records of various Systems Manager client metrics
+        for desktop devices.
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    id -- string -- TODO: type description here. Example: 
+                    per_page -- string -- The number of entries per page
+                        returned
+                    starting_after -- string -- A token used by the server to
+                        indicate the start of the page. Often this is a
+                        timestamp or an ID but it is not limited to those.
+                        This parameter should not be defined by client
+                        applications. The link for the first, last, next or
+                        prev page in the HTTP Link header should define it.
+                    ending_before -- string -- A token used by the server to
+                        indicate the end of the page. Often this is a
+                        timestamp or an ID but it is not limited to those.
+                        This parameter should not be defined by client
+                        applications. The link for the first, last, next or
+                        prev page in the HTTP Link header should define it.
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 id=options.get("id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{network_id}/sm/{id}/performanceHistory'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'network_id': options.get('network_id', None),
+            'id': options.get('id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_parameters = {
+            'perPage': options.get('per_page', None),
+            'startingAfter': options.get('starting_after', None),
+            'endingBefore': options.get('ending_before', None)
+        }
+        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
+            _query_parameters, Configuration.array_serialization)
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_cellular_usage_history(self,
+                                              options=dict()):
+        """Does a GET request to /networks/{networkId}/sm/{deviceId}/cellularUsageHistory.
+
+        Return the client's daily cellular data usage history. Usage data is
+        in kilobytes.
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    device_id -- string -- TODO: type description here.
+                        Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 device_id=options.get("device_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/{deviceId}/cellularUsageHistory'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None),
+            'deviceId': options.get('device_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_profiles(self,
+                                network_id):
+        """Does a GET request to /networks/{networkId}/sm/profiles.
+
+        List all the profiles in the network
+
+        Args:
+            network_id (string): TODO: type description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=network_id)
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/profiles'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': network_id
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def unenroll_network_sm_device(self,
+                                   options=dict()):
+        """Does a POST request to /networks/{networkId}/sm/devices/{deviceId}/unenroll.
+
+        Unenroll a device
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    device_id -- string -- TODO: type description here.
+                        Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 device_id=options.get("device_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/devices/{deviceId}/unenroll'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None),
+            'deviceId': options.get('device_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.post(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def move_network_sm_devices(self,
+                                options=dict()):
+        """Does a PUT request to /networks/{networkId}/sm/devices/move.
+
+        Move a set of devices to a new network
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    move_network_sm_devices -- MoveNetworkSmDevicesModel --
+                        TODO: type description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 move_network_sm_devices=options.get("move_network_sm_devices"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/devices/move'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json',
+            'content-type': 'application/json; charset=utf-8'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('move_network_sm_devices')))
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def checkin_network_sm_devices(self,
+                                   options=dict()):
+        """Does a PUT request to /networks/{networkId}/sm/devices/checkin.
+
+        Force check-in a set of devices
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    checkin_network_sm_devices -- CheckinNetworkSmDevicesModel
+                        -- TODO: type description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/devices/checkin'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json',
+            'content-type': 'application/json; charset=utf-8'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('checkin_network_sm_devices')))
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def wipe_network_sm_device(self,
+                               options=dict()):
+        """Does a PUT request to /networks/{networkId}/sm/device/wipe.
+
+        Wipe a device
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    wipe_network_sm_device -- WipeNetworkSmDeviceModel --
+                        TODO: type description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/device/wipe'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json',
+            'content-type': 'application/json; charset=utf-8'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('wipe_network_sm_device')))
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def lock_network_sm_devices(self,
+                                options=dict()):
+        """Does a PUT request to /networks/{network_id}/sm/devices/lock.
+
+        Lock a set of devices
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    lock_network_sm_devices -- LockNetworkSmDevicesModel --
+                        TODO: type description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{network_id}/sm/devices/lock'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'network_id': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json',
+            'content-type': 'application/json; charset=utf-8'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('lock_network_sm_devices')))
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def update_network_sm_device_fields(self,
+                                        options=dict()):
+        """Does a PUT request to /networks/{networkId}/sm/device/fields.
+
+        Modify the fields of a device
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    update_network_sm_device_fields --
+                        UpdateNetworkSmDeviceFieldsModel -- TODO: type
+                        description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 update_network_sm_device_fields=options.get("update_network_sm_device_fields"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/device/fields'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json',
+            'content-type': 'application/json; charset=utf-8'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('update_network_sm_device_fields')))
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def update_network_sm_devices_tags(self,
+                                       options=dict()):
+        """Does a PUT request to /networks/{networkId}/sm/devices/tags.
+
+        Add, delete, or update the tags of a set of devices
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    update_network_sm_devices_tags --
+                        UpdateNetworkSmDevicesTagsModel -- TODO: type
+                        description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 update_network_sm_devices_tags=options.get("update_network_sm_devices_tags"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/devices/tags'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json',
+            'content-type': 'application/json; charset=utf-8'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('update_network_sm_devices_tags')))
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_certs(self,
+                             options=dict()):
+        """Does a GET request to /networks/{networkId}/sm/{deviceId}/certs.
+
+        List the certs on a device
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    device_id -- string -- TODO: type description here.
+                        Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 device_id=options.get("device_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/{deviceId}/certs'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None),
+            'deviceId': options.get('device_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_restrictions(self,
+                                    options=dict()):
+        """Does a GET request to /networks/{networkId}/sm/{deviceId}/restrictions.
+
+        List the restrictions on a device
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    device_id -- string -- TODO: type description here.
+                        Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 device_id=options.get("device_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/{deviceId}/restrictions'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None),
+            'deviceId': options.get('device_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_security_centers(self,
+                                        options=dict()):
+        """Does a GET request to /networks/{networkId}/sm/{deviceId}/securityCenters.
+
+        List the security centers on a device
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    device_id -- string -- TODO: type description here.
+                        Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 device_id=options.get("device_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/{deviceId}/securityCenters'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None),
+            'deviceId': options.get('device_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_wlan_lists(self,
+                                  options=dict()):
+        """Does a GET request to /networks/{networkId}/sm/{deviceId}/wlanLists.
+
+        List the saved SSID names on a device
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    device_id -- string -- TODO: type description here.
+                        Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 device_id=options.get("device_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/{deviceId}/wlanLists'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None),
+            'deviceId': options.get('device_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_network_adapters(self,
+                                        options=dict()):
+        """Does a GET request to /networks/{networkId}/sm/{deviceId}/networkAdapters.
+
+        List the network adapters of a device
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    device_id -- string -- TODO: type description here.
+                        Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 device_id=options.get("device_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/{deviceId}/networkAdapters'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None),
+            'deviceId': options.get('device_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_device_profiles(self,
+                                       options=dict()):
+        """Does a GET request to /networks/{networkId}/sm/{deviceId}/deviceProfiles.
+
+        Get the profiles associated with a device
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    device_id -- string -- TODO: type description here.
+                        Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 device_id=options.get("device_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/{deviceId}/deviceProfiles'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None),
+            'deviceId': options.get('device_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_user_device_profiles(self,
+                                            options=dict()):
+        """Does a GET request to /networks/{networkId}/sm/user/{userId}/deviceProfiles.
+
+        Get the profiles associated with a user
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    user_id -- string -- TODO: type description here. Example:
+                        
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 user_id=options.get("user_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{networkId}/sm/user/{userId}/deviceProfiles'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'networkId': options.get('network_id', None),
+            'userId': options.get('user_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def delete_network_sm_app_polaris(self,
+                                      options=dict()):
+        """Does a DELETE request to /networks/{network_id}/sm/app/polaris/{appId}.
+
+        Delete a Cisco Polaris app
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    app_id -- string -- TODO: type description here. Example:
+                        
+        Returns:
+            void: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 app_id=options.get("app_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{network_id}/sm/app/polaris/{appId}'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'network_id': options.get('network_id', None),
+            'appId': options.get('app_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare and execute request
+        _request = self.http_client.delete(_query_url)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+    def update_network_sm_app_polaris(self,
+                                      options=dict()):
+        """Does a PUT request to /networks/{network_id}/sm/app/polaris/{appId}.
+
+        Update an existing Polaris app
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    app_id -- string -- TODO: type description here. Example:
+                                            update_network_sm_app_polaris --
+                        UpdateNetworkSmAppPolarisModel -- TODO: type
+                        description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 app_id=options.get("app_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{network_id}/sm/app/polaris/{appId}'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'network_id': options.get('network_id', None),
+            'appId': options.get('app_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json',
+            'content-type': 'application/json; charset=utf-8'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('update_network_sm_app_polaris')))
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def get_network_sm_app_polaris(self,
+                                   options=dict()):
+        """Does a GET request to /networks/{network_id}/sm/app/polaris.
+
+        Get details for a Cisco Polaris app if it exists
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    bundle_id -- string -- The bundle ID of the app to be
+                        found, defaults to com.cisco.ciscosecurity.app
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{network_id}/sm/app/polaris'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'network_id': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_parameters = {
+            'bundleId': options.get('bundle_id', None)
+        }
+        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
+            _query_parameters, Configuration.array_serialization)
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.get(_query_url, headers=_headers)
+        CustomHeaderAuth.apply(_request)
+        _context = self.execute_request(_request)
+        self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
+
+    def create_network_sm_app_polaris(self,
+                                      options=dict()):
+        """Does a POST request to /networks/{network_id}/sm/app/polaris.
+
+        Create a new Polaris app
+
+        Args:
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    network_id -- string -- TODO: type description here.
+                        Example: 
+                    create_network_sm_app_polaris --
+                        CreateNetworkSmAppPolarisModel -- TODO: type
+                        description here. Example: 
+
+        Returns:
+            mixed: Response from the API. Successful operation
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+
+        # Validate required parameters
+        self.validate_parameters(network_id=options.get("network_id"))
+
+        # Prepare query URL
+        _url_path = '/networks/{network_id}/sm/app/polaris'
+        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
+            'network_id': options.get('network_id', None)
+        })
+        _query_builder = Configuration.base_uri
+        _query_builder += _url_path
+        _query_url = APIHelper.clean_url(_query_builder)
+
+        # Prepare headers
+        _headers = {
+            'accept': 'application/json',
+            'content-type': 'application/json; charset=utf-8'
+        }
+
+        # Prepare and execute request
+        _request = self.http_client.post(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('create_network_sm_app_polaris')))
         CustomHeaderAuth.apply(_request)
         _context = self.execute_request(_request)
         self.validate_response(_context)
@@ -742,1587 +2208,6 @@ class SMController(BaseController):
 
         # Prepare and execute request
         _request = self.http_client.post(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('create_network_sm_profile_clarity')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def lock_network_sm_devices(self,
-                                options=dict()):
-        """Does a PUT request to /networks/{network_id}/sm/devices/lock.
-
-        Lock a set of devices
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    lock_network_sm_devices -- LockNetworkSmDevicesModel --
-                        TODO: type description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{network_id}/sm/devices/lock'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'network_id': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('lock_network_sm_devices')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def delete_network_sm_app_polaris(self,
-                                      options=dict()):
-        """Does a DELETE request to /networks/{network_id}/sm/app/polaris/{appId}.
-
-        Delete a Cisco Polaris app
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    app_id -- string -- TODO: type description here. Example:
-                        
-        Returns:
-            void: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 app_id=options.get("app_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{network_id}/sm/app/polaris/{appId}'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'network_id': options.get('network_id', None),
-            'appId': options.get('app_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare and execute request
-        _request = self.http_client.delete(_query_url)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-    def update_network_sm_app_polaris(self,
-                                      options=dict()):
-        """Does a PUT request to /networks/{network_id}/sm/app/polaris/{appId}.
-
-        Update an existing Polaris app
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    app_id -- string -- TODO: type description here. Example:
-                                            update_network_sm_app_polaris --
-                        UpdateNetworkSmAppPolarisModel -- TODO: type
-                        description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 app_id=options.get("app_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{network_id}/sm/app/polaris/{appId}'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'network_id': options.get('network_id', None),
-            'appId': options.get('app_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('update_network_sm_app_polaris')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_app_polaris(self,
-                                   options=dict()):
-        """Does a GET request to /networks/{network_id}/sm/app/polaris.
-
-        Get details for a Cisco Polaris app if it exists
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    bundle_id -- string -- The bundle ID of the app to be
-                        found, defaults to com.cisco.ciscosecurity.app
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{network_id}/sm/app/polaris'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'network_id': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_parameters = {
-            'bundleId': options.get('bundle_id', None)
-        }
-        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
-            _query_parameters, Configuration.array_serialization)
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def create_network_sm_app_polaris(self,
-                                      options=dict()):
-        """Does a POST request to /networks/{network_id}/sm/app/polaris.
-
-        Create a new Polaris app
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    create_network_sm_app_polaris --
-                        CreateNetworkSmAppPolarisModel -- TODO: type
-                        description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{network_id}/sm/app/polaris'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'network_id': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.post(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('create_network_sm_app_polaris')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_wlan_lists(self,
-                                  options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/{deviceId}/wlanLists.
-
-        List the saved SSID names on a device
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    device_id -- string -- TODO: type description here.
-                        Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 device_id=options.get("device_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/{deviceId}/wlanLists'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'deviceId': options.get('device_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_security_centers(self,
-                                        options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/{deviceId}/securityCenters.
-
-        List the security centers on a device
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    device_id -- string -- TODO: type description here.
-                        Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 device_id=options.get("device_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/{deviceId}/securityCenters'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'deviceId': options.get('device_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_restrictions(self,
-                                    options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/{deviceId}/restrictions.
-
-        List the restrictions on a device
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    device_id -- string -- TODO: type description here.
-                        Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 device_id=options.get("device_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/{deviceId}/restrictions'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'deviceId': options.get('device_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_network_adapters(self,
-                                        options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/{deviceId}/networkAdapters.
-
-        List the network adapters of a device
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    device_id -- string -- TODO: type description here.
-                        Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 device_id=options.get("device_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/{deviceId}/networkAdapters'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'deviceId': options.get('device_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_device_profiles(self,
-                                       options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/{deviceId}/deviceProfiles.
-
-        Get the profiles associated with a device
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    device_id -- string -- TODO: type description here.
-                        Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 device_id=options.get("device_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/{deviceId}/deviceProfiles'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'deviceId': options.get('device_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_certs(self,
-                             options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/{deviceId}/certs.
-
-        List the certs on a device
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    device_id -- string -- TODO: type description here.
-                        Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 device_id=options.get("device_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/{deviceId}/certs'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'deviceId': options.get('device_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_cellular_usage_history(self,
-                                              options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/{deviceId}/cellularUsageHistory.
-
-        Return the client's daily cellular data usage history. Usage data is
-        in kilobytes.
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    device_id -- string -- TODO: type description here.
-                        Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 device_id=options.get("device_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/{deviceId}/cellularUsageHistory'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'deviceId': options.get('device_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_user_device_profiles(self,
-                                            options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/user/{userId}/deviceProfiles.
-
-        Get the profiles associated with a user
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    user_id -- string -- TODO: type description here. Example:
-                        
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 user_id=options.get("user_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/user/{userId}/deviceProfiles'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'userId': options.get('user_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_profiles(self,
-                                network_id):
-        """Does a GET request to /networks/{networkId}/sm/profiles.
-
-        List all the profiles in the network
-
-        Args:
-            network_id (string): TODO: type description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=network_id)
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/profiles'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': network_id
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def unenroll_network_sm_device(self,
-                                   options=dict()):
-        """Does a POST request to /networks/{networkId}/sm/devices/{deviceId}/unenroll.
-
-        Unenroll a device
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    device_id -- string -- TODO: type description here.
-                        Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 device_id=options.get("device_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/devices/{deviceId}/unenroll'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'deviceId': options.get('device_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.post(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def update_network_sm_devices_tags(self,
-                                       options=dict()):
-        """Does a PUT request to /networks/{networkId}/sm/devices/tags.
-
-        Add, delete, or update the tags of a set of devices
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    update_network_sm_devices_tags --
-                        UpdateNetworkSmDevicesTagsModel -- TODO: type
-                        description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 update_network_sm_devices_tags=options.get("update_network_sm_devices_tags"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/devices/tags'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('update_network_sm_devices_tags')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def move_network_sm_devices(self,
-                                options=dict()):
-        """Does a PUT request to /networks/{networkId}/sm/devices/move.
-
-        Move a set of devices to a new network
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    move_network_sm_devices -- MoveNetworkSmDevicesModel --
-                        TODO: type description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 move_network_sm_devices=options.get("move_network_sm_devices"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/devices/move'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('move_network_sm_devices')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def checkin_network_sm_devices(self,
-                                   options=dict()):
-        """Does a PUT request to /networks/{networkId}/sm/devices/checkin.
-
-        Force check-in a set of devices
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    checkin_network_sm_devices -- CheckinNetworkSmDevicesModel
-                        -- TODO: type description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/devices/checkin'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('checkin_network_sm_devices')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def wipe_network_sm_device(self,
-                               options=dict()):
-        """Does a PUT request to /networks/{networkId}/sm/device/wipe.
-
-        Wipe a device
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    wipe_network_sm_device -- WipeNetworkSmDeviceModel --
-                        TODO: type description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/device/wipe'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('wipe_network_sm_device')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def update_network_sm_device_fields(self,
-                                        options=dict()):
-        """Does a PUT request to /networks/{networkId}/sm/device/fields.
-
-        Modify the fields of a device
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    update_network_sm_device_fields --
-                        UpdateNetworkSmDeviceFieldsModel -- TODO: type
-                        description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 update_network_sm_device_fields=options.get("update_network_sm_device_fields"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/device/fields'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.put(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('update_network_sm_device_fields')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_bypass_activation_lock_attempt(self,
-                                                      options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/bypassActivationLockAttempts/{attemptId}.
-
-        Bypass activation lock attempt status
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    attempt_id -- string -- TODO: type description here.
-                        Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 attempt_id=options.get("attempt_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/bypassActivationLockAttempts/{attemptId}'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'attemptId': options.get('attempt_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def create_network_sm_bypass_activation_lock_attempt(self,
-                                                         options=dict()):
-        """Does a POST request to /networks/{networkId}/sm/bypassActivationLockAttempts.
-
-        Bypass activation lock attempt
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    create_network_sm_bypass_activation_lock_attempt --
-                        CreateNetworkSmBypassActivationLockAttemptModel --
-                        TODO: type description here. Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 create_network_sm_bypass_activation_lock_attempt=options.get("create_network_sm_bypass_activation_lock_attempt"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/bypassActivationLockAttempts'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json',
-            'content-type': 'application/json; charset=utf-8'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.post(_query_url, headers=_headers, parameters=APIHelper.json_serialize(options.get('create_network_sm_bypass_activation_lock_attempt')))
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_desktop_logs(self,
-                                    options=dict()):
-        """Does a GET request to /networks/{network_id}/sm/{id}/desktopLogs.
-
-        Return historical records of various Systems Manager network
-        connection details for desktop devices.
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    id -- string -- TODO: type description here. Example: 
-                    per_page -- string -- The number of entries per page
-                        returned
-                    starting_after -- string -- A token used by the server to
-                        indicate the start of the page. Often this is a
-                        timestamp or an ID but it is not limited to those.
-                        This parameter should not be defined by client
-                        applications. The link for the first, last, next or
-                        prev page in the HTTP Link header should define it.
-                    ending_before -- string -- A token used by the server to
-                        indicate the end of the page. Often this is a
-                        timestamp or an ID but it is not limited to those.
-                        This parameter should not be defined by client
-                        applications. The link for the first, last, next or
-                        prev page in the HTTP Link header should define it.
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 id=options.get("id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{network_id}/sm/{id}/desktopLogs'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'network_id': options.get('network_id', None),
-            'id': options.get('id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_parameters = {
-            'perPage': options.get('per_page', None),
-            'startingAfter': options.get('starting_after', None),
-            'endingBefore': options.get('ending_before', None)
-        }
-        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
-            _query_parameters, Configuration.array_serialization)
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_connectivity(self,
-                                    options=dict()):
-        """Does a GET request to /networks/{network_id}/sm/{id}/connectivity.
-
-        Returns historical connectivity data (whether a device is regularly
-        checking in to Dashboard).
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    id -- string -- TODO: type description here. Example: 
-                    per_page -- string -- The number of entries per page
-                        returned
-                    starting_after -- string -- A token used by the server to
-                        indicate the start of the page. Often this is a
-                        timestamp or an ID but it is not limited to those.
-                        This parameter should not be defined by client
-                        applications. The link for the first, last, next or
-                        prev page in the HTTP Link header should define it.
-                    ending_before -- string -- A token used by the server to
-                        indicate the end of the page. Often this is a
-                        timestamp or an ID but it is not limited to those.
-                        This parameter should not be defined by client
-                        applications. The link for the first, last, next or
-                        prev page in the HTTP Link header should define it.
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 id=options.get("id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{network_id}/sm/{id}/connectivity'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'network_id': options.get('network_id', None),
-            'id': options.get('id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_parameters = {
-            'perPage': options.get('per_page', None),
-            'startingAfter': options.get('starting_after', None),
-            'endingBefore': options.get('ending_before', None)
-        }
-        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
-            _query_parameters, Configuration.array_serialization)
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_softwares(self,
-                                 options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/{deviceId}/softwares.
-
-        Get a list of softwares associated with a device
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    device_id -- string -- TODO: type description here.
-                        Example: 
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 device_id=options.get("device_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/{deviceId}/softwares'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'deviceId': options.get('device_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_users(self,
-                             options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/users.
-
-        List the owners in an SM network with various specified fields and
-        filters
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    ids -- string -- Filter users by id(s). Multiple ids can
-                        be passed in as comma separated values.
-                    usernames -- string -- Filter users by username(s).
-                        Multiple usernames can be passed in as comma separated
-                        values.
-                    emails -- string -- Filter users by email(s). Multiple
-                        emails can be passed in as comma separated values.
-                    scope -- string -- Specifiy a scope (one of all, none,
-                        withAny, withAll, withoutAny, withoutAll) and a set of
-                        tags as comma separated values.
-
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/users'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_parameters = {
-            'ids': options.get('ids', None),
-            'usernames': options.get('usernames', None),
-            'emails': options.get('emails', None),
-            'scope': options.get('scope', None)
-        }
-        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
-            _query_parameters, Configuration.array_serialization)
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
-        CustomHeaderAuth.apply(_request)
-        _context = self.execute_request(_request)
-        self.validate_response(_context)
-
-        # Return appropriate type
-        return APIHelper.json_deserialize(_context.response.raw_body)
-
-    def get_network_sm_user_softwares(self,
-                                      options=dict()):
-        """Does a GET request to /networks/{networkId}/sm/user/{userId}/softwares.
-
-        Get a list of softwares associated with a user
-
-        Args:
-            options (dict, optional): Key-value pairs for any of the
-                parameters to this API Endpoint. All parameters to the
-                endpoint are supplied through the dictionary with their names
-                being the key and their desired values being the value. A list
-                of parameters that can be used are::
-
-                    network_id -- string -- TODO: type description here.
-                        Example: 
-                    user_id -- string -- TODO: type description here. Example:
-                        
-        Returns:
-            mixed: Response from the API. Successful operation
-
-        Raises:
-            APIException: When an error occurs while fetching the data from
-                the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
-
-        """
-
-        # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 user_id=options.get("user_id"))
-
-        # Prepare query URL
-        _url_path = '/networks/{networkId}/sm/user/{userId}/softwares'
-        _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'userId': options.get('user_id', None)
-        })
-        _query_builder = Configuration.base_uri
-        _query_builder += _url_path
-        _query_url = APIHelper.clean_url(_query_builder)
-
-        # Prepare headers
-        _headers = {
-            'accept': 'application/json'
-        }
-
-        # Prepare and execute request
-        _request = self.http_client.get(_query_url, headers=_headers)
         CustomHeaderAuth.apply(_request)
         _context = self.execute_request(_request)
         self.validate_response(_context)
