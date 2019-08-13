@@ -16,23 +16,21 @@ class UpdateDeviceSwitchPortModel(object):
     Attributes:
         name (string): The name of the switch port
         tags (string): The tags of the switch port
-        enabled (bool): The status of the switch port
+        enabled (string): The status of the switch port
         mtype (string): The type of the switch port ("access" or "trunk")
-        vlan (int): The VLAN of the switch port
-        voice_vlan (int): The voice VLAN of the switch port. Only applicable
-            to access ports.
+        vlan (string): The VLAN of the switch port
+        voice_vlan (string): The voice VLAN of the switch port. Only
+            applicable to access ports.
         allowed_vlans (string): The VLANs allowed on the switch port. Only
             applicable to trunk ports.
-        poe_enabled (bool): The PoE status of the switch port
-        isolation_enabled (bool): The isolation status of the switch port
-        rstp_enabled (bool): The rapid spanning tree protocol status
+        poe_enabled (string): The PoE status of the switch port
+        isolation_enabled (string): The isolation status of the switch port
+        rstp_enabled (string): The rapid spanning tree protocol status
         stp_guard (string): The state of the STP guard ("disabled", "Root
             guard", "BPDU guard", "Loop guard")
-        access_policy_number (int): The number of the access policy of the
+        access_policy_number (string): The number of the access policy of the
             switch port. Only applicable to access ports.
         link_negotiation (string): The link speed for the switch port
-        port_schedule_id (string): The ID of the port schedule. A value of
-            null will clear the port schedule.
 
     """
 
@@ -50,8 +48,7 @@ class UpdateDeviceSwitchPortModel(object):
         "rstp_enabled":'rstpEnabled',
         "stp_guard":'stpGuard',
         "access_policy_number":'accessPolicyNumber',
-        "link_negotiation":'linkNegotiation',
-        "port_schedule_id":'portScheduleId'
+        "link_negotiation":'linkNegotiation'
     }
 
     def __init__(self,
@@ -67,8 +64,7 @@ class UpdateDeviceSwitchPortModel(object):
                  rstp_enabled=None,
                  stp_guard=None,
                  access_policy_number=None,
-                 link_negotiation=None,
-                 port_schedule_id=None):
+                 link_negotiation=None):
         """Constructor for the UpdateDeviceSwitchPortModel class"""
 
         # Initialize members of the class
@@ -85,7 +81,6 @@ class UpdateDeviceSwitchPortModel(object):
         self.stp_guard = stp_guard
         self.access_policy_number = access_policy_number
         self.link_negotiation = link_negotiation
-        self.port_schedule_id = port_schedule_id
 
 
     @classmethod
@@ -119,7 +114,6 @@ class UpdateDeviceSwitchPortModel(object):
         stp_guard = dictionary.get('stpGuard')
         access_policy_number = dictionary.get('accessPolicyNumber')
         link_negotiation = dictionary.get('linkNegotiation')
-        port_schedule_id = dictionary.get('portScheduleId')
 
         # Return an object of this model
         return cls(name,
@@ -134,7 +128,6 @@ class UpdateDeviceSwitchPortModel(object):
                    rstp_enabled,
                    stp_guard,
                    access_policy_number,
-                   link_negotiation,
-                   port_schedule_id)
+                   link_negotiation)
 
 

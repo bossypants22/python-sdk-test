@@ -14,34 +14,41 @@ class Rule4Model(object):
     TODO: type model description here.
 
     Attributes:
-        policy (Policy2Enum): 'Deny' traffic specified by this rule
-        mtype (Type4Enum): Type of the L7 rule. One of: 'application',
-            'applicationCategory', 'host', 'port', 'ipRange'
-        value (string): The 'value' of what you want to block. Format of
-            'value' varies depending on type of the rule. See sample request.
-            The application categories and application ids can be retrieved
-            from the the 'MX L7 application categories' endpoint. The
-            countries follow the two-letter ISO 3166-1 alpha-2 format.
+        comment (string): Description of the rule (optional)
+        policy (string): 'allow' or 'deny' traffic specified by this rule
+        protocol (string): The type of protocol (must be 'tcp', 'udp', 'icmp'
+            or 'any')
+        dest_port (string): Comma-separated list of destination port(s)
+            (integer in the range 1-65535), or 'any'
+        dest_cidr (string): Comma-separated list of destination IP address(es)
+            (in IP or CIDR notation), fully-qualified domain names (FQDN) or
+            'any'
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
         "policy":'policy',
-        "mtype":'type',
-        "value":'value'
+        "protocol":'protocol',
+        "dest_cidr":'destCidr',
+        "comment":'comment',
+        "dest_port":'destPort'
     }
 
     def __init__(self,
                  policy=None,
-                 mtype=None,
-                 value=None):
+                 protocol=None,
+                 dest_cidr=None,
+                 comment=None,
+                 dest_port=None):
         """Constructor for the Rule4Model class"""
 
         # Initialize members of the class
+        self.comment = comment
         self.policy = policy
-        self.mtype = mtype
-        self.value = value
+        self.protocol = protocol
+        self.dest_port = dest_port
+        self.dest_cidr = dest_cidr
 
 
     @classmethod
@@ -63,12 +70,16 @@ class Rule4Model(object):
 
         # Extract variables from the dictionary
         policy = dictionary.get('policy')
-        mtype = dictionary.get('type')
-        value = dictionary.get('value')
+        protocol = dictionary.get('protocol')
+        dest_cidr = dictionary.get('destCidr')
+        comment = dictionary.get('comment')
+        dest_port = dictionary.get('destPort')
 
         # Return an object of this model
         return cls(policy,
-                   mtype,
-                   value)
+                   protocol,
+                   dest_cidr,
+                   comment,
+                   dest_port)
 
 

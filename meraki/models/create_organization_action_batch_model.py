@@ -15,9 +15,9 @@ class CreateOrganizationActionBatchModel(object):
     TODO: type model description here.
 
     Attributes:
-        confirmed (bool): Set to true for immediate execution. Set to false if
-            the action should be previewed before executing.
-        synchronous (bool): Force the batch to run synchronous. There can be
+        confirmed (string): Set to true for immediate execution. Set to false
+            if the action should be previewed before executing.
+        synchronous (string): Force the batch to run synchronous. There can be
             at most 20 actions in synchronous batch.
         actions (list of ActionModel): A set of changes to make as part of
             this action (<a
@@ -28,15 +28,15 @@ class CreateOrganizationActionBatchModel(object):
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "actions":'actions',
         "confirmed":'confirmed',
-        "synchronous":'synchronous'
+        "synchronous":'synchronous',
+        "actions":'actions'
     }
 
     def __init__(self,
-                 actions=None,
                  confirmed=None,
-                 synchronous=None):
+                 synchronous=None,
+                 actions=None):
         """Constructor for the CreateOrganizationActionBatchModel class"""
 
         # Initialize members of the class
@@ -63,17 +63,17 @@ class CreateOrganizationActionBatchModel(object):
             return None
 
         # Extract variables from the dictionary
+        confirmed = dictionary.get('confirmed')
+        synchronous = dictionary.get('synchronous')
         actions = None
         if dictionary.get('actions') != None:
             actions = list()
             for structure in dictionary.get('actions'):
                 actions.append(meraki.models.action_model.ActionModel.from_dictionary(structure))
-        confirmed = dictionary.get('confirmed')
-        synchronous = dictionary.get('synchronous')
 
         # Return an object of this model
-        return cls(actions,
-                   confirmed,
-                   synchronous)
+        return cls(confirmed,
+                   synchronous,
+                   actions)
 
 

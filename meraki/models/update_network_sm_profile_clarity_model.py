@@ -6,7 +6,6 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
-import meraki.models.vendor_config_model
 
 class UpdateNetworkSmProfileClarityModel(object):
 
@@ -21,13 +20,17 @@ class UpdateNetworkSmProfileClarityModel(object):
             tags of the devices to be assigned
         plugin_bundle_id (string): optional: The new bundle ID of the
             application
-        filter_browsers (bool): optional: Whether or not to enable browser
+        filter_browsers (string): optional: Whether or not to enable browser
             traffic filtering (one of true, false).
-        filter_sockets (bool): optional: Whether or not to enable socket
+        filter_sockets (string): optional: Whether or not to enable socket
             traffic filtering (one of true, false).
-        vendor_config (list of VendorConfigModel): optional: The specific
-            VendorConfig to be passed to the filtering framework, in the form
-            of an array of objects (as JSON).
+        vendor_config (string): optional: The specific VendorConfig to be
+            passed to the filtering framework, as JSON. VendorConfig should be
+            an array of objects, as: [ { "key": "some_key", type: "some_type",
+            "value": "some_value" }, ... ]  type is one of manual_string,
+            manual_int, manual_boolean, manual_choice, manual_multiselect,
+            manual_list, auto_username, auto_email, auto_mac_address,
+            auto_serial_number, auto_notes, auto_name
 
     """
 
@@ -82,11 +85,7 @@ class UpdateNetworkSmProfileClarityModel(object):
         plugin_bundle_id = dictionary.get('PluginBundleID')
         filter_browsers = dictionary.get('FilterBrowsers')
         filter_sockets = dictionary.get('FilterSockets')
-        vendor_config = None
-        if dictionary.get('VendorConfig') != None:
-            vendor_config = list()
-            for structure in dictionary.get('VendorConfig'):
-                vendor_config.append(meraki.models.vendor_config_model.VendorConfigModel.from_dictionary(structure))
+        vendor_config = dictionary.get('VendorConfig')
 
         # Return an object of this model
         return cls(name,

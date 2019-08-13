@@ -16,11 +16,11 @@ class RadioSettingsController(BaseController):
     """A Controller to access Endpoints in the meraki API."""
 
 
-    def get_network_device_wireless_radio_settings(self,
-                                                   options=dict()):
-        """Does a GET request to /networks/{networkId}/devices/{serial}/wireless/radioSettings.
+    def get_network_wireless_rf_profiles(self,
+                                         options=dict()):
+        """Does a GET request to /networks/{networkId}/wireless/rfProfiles.
 
-        Return the radio settings of a device
+        List the non-basic RF profiles for this network
 
         Args:
             options (dict, optional): Key-value pairs for any of the
@@ -31,8 +31,13 @@ class RadioSettingsController(BaseController):
 
                     network_id -- string -- TODO: type description here.
                         Example: 
-                    serial -- string -- TODO: type description here. Example:
-                        
+                    include_template_profiles -- bool -- If the network is
+                        bound to a template, this parameter controls whether
+                        or not the non-basic RF profiles defined on the
+                        template       should be included in the response
+                        alongside the non-basic profiles defined on the bound
+                        network. Defaults to false.
+
         Returns:
             mixed: Response from the API. Successful operation
 
@@ -45,17 +50,20 @@ class RadioSettingsController(BaseController):
         """
 
         # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"),
-                                 serial=options.get("serial"))
+        self.validate_parameters(network_id=options.get("network_id"))
 
         # Prepare query URL
-        _url_path = '/networks/{networkId}/devices/{serial}/wireless/radioSettings'
+        _url_path = '/networks/{networkId}/wireless/rfProfiles'
         _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None),
-            'serial': options.get('serial', None)
+            'networkId': options.get('network_id', None)
         })
         _query_builder = Configuration.base_uri
         _query_builder += _url_path
+        _query_parameters = {
+            'includeTemplateProfiles': options.get('include_template_profiles', None)
+        }
+        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
+            _query_parameters, Configuration.array_serialization)
         _query_url = APIHelper.clean_url(_query_builder)
 
         # Prepare headers
@@ -132,11 +140,11 @@ class RadioSettingsController(BaseController):
         # Return appropriate type
         return APIHelper.json_deserialize(_context.response.raw_body)
 
-    def get_network_wireless_rf_profiles(self,
-                                         options=dict()):
-        """Does a GET request to /networks/{networkId}/wireless/rfProfiles.
+    def get_network_device_wireless_radio_settings(self,
+                                                   options=dict()):
+        """Does a GET request to /networks/{networkId}/devices/{serial}/wireless/radioSettings.
 
-        List the non-basic RF profiles for this network
+        Return the radio settings of a device
 
         Args:
             options (dict, optional): Key-value pairs for any of the
@@ -147,13 +155,8 @@ class RadioSettingsController(BaseController):
 
                     network_id -- string -- TODO: type description here.
                         Example: 
-                    include_template_profiles -- bool -- If the network is
-                        bound to a template, this parameter controls whether
-                        or not the non-basic RF profiles defined on the
-                        template       should be included in the response
-                        alongside the non-basic profiles defined on the bound
-                        network. Defaults to false.
-
+                    serial -- string -- TODO: type description here. Example:
+                        
         Returns:
             mixed: Response from the API. Successful operation
 
@@ -166,20 +169,17 @@ class RadioSettingsController(BaseController):
         """
 
         # Validate required parameters
-        self.validate_parameters(network_id=options.get("network_id"))
+        self.validate_parameters(network_id=options.get("network_id"),
+                                 serial=options.get("serial"))
 
         # Prepare query URL
-        _url_path = '/networks/{networkId}/wireless/rfProfiles'
+        _url_path = '/networks/{networkId}/devices/{serial}/wireless/radioSettings'
         _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'networkId': options.get('network_id', None)
+            'networkId': options.get('network_id', None),
+            'serial': options.get('serial', None)
         })
         _query_builder = Configuration.base_uri
         _query_builder += _url_path
-        _query_parameters = {
-            'includeTemplateProfiles': options.get('include_template_profiles', None)
-        }
-        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
-            _query_parameters, Configuration.array_serialization)
         _query_url = APIHelper.clean_url(_query_builder)
 
         # Prepare headers

@@ -6,7 +6,6 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
-import meraki.models.provider_configuration_model
 
 class UpdateNetworkSmProfileUmbrellaModel(object):
 
@@ -23,11 +22,16 @@ class UpdateNetworkSmProfileUmbrellaModel(object):
             application
         provider_bundle_identifier (string): optional: The bundle ID of the
             provider
-        provider_configuration (list of ProviderConfigurationModel): optional:
-            The specific ProviderConfiguration to be passed to the filtering
-            framework, in the form of an array of objects (as JSON).
-        uses_cert (bool): optional: Whether the certificate should be attached
-            to this profile (one of true, false)
+        provider_configuration (string): optional: The specific
+            ProviderConfiguration to be passed to the filtering framework, as
+            JSON. ProviderConfiguration should be an array of objects, as: [ {
+            "key": "some_key", type: "some_type", "value": "some_value" }, ...
+            ]  type is one of manual_string, manual_int, manual_boolean,
+            manual_choice, manual_multiselect, manual_list, auto_username,
+            auto_email, auto_mac_address, auto_serial_number, auto_notes,
+            auto_name
+        uses_cert (string): Whether the certificate should be attached to this
+            profile (one of true, false). False by default.
 
     """
 
@@ -81,11 +85,7 @@ class UpdateNetworkSmProfileUmbrellaModel(object):
         scope = dictionary.get('scope')
         app_bundle_identifier = dictionary.get('AppBundleIdentifier')
         provider_bundle_identifier = dictionary.get('ProviderBundleIdentifier')
-        provider_configuration = None
-        if dictionary.get('ProviderConfiguration') != None:
-            provider_configuration = list()
-            for structure in dictionary.get('ProviderConfiguration'):
-                provider_configuration.append(meraki.models.provider_configuration_model.ProviderConfigurationModel.from_dictionary(structure))
+        provider_configuration = dictionary.get('ProviderConfiguration')
         uses_cert = dictionary.get('usesCert')
 
         # Return an object of this model
