@@ -16,8 +16,8 @@ class UpdateOrganizationActionBatchModel(object):
     Attributes:
         confirmed (bool): A boolean representing whether or not the batch has
             been confirmed. This property cannot be unset once it is true.
-        synchronous (bool): Set to true to force the batch to run synchronous.
-            There can be at most 20 actions in synchronous batch.
+        synchronous (bool): Force the batch to run synchronous. There can be
+            at most 20 actions in synchronous batch.
 
     """
 
