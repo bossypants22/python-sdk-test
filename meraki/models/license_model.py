@@ -7,34 +7,37 @@
 """
 
 
-class UpdateOrganizationActionBatchModel(object):
+class LicenseModel(object):
 
-    """Implementation of the 'updateOrganizationActionBatch' model.
+    """Implementation of the 'License' model.
 
     TODO: type model description here.
 
     Attributes:
-        confirmed (bool): A boolean representing whether or not the batch has
-            been confirmed. This property cannot be unset once it is true.
-        synchronous (bool): Set to true to force the batch to run synchronous.
-            There can be at most 20 actions in synchronous batch.
+        key (string): The key of the license
+        mode (Mode1Enum): Either 'renew' or 'addDevices'. 'addDevices' will
+            increase the license limit, while 'renew' will extend the amount
+            of time until expiration. Please see <a target='_blank'
+            href='https://documentation.meraki.com/zGeneral_Administration/Lice
+            nsing/Adding_an_Enterprise_license_to_an_existing_Dashboard_account
+            '>this article</a> for more information.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "confirmed":'confirmed',
-        "synchronous":'synchronous'
+        "key":'key',
+        "mode":'mode'
     }
 
     def __init__(self,
-                 confirmed=None,
-                 synchronous=None):
-        """Constructor for the UpdateOrganizationActionBatchModel class"""
+                 key=None,
+                 mode=None):
+        """Constructor for the LicenseModel class"""
 
         # Initialize members of the class
-        self.confirmed = confirmed
-        self.synchronous = synchronous
+        self.key = key
+        self.mode = mode
 
 
     @classmethod
@@ -55,11 +58,11 @@ class UpdateOrganizationActionBatchModel(object):
             return None
 
         # Extract variables from the dictionary
-        confirmed = dictionary.get('confirmed')
-        synchronous = dictionary.get('synchronous')
+        key = dictionary.get('key')
+        mode = dictionary.get('mode')
 
         # Return an object of this model
-        return cls(confirmed,
-                   synchronous)
+        return cls(key,
+                   mode)
 
 
