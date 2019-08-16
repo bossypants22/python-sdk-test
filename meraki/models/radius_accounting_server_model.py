@@ -14,9 +14,9 @@ class RadiusAccountingServerModel(object):
     TODO: type model description here.
 
     Attributes:
-        host (string): IP address to which the APs will send RADIUS accounting
-            messages
         port (int): Port on the RADIUS server that is listening for accounting
+            messages
+        host (string): IP address to which the APs will send RADIUS accounting
             messages
         secret (string): Shared key used to authenticate messages between the
             APs and RADIUS server
@@ -25,20 +25,20 @@ class RadiusAccountingServerModel(object):
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "host":'host',
         "port":'port',
+        "host":'host',
         "secret":'secret'
     }
 
     def __init__(self,
-                 host=None,
                  port=None,
+                 host=None,
                  secret=None):
         """Constructor for the RadiusAccountingServerModel class"""
 
         # Initialize members of the class
-        self.host = host
         self.port = port
+        self.host = host
         self.secret = secret
 
 
@@ -60,13 +60,13 @@ class RadiusAccountingServerModel(object):
             return None
 
         # Extract variables from the dictionary
-        host = dictionary.get('host')
         port = dictionary.get('port')
+        host = dictionary.get('host')
         secret = dictionary.get('secret')
 
         # Return an object of this model
-        return cls(host,
-                   port,
+        return cls(port,
+                   host,
                    secret)
 
 

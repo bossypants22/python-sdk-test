@@ -14,25 +14,25 @@ class DeviceFieldsModel(object):
     The new fields of the device. Each field of this object is optional.
 
     Attributes:
-        name (string): New name for the device
         notes (string): New notes for the device
+        name (string): New name for the device
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "name":'name',
-        "notes":'notes'
+        "notes":'notes',
+        "name":'name'
     }
 
     def __init__(self,
-                 name=None,
-                 notes=None):
+                 notes=None,
+                 name=None):
         """Constructor for the DeviceFieldsModel class"""
 
         # Initialize members of the class
-        self.name = name
         self.notes = notes
+        self.name = name
 
 
     @classmethod
@@ -53,11 +53,11 @@ class DeviceFieldsModel(object):
             return None
 
         # Extract variables from the dictionary
-        name = dictionary.get('name')
         notes = dictionary.get('notes')
+        name = dictionary.get('name')
 
         # Return an object of this model
-        return cls(name,
-                   notes)
+        return cls(notes,
+                   name)
 
 

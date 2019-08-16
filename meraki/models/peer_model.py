@@ -15,20 +15,20 @@ class PeerModel(object):
     TODO: type model description here.
 
     Attributes:
+        network_tags (list of string): A list of network tags that will
+            connect with this peer. Use ['all'] for all networks. Use ['none']
+            for no networks. If not included, the default is ['all'].
+        ipsec_policies_preset (string): One of the following available
+            presets: 'default', 'aws', 'azure'. If this is provided, the
+            'ipsecPolicies' parameter is ignored.
         name (string): The name of the VPN peer
         public_ip (string): The public IP of the VPN peer
         private_subnets (list of string): The list of the private subnets of
             the VPN peer
+        secret (string): The shared secret with the VPN peer
         ipsec_policies (IpsecPoliciesModel): Custom IPSec policies for the VPN
             peer. If not included and a preset has not been chosen, the
             default preset for IPSec policies will be used.
-        ipsec_policies_preset (string): One of the following available
-            presets: 'default', 'aws', 'azure'. If this is provided, the
-            'ipsecPolicies' parameter is ignored.
-        secret (string): The shared secret with the VPN peer
-        network_tags (list of string): A list of network tags that will
-            connect with this peer. Use ['all'] for all networks. Use ['none']
-            for no networks. If not included, the default is ['all'].
 
     """
 
@@ -38,9 +38,9 @@ class PeerModel(object):
         "public_ip":'publicIp',
         "private_subnets":'privateSubnets',
         "secret":'secret',
-        "ipsec_policies":'ipsecPolicies',
+        "network_tags":'networkTags',
         "ipsec_policies_preset":'ipsecPoliciesPreset',
-        "network_tags":'networkTags'
+        "ipsec_policies":'ipsecPolicies'
     }
 
     def __init__(self,
@@ -48,19 +48,19 @@ class PeerModel(object):
                  public_ip=None,
                  private_subnets=None,
                  secret=None,
-                 ipsec_policies=None,
+                 network_tags=None,
                  ipsec_policies_preset=None,
-                 network_tags=None):
+                 ipsec_policies=None):
         """Constructor for the PeerModel class"""
 
         # Initialize members of the class
+        self.network_tags = network_tags
+        self.ipsec_policies_preset = ipsec_policies_preset
         self.name = name
         self.public_ip = public_ip
         self.private_subnets = private_subnets
-        self.ipsec_policies = ipsec_policies
-        self.ipsec_policies_preset = ipsec_policies_preset
         self.secret = secret
-        self.network_tags = network_tags
+        self.ipsec_policies = ipsec_policies
 
 
     @classmethod
@@ -85,17 +85,17 @@ class PeerModel(object):
         public_ip = dictionary.get('publicIp')
         private_subnets = dictionary.get('privateSubnets')
         secret = dictionary.get('secret')
-        ipsec_policies = meraki.models.ipsec_policies_model.IpsecPoliciesModel.from_dictionary(dictionary.get('ipsecPolicies')) if dictionary.get('ipsecPolicies') else None
-        ipsec_policies_preset = dictionary.get('ipsecPoliciesPreset')
         network_tags = dictionary.get('networkTags')
+        ipsec_policies_preset = dictionary.get('ipsecPoliciesPreset')
+        ipsec_policies = meraki.models.ipsec_policies_model.IpsecPoliciesModel.from_dictionary(dictionary.get('ipsecPolicies')) if dictionary.get('ipsecPolicies') else None
 
         # Return an object of this model
         return cls(name,
                    public_ip,
                    private_subnets,
                    secret,
-                   ipsec_policies,
+                   network_tags,
                    ipsec_policies_preset,
-                   network_tags)
+                   ipsec_policies)
 
 

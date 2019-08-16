@@ -14,9 +14,7 @@ class L7FirewallRuleModel(object):
     TODO: type model description here.
 
     Attributes:
-        policy (PolicyEnum): The policy applied to matching traffic. Must be
-            'deny'.
-        mtype (Type1Enum): Type of the L7 Rule. Must be 'application',
+        mtype (Type2Enum): Type of the L7 Rule. Must be 'application',
             'applicationCategory', 'host', 'port' or 'ipRange'
         value (string): The 'value' of what you want to block. If 'type' is
             'host', 'port' or 'ipRange', 'value' must be a string matching
@@ -24,26 +22,28 @@ class L7FirewallRuleModel(object):
             IP range (e.g. 192.1.0.0/16). If 'type' is 'application' or
             'applicationCategory', then 'value' must be an object with an ID
             for the application.
+        policy (PolicyEnum): The policy applied to matching traffic. Must be
+            'deny'.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "policy":'policy',
         "mtype":'type',
-        "value":'value'
+        "value":'value',
+        "policy":'policy'
     }
 
     def __init__(self,
-                 policy=None,
                  mtype=None,
-                 value=None):
+                 value=None,
+                 policy=None):
         """Constructor for the L7FirewallRuleModel class"""
 
         # Initialize members of the class
-        self.policy = policy
         self.mtype = mtype
         self.value = value
+        self.policy = policy
 
 
     @classmethod
@@ -64,13 +64,13 @@ class L7FirewallRuleModel(object):
             return None
 
         # Extract variables from the dictionary
-        policy = dictionary.get('policy')
         mtype = dictionary.get('type')
         value = dictionary.get('value')
+        policy = dictionary.get('policy')
 
         # Return an object of this model
-        return cls(policy,
-                   mtype,
-                   value)
+        return cls(mtype,
+                   value,
+                   policy)
 
 

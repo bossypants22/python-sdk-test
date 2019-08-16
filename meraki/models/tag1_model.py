@@ -7,36 +7,33 @@
 """
 
 
-class CreateNetworkStaticRouteModel(object):
+class Tag1Model(object):
 
-    """Implementation of the 'createNetworkStaticRoute' model.
+    """Implementation of the 'Tag1' model.
 
     TODO: type model description here.
 
     Attributes:
-        subnet (string): The subnet of the static route
-        name (string): The name of the new static route
-        gateway_ip (string): The gateway IP (next hop) of the static route
+        access (string): The privilege of the dashboard administrator on the
+            tag
+        tag (string): The name of the tag
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "subnet":'subnet',
-        "name":'name',
-        "gateway_ip":'gatewayIp'
+        "access":'access',
+        "tag":'tag'
     }
 
     def __init__(self,
-                 subnet=None,
-                 name=None,
-                 gateway_ip=None):
-        """Constructor for the CreateNetworkStaticRouteModel class"""
+                 access=None,
+                 tag=None):
+        """Constructor for the Tag1Model class"""
 
         # Initialize members of the class
-        self.subnet = subnet
-        self.name = name
-        self.gateway_ip = gateway_ip
+        self.access = access
+        self.tag = tag
 
 
     @classmethod
@@ -57,13 +54,11 @@ class CreateNetworkStaticRouteModel(object):
             return None
 
         # Extract variables from the dictionary
-        subnet = dictionary.get('subnet')
-        name = dictionary.get('name')
-        gateway_ip = dictionary.get('gatewayIp')
+        access = dictionary.get('access')
+        tag = dictionary.get('tag')
 
         # Return an object of this model
-        return cls(subnet,
-                   name,
-                   gateway_ip)
+        return cls(access,
+                   tag)
 
 

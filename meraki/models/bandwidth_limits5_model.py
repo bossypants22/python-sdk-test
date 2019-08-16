@@ -7,36 +7,36 @@
 """
 
 
-class CreateNetworkStaticRouteModel(object):
+class BandwidthLimits5Model(object):
 
-    """Implementation of the 'createNetworkStaticRoute' model.
+    """Implementation of the 'BandwidthLimits5' model.
 
-    TODO: type model description here.
+    A mapping of uplinks ('wan1', 'wan2' or 'cellular') to their bandwidth
+    settings (be sure to check which uplinks are supported for your network).
+    Bandwidth setting objects have the following structure
 
     Attributes:
-        subnet (string): The subnet of the static route
-        name (string): The name of the new static route
-        gateway_ip (string): The gateway IP (next hop) of the static route
+        limit_up (int): The maximum upload limit (integer, in Kbps). null
+            indicates no limit
+        limit_down (int): The maximum download limit (integer, in Kbps). null
+            indicates no limit
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "subnet":'subnet',
-        "name":'name',
-        "gateway_ip":'gatewayIp'
+        "limit_up":'limitUp',
+        "limit_down":'limitDown'
     }
 
     def __init__(self,
-                 subnet=None,
-                 name=None,
-                 gateway_ip=None):
-        """Constructor for the CreateNetworkStaticRouteModel class"""
+                 limit_up=None,
+                 limit_down=None):
+        """Constructor for the BandwidthLimits5Model class"""
 
         # Initialize members of the class
-        self.subnet = subnet
-        self.name = name
-        self.gateway_ip = gateway_ip
+        self.limit_up = limit_up
+        self.limit_down = limit_down
 
 
     @classmethod
@@ -57,13 +57,11 @@ class CreateNetworkStaticRouteModel(object):
             return None
 
         # Extract variables from the dictionary
-        subnet = dictionary.get('subnet')
-        name = dictionary.get('name')
-        gateway_ip = dictionary.get('gatewayIp')
+        limit_up = dictionary.get('limitUp')
+        limit_down = dictionary.get('limitDown')
 
         # Return an object of this model
-        return cls(subnet,
-                   name,
-                   gateway_ip)
+        return cls(limit_up,
+                   limit_down)
 
 

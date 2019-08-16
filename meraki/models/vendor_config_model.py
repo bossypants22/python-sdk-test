@@ -14,33 +14,33 @@ class VendorConfigModel(object):
     TODO: type model description here.
 
     Attributes:
-        key (string): The key for an object in VendorConfig
         mtype (string): The type for an object in VendorConfig. Can be one of
             'manual_string', 'manual_int', 'manual_boolean', 'manual_choice',
             'manual_multiselect', 'manual_list', 'auto_username',
             'auto_email', 'auto_mac_address', 'auto_serial_number',
             'auto_notes' or 'auto_name'
         value (string): The value for an object in VendorConfig
+        key (string): The key for an object in VendorConfig
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "key":'key',
         "mtype":'type',
+        "key":'key',
         "value":'value'
     }
 
     def __init__(self,
-                 key=None,
                  mtype=None,
+                 key=None,
                  value=None):
         """Constructor for the VendorConfigModel class"""
 
         # Initialize members of the class
-        self.key = key
         self.mtype = mtype
         self.value = value
+        self.key = key
 
 
     @classmethod
@@ -61,13 +61,13 @@ class VendorConfigModel(object):
             return None
 
         # Extract variables from the dictionary
-        key = dictionary.get('key')
         mtype = dictionary.get('type')
+        key = dictionary.get('key')
         value = dictionary.get('value')
 
         # Return an object of this model
-        return cls(key,
-                   mtype,
+        return cls(mtype,
+                   key,
                    value)
 
 

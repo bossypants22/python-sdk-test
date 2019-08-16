@@ -6,8 +6,8 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
-import meraki.models.hub_model
 import meraki.models.subnet_model
+import meraki.models.hub_model
 
 class UpdateNetworkSiteToSiteVpnModel(object):
 
@@ -17,30 +17,30 @@ class UpdateNetworkSiteToSiteVpnModel(object):
 
     Attributes:
         mode (string): The site-to-site VPN mode: hub, spoke, or none
-        hubs (list of HubModel): The list of VPN hubs, in order of preference.
-            In spoke mode, at least 1 hub is required.
         subnets (list of SubnetModel): The list of subnets and their VPN
             presence.
+        hubs (list of HubModel): The list of VPN hubs, in order of preference.
+            In spoke mode, at least 1 hub is required.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
         "mode":'mode',
-        "hubs":'hubs',
-        "subnets":'subnets'
+        "subnets":'subnets',
+        "hubs":'hubs'
     }
 
     def __init__(self,
                  mode=None,
-                 hubs=None,
-                 subnets=None):
+                 subnets=None,
+                 hubs=None):
         """Constructor for the UpdateNetworkSiteToSiteVpnModel class"""
 
         # Initialize members of the class
         self.mode = mode
-        self.hubs = hubs
         self.subnets = subnets
+        self.hubs = hubs
 
 
     @classmethod
@@ -62,20 +62,20 @@ class UpdateNetworkSiteToSiteVpnModel(object):
 
         # Extract variables from the dictionary
         mode = dictionary.get('mode')
-        hubs = None
-        if dictionary.get('hubs') != None:
-            hubs = list()
-            for structure in dictionary.get('hubs'):
-                hubs.append(meraki.models.hub_model.HubModel.from_dictionary(structure))
         subnets = None
         if dictionary.get('subnets') != None:
             subnets = list()
             for structure in dictionary.get('subnets'):
                 subnets.append(meraki.models.subnet_model.SubnetModel.from_dictionary(structure))
+        hubs = None
+        if dictionary.get('hubs') != None:
+            hubs = list()
+            for structure in dictionary.get('hubs'):
+                hubs.append(meraki.models.hub_model.HubModel.from_dictionary(structure))
 
         # Return an object of this model
         return cls(mode,
-                   hubs,
-                   subnets)
+                   subnets,
+                   hubs)
 
 

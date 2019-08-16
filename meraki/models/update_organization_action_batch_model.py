@@ -14,27 +14,27 @@ class UpdateOrganizationActionBatchModel(object):
     TODO: type model description here.
 
     Attributes:
+        synchronous (bool): Set to true to force the batch to run synchronous.
+            There can be at most 20 actions in synchronous batch.
         confirmed (bool): A boolean representing whether or not the batch has
             been confirmed. This property cannot be unset once it is true.
-        synchronous (bool): Force the batch to run synchronous. There can be
-            at most 20 actions in synchronous batch.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "confirmed":'confirmed',
-        "synchronous":'synchronous'
+        "synchronous":'synchronous',
+        "confirmed":'confirmed'
     }
 
     def __init__(self,
-                 confirmed=None,
-                 synchronous=None):
+                 synchronous=None,
+                 confirmed=None):
         """Constructor for the UpdateOrganizationActionBatchModel class"""
 
         # Initialize members of the class
-        self.confirmed = confirmed
         self.synchronous = synchronous
+        self.confirmed = confirmed
 
 
     @classmethod
@@ -55,11 +55,11 @@ class UpdateOrganizationActionBatchModel(object):
             return None
 
         # Extract variables from the dictionary
-        confirmed = dictionary.get('confirmed')
         synchronous = dictionary.get('synchronous')
+        confirmed = dictionary.get('confirmed')
 
         # Return an object of this model
-        return cls(confirmed,
-                   synchronous)
+        return cls(synchronous,
+                   confirmed)
 
 

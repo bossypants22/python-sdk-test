@@ -14,7 +14,10 @@ class CreateNetworkPiiRequestModel(object):
     TODO: type model description here.
 
     Attributes:
-        mtype (Type5Enum): One of "delete" or "restrict processing"
+        sm_device_id (string): The sm_device_id of a Systems Manager device.
+            The only way to "restrict processing" or "delete" a Systems
+            Manager device. Must include "device" in the dataset for a
+            "delete" request to destroy the device.
         datasets (list of string): The datasets related to the provided key
             that should be deleted. Only applies to "delete" requests. The
             value "all" will be expanded to all datasets applicable to this
@@ -22,52 +25,49 @@ class CreateNetworkPiiRequestModel(object):
             events, traffic), email (users, loginAttempts), username (users,
             loginAttempts), bluetoothMac (client, connectivity), smDeviceId
             (device), smUserId (user)
-        username (string): The username of a network log in. Only applies to
-            "delete" requests.
+        mtype (Type7Enum): One of "delete" or "restrict processing"
         email (string): The email of a network user account. Only applies to
             "delete" requests.
         mac (string): The MAC of a network client device. Applies to both
             "restrict processing" and "delete" requests.
-        sm_device_id (string): The sm_device_id of a Systems Manager device.
-            The only way to "restrict processing" or "delete" a Systems
-            Manager device. Must include "device" in the dataset for a
-            "delete" request to destroy the device.
         sm_user_id (string): The sm_user_id of a Systems Manager user. The
             only way to "restrict processing" or "delete" a Systems Manager
             user. Must include "user" in the dataset for a "delete" request to
             destroy the user.
+        username (string): The username of a network log in. Only applies to
+            "delete" requests.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "mtype":'type',
+        "sm_device_id":'smDeviceId',
         "datasets":'datasets',
-        "username":'username',
+        "mtype":'type',
         "email":'email',
         "mac":'mac',
-        "sm_device_id":'smDeviceId',
-        "sm_user_id":'smUserId'
+        "sm_user_id":'smUserId',
+        "username":'username'
     }
 
     def __init__(self,
-                 mtype=None,
+                 sm_device_id=None,
                  datasets=None,
-                 username=None,
+                 mtype=None,
                  email=None,
                  mac=None,
-                 sm_device_id=None,
-                 sm_user_id=None):
+                 sm_user_id=None,
+                 username=None):
         """Constructor for the CreateNetworkPiiRequestModel class"""
 
         # Initialize members of the class
-        self.mtype = mtype
+        self.sm_device_id = sm_device_id
         self.datasets = datasets
-        self.username = username
+        self.mtype = mtype
         self.email = email
         self.mac = mac
-        self.sm_device_id = sm_device_id
         self.sm_user_id = sm_user_id
+        self.username = username
 
 
     @classmethod
@@ -88,21 +88,21 @@ class CreateNetworkPiiRequestModel(object):
             return None
 
         # Extract variables from the dictionary
-        mtype = dictionary.get('type')
+        sm_device_id = dictionary.get('smDeviceId')
         datasets = dictionary.get('datasets')
-        username = dictionary.get('username')
+        mtype = dictionary.get('type')
         email = dictionary.get('email')
         mac = dictionary.get('mac')
-        sm_device_id = dictionary.get('smDeviceId')
         sm_user_id = dictionary.get('smUserId')
+        username = dictionary.get('username')
 
         # Return an object of this model
-        return cls(mtype,
+        return cls(sm_device_id,
                    datasets,
-                   username,
+                   mtype,
                    email,
                    mac,
-                   sm_device_id,
-                   sm_user_id)
+                   sm_user_id,
+                   username)
 
 

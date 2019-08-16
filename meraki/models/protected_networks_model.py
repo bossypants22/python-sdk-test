@@ -16,11 +16,11 @@ class ProtectedNetworksModel(object):
     'passthrough' mode
 
     Attributes:
+        included_cidr (list of string): list of IP addresses or subnets being
+            protected (required if 'useDefault' is false)
         use_default (bool): true/false whether to use special IPv4 addresses:
             https://tools.ietf.org/html/rfc5735 (required). Default value is
             true if none currently saved
-        included_cidr (list of string): list of IP addresses or subnets being
-            protected (required if 'useDefault' is false)
         excluded_cidr (list of string): list of IP addresses or subnets being
             excluded from protection (required if 'useDefault' is false)
 
@@ -28,20 +28,20 @@ class ProtectedNetworksModel(object):
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "use_default":'useDefault',
         "included_cidr":'includedCidr',
+        "use_default":'useDefault',
         "excluded_cidr":'excludedCidr'
     }
 
     def __init__(self,
-                 use_default=None,
                  included_cidr=None,
+                 use_default=None,
                  excluded_cidr=None):
         """Constructor for the ProtectedNetworksModel class"""
 
         # Initialize members of the class
-        self.use_default = use_default
         self.included_cidr = included_cidr
+        self.use_default = use_default
         self.excluded_cidr = excluded_cidr
 
 
@@ -63,13 +63,13 @@ class ProtectedNetworksModel(object):
             return None
 
         # Extract variables from the dictionary
-        use_default = dictionary.get('useDefault')
         included_cidr = dictionary.get('includedCidr')
+        use_default = dictionary.get('useDefault')
         excluded_cidr = dictionary.get('excludedCidr')
 
         # Return an object of this model
-        return cls(use_default,
-                   included_cidr,
+        return cls(included_cidr,
+                   use_default,
                    excluded_cidr)
 
 

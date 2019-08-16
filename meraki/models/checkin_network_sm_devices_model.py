@@ -14,35 +14,35 @@ class CheckinNetworkSmDevicesModel(object):
     TODO: type model description here.
 
     Attributes:
-        wifi_macs (string): The wifiMacs of the devices to be checked-in.
-        ids (string): The ids of the devices to be checked-in.
         serials (string): The serials of the devices to be checked-in.
         scope (string): The scope (one of all, none, withAny, withAll,
             withoutAny, or withoutAll) and a set of tags of the devices to be
             checked-in.
+        ids (string): The ids of the devices to be checked-in.
+        wifi_macs (string): The wifiMacs of the devices to be checked-in.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "wifi_macs":'wifiMacs',
-        "ids":'ids',
         "serials":'serials',
-        "scope":'scope'
+        "scope":'scope',
+        "ids":'ids',
+        "wifi_macs":'wifiMacs'
     }
 
     def __init__(self,
-                 wifi_macs=None,
-                 ids=None,
                  serials=None,
-                 scope=None):
+                 scope=None,
+                 ids=None,
+                 wifi_macs=None):
         """Constructor for the CheckinNetworkSmDevicesModel class"""
 
         # Initialize members of the class
-        self.wifi_macs = wifi_macs
-        self.ids = ids
         self.serials = serials
         self.scope = scope
+        self.ids = ids
+        self.wifi_macs = wifi_macs
 
 
     @classmethod
@@ -63,15 +63,15 @@ class CheckinNetworkSmDevicesModel(object):
             return None
 
         # Extract variables from the dictionary
-        wifi_macs = dictionary.get('wifiMacs')
-        ids = dictionary.get('ids')
         serials = dictionary.get('serials')
         scope = dictionary.get('scope')
+        ids = dictionary.get('ids')
+        wifi_macs = dictionary.get('wifiMacs')
 
         # Return an object of this model
-        return cls(wifi_macs,
+        return cls(serials,
+                   scope,
                    ids,
-                   serials,
-                   scope)
+                   wifi_macs)
 
 

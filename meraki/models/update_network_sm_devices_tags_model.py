@@ -14,44 +14,44 @@ class UpdateNetworkSmDevicesTagsModel(object):
     TODO: type model description here.
 
     Attributes:
-        wifi_macs (string): The wifiMacs of the devices to be modified.
-        ids (string): The ids of the devices to be modified.
+        update_action (string): One of add, delete, or update. Only devices
+            that have been modified will be returned.
         serials (string): The serials of the devices to be modified.
         scope (string): The scope (one of all, none, withAny, withAll,
             withoutAny, or withoutAll) and a set of tags of the devices to be
             modified.
+        ids (string): The ids of the devices to be modified.
+        wifi_macs (string): The wifiMacs of the devices to be modified.
         tags (string): The tags to be added, deleted, or updated.
-        update_action (string): One of add, delete, or update. Only devices
-            that have been modified will be returned.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "tags":'tags',
         "update_action":'updateAction',
-        "wifi_macs":'wifiMacs',
-        "ids":'ids',
+        "tags":'tags',
         "serials":'serials',
-        "scope":'scope'
+        "scope":'scope',
+        "ids":'ids',
+        "wifi_macs":'wifiMacs'
     }
 
     def __init__(self,
-                 tags=None,
                  update_action=None,
-                 wifi_macs=None,
-                 ids=None,
+                 tags=None,
                  serials=None,
-                 scope=None):
+                 scope=None,
+                 ids=None,
+                 wifi_macs=None):
         """Constructor for the UpdateNetworkSmDevicesTagsModel class"""
 
         # Initialize members of the class
-        self.wifi_macs = wifi_macs
-        self.ids = ids
+        self.update_action = update_action
         self.serials = serials
         self.scope = scope
+        self.ids = ids
+        self.wifi_macs = wifi_macs
         self.tags = tags
-        self.update_action = update_action
 
 
     @classmethod
@@ -72,19 +72,19 @@ class UpdateNetworkSmDevicesTagsModel(object):
             return None
 
         # Extract variables from the dictionary
-        tags = dictionary.get('tags')
         update_action = dictionary.get('updateAction')
-        wifi_macs = dictionary.get('wifiMacs')
-        ids = dictionary.get('ids')
+        tags = dictionary.get('tags')
         serials = dictionary.get('serials')
         scope = dictionary.get('scope')
+        ids = dictionary.get('ids')
+        wifi_macs = dictionary.get('wifiMacs')
 
         # Return an object of this model
-        return cls(tags,
-                   update_action,
-                   wifi_macs,
-                   ids,
+        return cls(update_action,
+                   tags,
                    serials,
-                   scope)
+                   scope,
+                   ids,
+                   wifi_macs)
 
 

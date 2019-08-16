@@ -14,51 +14,58 @@ class Rule7Model(object):
     TODO: type model description here.
 
     Attributes:
-        name (string): A descriptive name for the rule
-        lan_ip (string): The IP address of the server or device that hosts the
-            internal resource that you wish to make available on the WAN
-        uplink (string): The physical WAN interface on which the traffic will
-            arrive ('internet1' or, if available, 'internet2' or 'both')
-        public_port (string): A port or port ranges that will be forwarded to
-            the host on the LAN
-        local_port (string): A port or port ranges that will receive the
-            forwarded traffic from the WAN
-        allowed_ips (list of string): An array of ranges of WAN IP addresses
-            that are allowed to make inbound connections on the specified
-            ports or port ranges (or any)
-        protocol (string): TCP or UDP
+        src_cidr (string): Comma-separated list of source IP address(es) (in
+            IP or CIDR notation), or 'any' (note: FQDN not supported for
+            source addresses)
+        protocol (string): The type of protocol (must be 'tcp', 'udp', 'icmp'
+            or 'any')
+        syslog_enabled (bool): Log this rule to syslog (true or false, boolean
+            value) - only applicable if a syslog has been configured
+            (optional)
+        dest_port (string): Comma-separated list of destination port(s)
+            (integer in the range 1-65535), or 'any'
+        comment (string): Description of the rule (optional)
+        src_port (string): Comma-separated list of source port(s) (integer in
+            the range 1-65535), or 'any'
+        dest_cidr (string): Comma-separated list of destination IP address(es)
+            (in IP or CIDR notation), fully-qualified domain names (FQDN) or
+            'any'
+        policy (string): 'allow' or 'deny' traffic specified by this rule
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "name":'name',
-        "lan_ip":'lanIp',
-        "uplink":'uplink',
-        "public_port":'publicPort',
-        "local_port":'localPort',
-        "allowed_ips":'allowedIps',
-        "protocol":'protocol'
+        "src_cidr":'srcCidr',
+        "protocol":'protocol',
+        "dest_cidr":'destCidr',
+        "policy":'policy',
+        "syslog_enabled":'syslogEnabled',
+        "dest_port":'destPort',
+        "comment":'comment',
+        "src_port":'srcPort'
     }
 
     def __init__(self,
-                 name=None,
-                 lan_ip=None,
-                 uplink=None,
-                 public_port=None,
-                 local_port=None,
-                 allowed_ips=None,
-                 protocol=None):
+                 src_cidr=None,
+                 protocol=None,
+                 dest_cidr=None,
+                 policy=None,
+                 syslog_enabled=None,
+                 dest_port=None,
+                 comment=None,
+                 src_port=None):
         """Constructor for the Rule7Model class"""
 
         # Initialize members of the class
-        self.name = name
-        self.lan_ip = lan_ip
-        self.uplink = uplink
-        self.public_port = public_port
-        self.local_port = local_port
-        self.allowed_ips = allowed_ips
+        self.src_cidr = src_cidr
         self.protocol = protocol
+        self.syslog_enabled = syslog_enabled
+        self.dest_port = dest_port
+        self.comment = comment
+        self.src_port = src_port
+        self.dest_cidr = dest_cidr
+        self.policy = policy
 
 
     @classmethod
@@ -79,21 +86,23 @@ class Rule7Model(object):
             return None
 
         # Extract variables from the dictionary
-        name = dictionary.get('name')
-        lan_ip = dictionary.get('lanIp')
-        uplink = dictionary.get('uplink')
-        public_port = dictionary.get('publicPort')
-        local_port = dictionary.get('localPort')
-        allowed_ips = dictionary.get('allowedIps')
+        src_cidr = dictionary.get('srcCidr')
         protocol = dictionary.get('protocol')
+        dest_cidr = dictionary.get('destCidr')
+        policy = dictionary.get('policy')
+        syslog_enabled = dictionary.get('syslogEnabled')
+        dest_port = dictionary.get('destPort')
+        comment = dictionary.get('comment')
+        src_port = dictionary.get('srcPort')
 
         # Return an object of this model
-        return cls(name,
-                   lan_ip,
-                   uplink,
-                   public_port,
-                   local_port,
-                   allowed_ips,
-                   protocol)
+        return cls(src_cidr,
+                   protocol,
+                   dest_cidr,
+                   policy,
+                   syslog_enabled,
+                   dest_port,
+                   comment,
+                   src_port)
 
 

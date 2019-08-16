@@ -14,26 +14,26 @@ class NetworkModel(object):
     TODO: type model description here.
 
     Attributes:
-        id (string): The network ID
-        access (string): The privilege of the dashboard administrator on the
+        access (string): The privilege of the SAML administrator on the
             network
+        id (string): The network ID
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "id":'id',
-        "access":'access'
+        "access":'access',
+        "id":'id'
     }
 
     def __init__(self,
-                 id=None,
-                 access=None):
+                 access=None,
+                 id=None):
         """Constructor for the NetworkModel class"""
 
         # Initialize members of the class
-        self.id = id
         self.access = access
+        self.id = id
 
 
     @classmethod
@@ -54,11 +54,11 @@ class NetworkModel(object):
             return None
 
         # Extract variables from the dictionary
-        id = dictionary.get('id')
         access = dictionary.get('access')
+        id = dictionary.get('id')
 
         # Return an object of this model
-        return cls(id,
-                   access)
+        return cls(access,
+                   id)
 
 

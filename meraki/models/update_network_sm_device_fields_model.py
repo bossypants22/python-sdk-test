@@ -15,34 +15,34 @@ class UpdateNetworkSmDeviceFieldsModel(object):
     TODO: type model description here.
 
     Attributes:
-        wifi_mac (string): The wifiMac of the device to be modified.
-        id (string): The id of the device to be modified.
-        serial (string): The serial of the device to be modified.
         device_fields (DeviceFieldsModel): The new fields of the device. Each
             field of this object is optional.
+        serial (string): The serial of the device to be modified.
+        wifi_mac (string): The wifiMac of the device to be modified.
+        id (string): The id of the device to be modified.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
         "device_fields":'deviceFields',
+        "serial":'serial',
         "wifi_mac":'wifiMac',
-        "id":'id',
-        "serial":'serial'
+        "id":'id'
     }
 
     def __init__(self,
                  device_fields=None,
+                 serial=None,
                  wifi_mac=None,
-                 id=None,
-                 serial=None):
+                 id=None):
         """Constructor for the UpdateNetworkSmDeviceFieldsModel class"""
 
         # Initialize members of the class
+        self.device_fields = device_fields
+        self.serial = serial
         self.wifi_mac = wifi_mac
         self.id = id
-        self.serial = serial
-        self.device_fields = device_fields
 
 
     @classmethod
@@ -64,14 +64,14 @@ class UpdateNetworkSmDeviceFieldsModel(object):
 
         # Extract variables from the dictionary
         device_fields = meraki.models.device_fields_model.DeviceFieldsModel.from_dictionary(dictionary.get('deviceFields')) if dictionary.get('deviceFields') else None
+        serial = dictionary.get('serial')
         wifi_mac = dictionary.get('wifiMac')
         id = dictionary.get('id')
-        serial = dictionary.get('serial')
 
         # Return an object of this model
         return cls(device_fields,
+                   serial,
                    wifi_mac,
-                   id,
-                   serial)
+                   id)
 
 

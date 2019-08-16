@@ -6,8 +6,8 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
-import meraki.models.default_destinations_model
 import meraki.models.alert_model
+import meraki.models.default_destinations_model
 
 class UpdateNetworkAlertSettingsModel(object):
 
@@ -16,27 +16,27 @@ class UpdateNetworkAlertSettingsModel(object):
     TODO: type model description here.
 
     Attributes:
-        default_destinations (DefaultDestinationsModel): The network_wide
-            destinations for all alerts on the network.
         alerts (list of AlertModel): Alert-specific configuration for each
             type. Only alerts that pertain to the network can be updated.
+        default_destinations (DefaultDestinationsModel): The network_wide
+            destinations for all alerts on the network.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "default_destinations":'defaultDestinations',
-        "alerts":'alerts'
+        "alerts":'alerts',
+        "default_destinations":'defaultDestinations'
     }
 
     def __init__(self,
-                 default_destinations=None,
-                 alerts=None):
+                 alerts=None,
+                 default_destinations=None):
         """Constructor for the UpdateNetworkAlertSettingsModel class"""
 
         # Initialize members of the class
-        self.default_destinations = default_destinations
         self.alerts = alerts
+        self.default_destinations = default_destinations
 
 
     @classmethod
@@ -57,15 +57,15 @@ class UpdateNetworkAlertSettingsModel(object):
             return None
 
         # Extract variables from the dictionary
-        default_destinations = meraki.models.default_destinations_model.DefaultDestinationsModel.from_dictionary(dictionary.get('defaultDestinations')) if dictionary.get('defaultDestinations') else None
         alerts = None
         if dictionary.get('alerts') != None:
             alerts = list()
             for structure in dictionary.get('alerts'):
                 alerts.append(meraki.models.alert_model.AlertModel.from_dictionary(structure))
+        default_destinations = meraki.models.default_destinations_model.DefaultDestinationsModel.from_dictionary(dictionary.get('defaultDestinations')) if dictionary.get('defaultDestinations') else None
 
         # Return an object of this model
-        return cls(default_destinations,
-                   alerts)
+        return cls(alerts,
+                   default_destinations)
 
 

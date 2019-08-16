@@ -15,27 +15,27 @@ class UpdateNetworkSwitchSettingsModel(object):
     TODO: type model description here.
 
     Attributes:
-        use_combined_power (bool): The use Combined Power as the default
-            behavior of secondary power supplies on supported devices.
         power_exceptions (list of PowerExceptionModel): Exceptions on a per
             switch basis to "useCombinedPower"
+        use_combined_power (bool): The use Combined Power as the default
+            behavior of secondary power supplies on supported devices.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "use_combined_power":'useCombinedPower',
-        "power_exceptions":'powerExceptions'
+        "power_exceptions":'powerExceptions',
+        "use_combined_power":'useCombinedPower'
     }
 
     def __init__(self,
-                 use_combined_power=None,
-                 power_exceptions=None):
+                 power_exceptions=None,
+                 use_combined_power=None):
         """Constructor for the UpdateNetworkSwitchSettingsModel class"""
 
         # Initialize members of the class
-        self.use_combined_power = use_combined_power
         self.power_exceptions = power_exceptions
+        self.use_combined_power = use_combined_power
 
 
     @classmethod
@@ -56,15 +56,15 @@ class UpdateNetworkSwitchSettingsModel(object):
             return None
 
         # Extract variables from the dictionary
-        use_combined_power = dictionary.get('useCombinedPower')
         power_exceptions = None
         if dictionary.get('powerExceptions') != None:
             power_exceptions = list()
             for structure in dictionary.get('powerExceptions'):
                 power_exceptions.append(meraki.models.power_exception_model.PowerExceptionModel.from_dictionary(structure))
+        use_combined_power = dictionary.get('useCombinedPower')
 
         # Return an object of this model
-        return cls(use_combined_power,
-                   power_exceptions)
+        return cls(power_exceptions,
+                   use_combined_power)
 
 

@@ -6,7 +6,7 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
-import meraki.models.rule_model
+import meraki.models.rule7_model
 
 class UpdateNetworkCellularFirewallRulesModel(object):
 
@@ -15,8 +15,8 @@ class UpdateNetworkCellularFirewallRulesModel(object):
     TODO: type model description here.
 
     Attributes:
-        rules (list of RuleModel): An ordered array of the firewall rules (not
-            including the default rule)
+        rules (list of Rule7Model): An ordered array of the firewall rules
+            (not including the default rule)
 
     """
 
@@ -55,7 +55,7 @@ class UpdateNetworkCellularFirewallRulesModel(object):
         if dictionary.get('rules') != None:
             rules = list()
             for structure in dictionary.get('rules'):
-                rules.append(meraki.models.rule_model.RuleModel.from_dictionary(structure))
+                rules.append(meraki.models.rule7_model.Rule7Model.from_dictionary(structure))
 
         # Return an object of this model
         return cls(rules)

@@ -15,29 +15,29 @@ class UpdateNetworkSwitchPortScheduleModel(object):
     TODO: type model description here.
 
     Attributes:
-        name (string): The name for your port schedule.
         port_schedule (PortScheduleModel): The schedule for switch port
             scheduling. Schedules are applied to days of the week.     When
             it's empty, default schedule with all days of a week are
             configured.     Any unspecified day in the schedule is added as a
             default schedule configuration of the day.
+        name (string): The name for your port schedule.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "name":'name',
-        "port_schedule":'portSchedule'
+        "port_schedule":'portSchedule',
+        "name":'name'
     }
 
     def __init__(self,
-                 name=None,
-                 port_schedule=None):
+                 port_schedule=None,
+                 name=None):
         """Constructor for the UpdateNetworkSwitchPortScheduleModel class"""
 
         # Initialize members of the class
-        self.name = name
         self.port_schedule = port_schedule
+        self.name = name
 
 
     @classmethod
@@ -58,11 +58,11 @@ class UpdateNetworkSwitchPortScheduleModel(object):
             return None
 
         # Extract variables from the dictionary
-        name = dictionary.get('name')
         port_schedule = meraki.models.port_schedule_model.PortScheduleModel.from_dictionary(dictionary.get('portSchedule')) if dictionary.get('portSchedule') else None
+        name = dictionary.get('name')
 
         # Return an object of this model
-        return cls(name,
-                   port_schedule)
+        return cls(port_schedule,
+                   name)
 
 

@@ -6,6 +6,8 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
+import meraki.models.per_client_bandwidth_limits_model
+import meraki.models.definition_model
 
 class Rule4Model(object):
 
@@ -14,34 +16,40 @@ class Rule4Model(object):
     TODO: type model description here.
 
     Attributes:
-        policy (Policy2Enum): 'Deny' traffic specified by this rule
-        mtype (Type4Enum): Type of the L7 rule. One of: 'application',
-            'applicationCategory', 'host', 'port', 'ipRange'
-        value (string): The 'value' of what you want to block. Format of
-            'value' varies depending on type of the rule. See sample request.
-            The application categories and application ids can be retrieved
-            from the the 'MX L7 application categories' endpoint. The
-            countries follow the two-letter ISO 3166-1 alpha-2 format.
+        per_client_bandwidth_limits (PerClientBandwidthLimitsModel): An object
+            describing the bandwidth settings for your rule.
+        pcp_tag_value (int): The PCP tag applied by your rule. Can be 0
+            (lowest priority) through 7 (highest priority).     null means 'Do
+            not set PCP tag'.
+        dscp_tag_value (int): The DSCP tag applied by your rule. null means
+            'Do not change DSCP tag'.     For a list of possible tag values,
+            use the trafficShaping/dscpTaggingOptions endpoint.
+        definitions (list of DefinitionModel): A list of objects describing
+            the definitions of your traffic shaping rule. At least one
+            definition is required.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "policy":'policy',
-        "mtype":'type',
-        "value":'value'
+        "definitions":'definitions',
+        "per_client_bandwidth_limits":'perClientBandwidthLimits',
+        "pcp_tag_value":'pcpTagValue',
+        "dscp_tag_value":'dscpTagValue'
     }
 
     def __init__(self,
-                 policy=None,
-                 mtype=None,
-                 value=None):
+                 definitions=None,
+                 per_client_bandwidth_limits=None,
+                 pcp_tag_value=None,
+                 dscp_tag_value=None):
         """Constructor for the Rule4Model class"""
 
         # Initialize members of the class
-        self.policy = policy
-        self.mtype = mtype
-        self.value = value
+        self.per_client_bandwidth_limits = per_client_bandwidth_limits
+        self.pcp_tag_value = pcp_tag_value
+        self.dscp_tag_value = dscp_tag_value
+        self.definitions = definitions
 
 
     @classmethod
@@ -62,13 +70,19 @@ class Rule4Model(object):
             return None
 
         # Extract variables from the dictionary
-        policy = dictionary.get('policy')
-        mtype = dictionary.get('type')
-        value = dictionary.get('value')
+        definitions = None
+        if dictionary.get('definitions') != None:
+            definitions = list()
+            for structure in dictionary.get('definitions'):
+                definitions.append(meraki.models.definition_model.DefinitionModel.from_dictionary(structure))
+        per_client_bandwidth_limits = meraki.models.per_client_bandwidth_limits_model.PerClientBandwidthLimitsModel.from_dictionary(dictionary.get('perClientBandwidthLimits')) if dictionary.get('perClientBandwidthLimits') else None
+        pcp_tag_value = dictionary.get('pcpTagValue')
+        dscp_tag_value = dictionary.get('dscpTagValue')
 
         # Return an object of this model
-        return cls(policy,
-                   mtype,
-                   value)
+        return cls(definitions,
+                   per_client_bandwidth_limits,
+                   pcp_tag_value,
+                   dscp_tag_value)
 
 

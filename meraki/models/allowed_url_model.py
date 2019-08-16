@@ -14,25 +14,25 @@ class AllowedUrlModel(object):
     TODO: type model description here.
 
     Attributes:
-        url (string): The url to whitelist
         comment (string): Comment about the whitelisted entity
+        url (string): The url to whitelist
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "url":'url',
-        "comment":'comment'
+        "comment":'comment',
+        "url":'url'
     }
 
     def __init__(self,
-                 url=None,
-                 comment=None):
+                 comment=None,
+                 url=None):
         """Constructor for the AllowedUrlModel class"""
 
         # Initialize members of the class
-        self.url = url
         self.comment = comment
+        self.url = url
 
 
     @classmethod
@@ -53,11 +53,11 @@ class AllowedUrlModel(object):
             return None
 
         # Extract variables from the dictionary
-        url = dictionary.get('url')
         comment = dictionary.get('comment')
+        url = dictionary.get('url')
 
         # Return an object of this model
-        return cls(url,
-                   comment)
+        return cls(comment,
+                   url)
 
 

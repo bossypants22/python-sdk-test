@@ -14,34 +14,33 @@ class Rule2Model(object):
     TODO: type model description here.
 
     Attributes:
-        policy (PolicyEnum): 'Deny' traffic specified by this rule
-        mtype (TypeEnum): Type of the L7 rule. One of: 'application',
-            'applicationCategory', 'host', 'port', 'ipRange'
-        value (string): The 'value' of what you want to block. Format of
-            'value' varies depending on type of the rule. See sample request.
-            The application categories and application ids can be retrieved
-            from the the 'MX L7 application categories' endpoint. The
-            countries follow the two-letter ISO 3166-1 alpha-2 format.
+        vlan_id (string): The ID of the service VLAN. Required.
+        description (string): A description for your Bonjour forwarding rule.
+            Optional.
+        services (list of ServiceEnum): A list of Bonjour services. At least
+            one service must be specified. Available services are 'All
+            Services', 'AirPlay', 'AFP', 'BitTorrent', 'FTP', 'iChat',
+            'iTunes', 'Printers', 'Samba', 'Scanners' and 'SSH'
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "policy":'policy',
-        "mtype":'type',
-        "value":'value'
+        "vlan_id":'vlanId',
+        "services":'services',
+        "description":'description'
     }
 
     def __init__(self,
-                 policy=None,
-                 mtype=None,
-                 value=None):
+                 vlan_id=None,
+                 services=None,
+                 description=None):
         """Constructor for the Rule2Model class"""
 
         # Initialize members of the class
-        self.policy = policy
-        self.mtype = mtype
-        self.value = value
+        self.vlan_id = vlan_id
+        self.description = description
+        self.services = services
 
 
     @classmethod
@@ -62,13 +61,13 @@ class Rule2Model(object):
             return None
 
         # Extract variables from the dictionary
-        policy = dictionary.get('policy')
-        mtype = dictionary.get('type')
-        value = dictionary.get('value')
+        vlan_id = dictionary.get('vlanId')
+        services = dictionary.get('services')
+        description = dictionary.get('description')
 
         # Return an object of this model
-        return cls(policy,
-                   mtype,
-                   value)
+        return cls(vlan_id,
+                   services,
+                   description)
 
 

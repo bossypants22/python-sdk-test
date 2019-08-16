@@ -10,19 +10,15 @@ class Type7Enum(object):
 
     """Implementation of the 'Type7' enum.
 
-    The signature type for the custom pie chart item. Can be one of 'host',
-    'port' or 'ipRange'.
+    One of "delete" or "restrict processing"
 
     Attributes:
-        HOST: TODO: type description here.
-        PORT: TODO: type description here.
-        IPRANGE: TODO: type description here.
+        DELETE: TODO: type description here.
+        ENUM_RESTRICT PROCESSING: TODO: type description here.
 
     """
 
-    HOST = 'host'
+    DELETE = 'delete'
 
-    PORT = 'port'
-
-    IPRANGE = 'ipRange'
+    ENUM_RESTRICT_PROCESSING = 'restrict processing'
 

@@ -7,36 +7,37 @@
 """
 
 
-class CreateNetworkStaticRouteModel(object):
+class LicenseModel(object):
 
-    """Implementation of the 'createNetworkStaticRoute' model.
+    """Implementation of the 'License' model.
 
     TODO: type model description here.
 
     Attributes:
-        subnet (string): The subnet of the static route
-        name (string): The name of the new static route
-        gateway_ip (string): The gateway IP (next hop) of the static route
+        mode (Mode1Enum): Either 'renew' or 'addDevices'. 'addDevices' will
+            increase the license limit, while 'renew' will extend the amount
+            of time until expiration. Please see <a target='_blank'
+            href='https://documentation.meraki.com/zGeneral_Administration/Lice
+            nsing/Adding_an_Enterprise_license_to_an_existing_Dashboard_account
+            '>this article</a> for more information.
+        key (string): The key of the license
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "subnet":'subnet',
-        "name":'name',
-        "gateway_ip":'gatewayIp'
+        "mode":'mode',
+        "key":'key'
     }
 
     def __init__(self,
-                 subnet=None,
-                 name=None,
-                 gateway_ip=None):
-        """Constructor for the CreateNetworkStaticRouteModel class"""
+                 mode=None,
+                 key=None):
+        """Constructor for the LicenseModel class"""
 
         # Initialize members of the class
-        self.subnet = subnet
-        self.name = name
-        self.gateway_ip = gateway_ip
+        self.mode = mode
+        self.key = key
 
 
     @classmethod
@@ -57,13 +58,11 @@ class CreateNetworkStaticRouteModel(object):
             return None
 
         # Extract variables from the dictionary
-        subnet = dictionary.get('subnet')
-        name = dictionary.get('name')
-        gateway_ip = dictionary.get('gatewayIp')
+        mode = dictionary.get('mode')
+        key = dictionary.get('key')
 
         # Return an object of this model
-        return cls(subnet,
-                   name,
-                   gateway_ip)
+        return cls(mode,
+                   key)
 
 

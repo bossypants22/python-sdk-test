@@ -14,25 +14,25 @@ class ApTagsAndVlanIdModel(object):
     TODO: type model description here.
 
     Attributes:
-        tags (string): Comma-separated list of AP tags
         vlan_id (int): Numerical identifier that is assigned to the VLAN
+        tags (string): Comma-separated list of AP tags
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "tags":'tags',
-        "vlan_id":'vlanId'
+        "vlan_id":'vlanId',
+        "tags":'tags'
     }
 
     def __init__(self,
-                 tags=None,
-                 vlan_id=None):
+                 vlan_id=None,
+                 tags=None):
         """Constructor for the ApTagsAndVlanIdModel class"""
 
         # Initialize members of the class
-        self.tags = tags
         self.vlan_id = vlan_id
+        self.tags = tags
 
 
     @classmethod
@@ -53,11 +53,11 @@ class ApTagsAndVlanIdModel(object):
             return None
 
         # Extract variables from the dictionary
-        tags = dictionary.get('tags')
         vlan_id = dictionary.get('vlanId')
+        tags = dictionary.get('tags')
 
         # Return an object of this model
-        return cls(tags,
-                   vlan_id)
+        return cls(vlan_id,
+                   tags)
 
 

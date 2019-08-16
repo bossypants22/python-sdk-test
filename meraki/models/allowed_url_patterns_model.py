@@ -14,7 +14,7 @@ class AllowedUrlPatternsModel(object):
     Settings for whitelisted URL patterns
 
     Attributes:
-        settings (Settings2Enum): How URL patterns are applied. Can be
+        settings (Settings1Enum): How URL patterns are applied. Can be
             'network default', 'append' or 'override'.
         patterns (list of string): A whitelist of URL patterns to allow
 

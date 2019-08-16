@@ -14,8 +14,6 @@ class AlertModel(object):
     TODO: type model description here.
 
     Attributes:
-        mtype (string): The type of alert
-        enabled (bool): A boolean depicting if the alert is turned on or off
         alert_destinations (object): A hash of destinations for this specific
             alert. Keys include: emails: A list of emails that will recieve
             information about the alert, allAdmins: If true, then all network
@@ -24,29 +22,31 @@ class AlertModel(object):
             network.
         filters (object): A hash of specific configuration data for the alert.
             Only filters specific to the alert will be updated.
+        mtype (string): The type of alert
+        enabled (bool): A boolean depicting if the alert is turned on or off
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "mtype":'type',
-        "enabled":'enabled',
         "alert_destinations":'alertDestinations',
-        "filters":'filters'
+        "filters":'filters',
+        "mtype":'type',
+        "enabled":'enabled'
     }
 
     def __init__(self,
-                 mtype=None,
-                 enabled=None,
                  alert_destinations=None,
-                 filters=None):
+                 filters=None,
+                 mtype=None,
+                 enabled=None):
         """Constructor for the AlertModel class"""
 
         # Initialize members of the class
-        self.mtype = mtype
-        self.enabled = enabled
         self.alert_destinations = alert_destinations
         self.filters = filters
+        self.mtype = mtype
+        self.enabled = enabled
 
 
     @classmethod
@@ -67,15 +67,15 @@ class AlertModel(object):
             return None
 
         # Extract variables from the dictionary
-        mtype = dictionary.get('type')
-        enabled = dictionary.get('enabled')
         alert_destinations = dictionary.get('alertDestinations')
         filters = dictionary.get('filters')
+        mtype = dictionary.get('type')
+        enabled = dictionary.get('enabled')
 
         # Return an object of this model
-        return cls(mtype,
-                   enabled,
-                   alert_destinations,
-                   filters)
+        return cls(alert_destinations,
+                   filters,
+                   mtype,
+                   enabled)
 
 

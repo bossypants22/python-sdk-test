@@ -14,32 +14,32 @@ class ServerModel(object):
     TODO: type model description here.
 
     Attributes:
-        host (string): The IP address of the syslog server
         port (int): The port of the syslog server
         roles (list of string): A list of roles for the syslog server. Options
             (case-insensitive): 'Wireless event log', 'Appliance event log',
             'Switch event log', 'Air Marshal events', 'Flows', 'URLs', 'IDS
             alerts', 'Security events'
+        host (string): The IP address of the syslog server
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "host":'host',
         "port":'port',
-        "roles":'roles'
+        "roles":'roles',
+        "host":'host'
     }
 
     def __init__(self,
-                 host=None,
                  port=None,
-                 roles=None):
+                 roles=None,
+                 host=None):
         """Constructor for the ServerModel class"""
 
         # Initialize members of the class
-        self.host = host
         self.port = port
         self.roles = roles
+        self.host = host
 
 
     @classmethod
@@ -60,13 +60,13 @@ class ServerModel(object):
             return None
 
         # Extract variables from the dictionary
-        host = dictionary.get('host')
         port = dictionary.get('port')
         roles = dictionary.get('roles')
+        host = dictionary.get('host')
 
         # Return an object of this model
-        return cls(host,
-                   port,
-                   roles)
+        return cls(port,
+                   roles,
+                   host)
 
 

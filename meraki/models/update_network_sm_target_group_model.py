@@ -14,28 +14,28 @@ class UpdateNetworkSmTargetGroupModel(object):
     TODO: type model description here.
 
     Attributes:
-        name (string): The name of this target group
         scope (string): The scope and tag options of the target group. Comma
             separated values beginning with one of withAny, withAll,
             withoutAny, withoutAll, all, none, followed by tags. Default to
             none if empty.
+        name (string): The name of this target group
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "name":'name',
-        "scope":'scope'
+        "scope":'scope',
+        "name":'name'
     }
 
     def __init__(self,
-                 name=None,
-                 scope=None):
+                 scope=None,
+                 name=None):
         """Constructor for the UpdateNetworkSmTargetGroupModel class"""
 
         # Initialize members of the class
-        self.name = name
         self.scope = scope
+        self.name = name
 
 
     @classmethod
@@ -56,11 +56,11 @@ class UpdateNetworkSmTargetGroupModel(object):
             return None
 
         # Extract variables from the dictionary
-        name = dictionary.get('name')
         scope = dictionary.get('scope')
+        name = dictionary.get('name')
 
         # Return an object of this model
-        return cls(name,
-                   scope)
+        return cls(scope,
+                   name)
 
 
