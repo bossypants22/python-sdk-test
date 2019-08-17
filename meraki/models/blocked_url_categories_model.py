@@ -14,7 +14,7 @@ class BlockedUrlCategoriesModel(object):
     Settings for blacklisted URL categories
 
     Attributes:
-        settings (Settings3Enum): How URL categories are applied. Can be
+        settings (Settings4Enum): How URL categories are applied. Can be
             'network default', 'append' or 'override'.
         categories (list of string): A list of URL categories to block
 

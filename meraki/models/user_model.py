@@ -14,25 +14,25 @@ class UserModel(object):
     TODO: type model description here.
 
     Attributes:
-        passphrase (string): The passphrase for the SNMP user. Required.
         username (string): The username for the SNMP user. Required.
+        passphrase (string): The passphrase for the SNMP user. Required.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "passphrase":'passphrase',
-        "username":'username'
+        "username":'username',
+        "passphrase":'passphrase'
     }
 
     def __init__(self,
-                 passphrase=None,
-                 username=None):
+                 username=None,
+                 passphrase=None):
         """Constructor for the UserModel class"""
 
         # Initialize members of the class
-        self.passphrase = passphrase
         self.username = username
+        self.passphrase = passphrase
 
 
     @classmethod
@@ -53,11 +53,11 @@ class UserModel(object):
             return None
 
         # Extract variables from the dictionary
-        passphrase = dictionary.get('passphrase')
         username = dictionary.get('username')
+        passphrase = dictionary.get('passphrase')
 
         # Return an object of this model
-        return cls(passphrase,
-                   username)
+        return cls(username,
+                   passphrase)
 
 

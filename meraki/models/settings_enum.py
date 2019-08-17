@@ -10,7 +10,7 @@ class SettingsEnum(object):
 
     """Implementation of the 'Settings' enum.
 
-    How VLAN tagging is applied. Can be 'network default', 'ignore' or
+    How bandwidth limits are enforced. Can be 'network default', 'ignore' or
     'custom'.
 
     Attributes:

@@ -14,47 +14,47 @@ class UpdateNetworkBluetoothSettingsModel(object):
     TODO: type model description here.
 
     Attributes:
+        scanning_enabled (bool): Whether APs will scan for Bluetooth enabled
+            clients. (true, false)
+        advertising_enabled (bool): Whether APs will advertise beacons. (true,
+            false)
+        uuid (string): The UUID to be used in the beacon identifier.
+        major_minor_assignment_mode (string): The way major and minor number
+            should be assigned to nodes in the network. ('Unique',
+            'Non-unique')
         major (int): The major number to be used in the beacon identifier.
             Only valid in 'Non-unique' mode.
         minor (int): The minor number to be used in the beacon identifier.
             Only valid in 'Non-unique' mode.
-        major_minor_assignment_mode (string): The way major and minor number
-            should be assigned to nodes in the network. ('Unique',
-            'Non-unique')
-        scanning_enabled (bool): Whether APs will scan for Bluetooth enabled
-            clients. (true, false)
-        uuid (string): The UUID to be used in the beacon identifier.
-        advertising_enabled (bool): Whether APs will advertise beacons. (true,
-            false)
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "major":'major',
-        "minor":'minor',
-        "major_minor_assignment_mode":'majorMinorAssignmentMode',
         "scanning_enabled":'scanningEnabled',
+        "advertising_enabled":'advertisingEnabled',
         "uuid":'uuid',
-        "advertising_enabled":'advertisingEnabled'
+        "major_minor_assignment_mode":'majorMinorAssignmentMode',
+        "major":'major',
+        "minor":'minor'
     }
 
     def __init__(self,
-                 major=None,
-                 minor=None,
-                 major_minor_assignment_mode=None,
                  scanning_enabled=None,
+                 advertising_enabled=None,
                  uuid=None,
-                 advertising_enabled=None):
+                 major_minor_assignment_mode=None,
+                 major=None,
+                 minor=None):
         """Constructor for the UpdateNetworkBluetoothSettingsModel class"""
 
         # Initialize members of the class
+        self.scanning_enabled = scanning_enabled
+        self.advertising_enabled = advertising_enabled
+        self.uuid = uuid
+        self.major_minor_assignment_mode = major_minor_assignment_mode
         self.major = major
         self.minor = minor
-        self.major_minor_assignment_mode = major_minor_assignment_mode
-        self.scanning_enabled = scanning_enabled
-        self.uuid = uuid
-        self.advertising_enabled = advertising_enabled
 
 
     @classmethod
@@ -75,19 +75,19 @@ class UpdateNetworkBluetoothSettingsModel(object):
             return None
 
         # Extract variables from the dictionary
+        scanning_enabled = dictionary.get('scanningEnabled')
+        advertising_enabled = dictionary.get('advertisingEnabled')
+        uuid = dictionary.get('uuid')
+        major_minor_assignment_mode = dictionary.get('majorMinorAssignmentMode')
         major = dictionary.get('major')
         minor = dictionary.get('minor')
-        major_minor_assignment_mode = dictionary.get('majorMinorAssignmentMode')
-        scanning_enabled = dictionary.get('scanningEnabled')
-        uuid = dictionary.get('uuid')
-        advertising_enabled = dictionary.get('advertisingEnabled')
 
         # Return an object of this model
-        return cls(major,
-                   minor,
-                   major_minor_assignment_mode,
-                   scanning_enabled,
+        return cls(scanning_enabled,
+                   advertising_enabled,
                    uuid,
-                   advertising_enabled)
+                   major_minor_assignment_mode,
+                   major,
+                   minor)
 
 

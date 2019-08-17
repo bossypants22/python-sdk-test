@@ -15,48 +15,48 @@ class CreateNetworkSmProfileUmbrellaModel(object):
     TODO: type model description here.
 
     Attributes:
-        uses_cert (bool): Whether the certificate should be attached to this
-            profile (one of true, false). False by default
+        name (string): The name to be given to the new profile
         scope (string): The scope (one of all, none, withAny, withAll,
             withoutAny, or withoutAll) and a set of tags of the devices to be
             assigned
         app_bundle_identifier (string): The bundle ID of the application,
             defaults to com.cisco.ciscosecurity.app
-        name (string): The name to be given to the new profile
         provider_bundle_identifier (string): The bundle ID of the provider,
             defaults to com.cisco.ciscosecurity.app.CiscoUmbrella
         provider_configuration (list of ProviderConfigurationModel): The
             specific ProviderConfiguration to be passed to the filtering
             framework, in the form of an array of objects (as JSON).
+        uses_cert (bool): Whether the certificate should be attached to this
+            profile (one of true, false). False by default
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "scope":'scope',
         "name":'name',
+        "scope":'scope',
         "provider_configuration":'ProviderConfiguration',
-        "uses_cert":'usesCert',
         "app_bundle_identifier":'AppBundleIdentifier',
-        "provider_bundle_identifier":'ProviderBundleIdentifier'
+        "provider_bundle_identifier":'ProviderBundleIdentifier',
+        "uses_cert":'usesCert'
     }
 
     def __init__(self,
-                 scope=None,
                  name=None,
+                 scope=None,
                  provider_configuration=None,
-                 uses_cert=None,
                  app_bundle_identifier=None,
-                 provider_bundle_identifier=None):
+                 provider_bundle_identifier=None,
+                 uses_cert=None):
         """Constructor for the CreateNetworkSmProfileUmbrellaModel class"""
 
         # Initialize members of the class
-        self.uses_cert = uses_cert
+        self.name = name
         self.scope = scope
         self.app_bundle_identifier = app_bundle_identifier
-        self.name = name
         self.provider_bundle_identifier = provider_bundle_identifier
         self.provider_configuration = provider_configuration
+        self.uses_cert = uses_cert
 
 
     @classmethod
@@ -77,23 +77,23 @@ class CreateNetworkSmProfileUmbrellaModel(object):
             return None
 
         # Extract variables from the dictionary
-        scope = dictionary.get('scope')
         name = dictionary.get('name')
+        scope = dictionary.get('scope')
         provider_configuration = None
         if dictionary.get('ProviderConfiguration') != None:
             provider_configuration = list()
             for structure in dictionary.get('ProviderConfiguration'):
                 provider_configuration.append(meraki.models.provider_configuration_model.ProviderConfigurationModel.from_dictionary(structure))
-        uses_cert = dictionary.get('usesCert')
         app_bundle_identifier = dictionary.get('AppBundleIdentifier')
         provider_bundle_identifier = dictionary.get('ProviderBundleIdentifier')
+        uses_cert = dictionary.get('usesCert')
 
         # Return an object of this model
-        return cls(scope,
-                   name,
+        return cls(name,
+                   scope,
                    provider_configuration,
-                   uses_cert,
                    app_bundle_identifier,
-                   provider_bundle_identifier)
+                   provider_bundle_identifier,
+                   uses_cert)
 
 

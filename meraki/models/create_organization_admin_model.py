@@ -6,8 +6,8 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
-import meraki.models.network1_model
-import meraki.models.tag1_model
+import meraki.models.tag_model
+import meraki.models.network_model
 
 class CreateOrganizationAdminModel(object):
 
@@ -16,41 +16,41 @@ class CreateOrganizationAdminModel(object):
     TODO: type model description here.
 
     Attributes:
+        email (string): The email of the dashboard administrator. This
+            attribute can not be updated.
         name (string): The name of the dashboard administrator
         org_access (string): The privilege of the dashboard administrator on
             the organization (full, read-only, none)
-        networks (list of Network1Model): The list of networks that the
-            dashboard administrator has privileges on
-        email (string): The email of the dashboard administrator. This
-            attribute can not be updated.
-        tags (list of Tag1Model): The list of tags that the dashboard
+        tags (list of TagModel): The list of tags that the dashboard
             administrator has privileges on
+        networks (list of NetworkModel): The list of networks that the
+            dashboard administrator has privileges on
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
+        "email":'email',
         "name":'name',
         "org_access":'orgAccess',
-        "email":'email',
-        "networks":'networks',
-        "tags":'tags'
+        "tags":'tags',
+        "networks":'networks'
     }
 
     def __init__(self,
+                 email=None,
                  name=None,
                  org_access=None,
-                 email=None,
-                 networks=None,
-                 tags=None):
+                 tags=None,
+                 networks=None):
         """Constructor for the CreateOrganizationAdminModel class"""
 
         # Initialize members of the class
+        self.email = email
         self.name = name
         self.org_access = org_access
-        self.networks = networks
-        self.email = email
         self.tags = tags
+        self.networks = networks
 
 
     @classmethod
@@ -71,25 +71,25 @@ class CreateOrganizationAdminModel(object):
             return None
 
         # Extract variables from the dictionary
+        email = dictionary.get('email')
         name = dictionary.get('name')
         org_access = dictionary.get('orgAccess')
-        email = dictionary.get('email')
-        networks = None
-        if dictionary.get('networks') != None:
-            networks = list()
-            for structure in dictionary.get('networks'):
-                networks.append(meraki.models.network1_model.Network1Model.from_dictionary(structure))
         tags = None
         if dictionary.get('tags') != None:
             tags = list()
             for structure in dictionary.get('tags'):
-                tags.append(meraki.models.tag1_model.Tag1Model.from_dictionary(structure))
+                tags.append(meraki.models.tag_model.TagModel.from_dictionary(structure))
+        networks = None
+        if dictionary.get('networks') != None:
+            networks = list()
+            for structure in dictionary.get('networks'):
+                networks.append(meraki.models.network_model.NetworkModel.from_dictionary(structure))
 
         # Return an object of this model
-        return cls(name,
+        return cls(email,
+                   name,
                    org_access,
-                   email,
-                   networks,
-                   tags)
+                   tags,
+                   networks)
 
 

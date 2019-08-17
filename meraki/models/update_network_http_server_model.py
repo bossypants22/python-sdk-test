@@ -15,30 +15,30 @@ class UpdateNetworkHttpServerModel(object):
 
     Attributes:
         name (string): A name for easy reference to the HTTP server
+        url (string): The URL of the HTTP server
         shared_secret (string): A shared secret that will be included in POSTs
             sent to the HTTP server. This secret can be used to verify that
             the request was sent by Meraki.
-        url (string): The URL of the HTTP server
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
         "name":'name',
-        "shared_secret":'sharedSecret',
-        "url":'url'
+        "url":'url',
+        "shared_secret":'sharedSecret'
     }
 
     def __init__(self,
                  name=None,
-                 shared_secret=None,
-                 url=None):
+                 url=None,
+                 shared_secret=None):
         """Constructor for the UpdateNetworkHttpServerModel class"""
 
         # Initialize members of the class
         self.name = name
-        self.shared_secret = shared_secret
         self.url = url
+        self.shared_secret = shared_secret
 
 
     @classmethod
@@ -60,12 +60,12 @@ class UpdateNetworkHttpServerModel(object):
 
         # Extract variables from the dictionary
         name = dictionary.get('name')
-        shared_secret = dictionary.get('sharedSecret')
         url = dictionary.get('url')
+        shared_secret = dictionary.get('sharedSecret')
 
         # Return an object of this model
         return cls(name,
-                   shared_secret,
-                   url)
+                   url,
+                   shared_secret)
 
 

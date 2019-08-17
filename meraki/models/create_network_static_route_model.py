@@ -14,28 +14,28 @@ class CreateNetworkStaticRouteModel(object):
     TODO: type model description here.
 
     Attributes:
-        subnet (string): The subnet of the static route
         name (string): The name of the new static route
+        subnet (string): The subnet of the static route
         gateway_ip (string): The gateway IP (next hop) of the static route
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "subnet":'subnet',
         "name":'name',
+        "subnet":'subnet',
         "gateway_ip":'gatewayIp'
     }
 
     def __init__(self,
-                 subnet=None,
                  name=None,
+                 subnet=None,
                  gateway_ip=None):
         """Constructor for the CreateNetworkStaticRouteModel class"""
 
         # Initialize members of the class
-        self.subnet = subnet
         self.name = name
+        self.subnet = subnet
         self.gateway_ip = gateway_ip
 
 
@@ -57,13 +57,13 @@ class CreateNetworkStaticRouteModel(object):
             return None
 
         # Extract variables from the dictionary
-        subnet = dictionary.get('subnet')
         name = dictionary.get('name')
+        subnet = dictionary.get('subnet')
         gateway_ip = dictionary.get('gatewayIp')
 
         # Return an object of this model
-        return cls(subnet,
-                   name,
+        return cls(name,
+                   subnet,
                    gateway_ip)
 
 

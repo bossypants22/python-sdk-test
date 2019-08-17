@@ -14,26 +14,26 @@ class CreateNetworkSwitchStackModel(object):
     TODO: type model description here.
 
     Attributes:
+        name (string): The name of the new stack
         serials (list of string): An array of switch serials to be added into
             the new stack
-        name (string): The name of the new stack
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "serials":'serials',
-        "name":'name'
+        "name":'name',
+        "serials":'serials'
     }
 
     def __init__(self,
-                 serials=None,
-                 name=None):
+                 name=None,
+                 serials=None):
         """Constructor for the CreateNetworkSwitchStackModel class"""
 
         # Initialize members of the class
-        self.serials = serials
         self.name = name
+        self.serials = serials
 
 
     @classmethod
@@ -54,11 +54,11 @@ class CreateNetworkSwitchStackModel(object):
             return None
 
         # Extract variables from the dictionary
-        serials = dictionary.get('serials')
         name = dictionary.get('name')
+        serials = dictionary.get('serials')
 
         # Return an object of this model
-        return cls(serials,
-                   name)
+        return cls(name,
+                   serials)
 
 

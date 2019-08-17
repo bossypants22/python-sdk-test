@@ -15,12 +15,12 @@ class CreateNetworkSwitchPortScheduleModel(object):
     TODO: type model description here.
 
     Attributes:
+        name (string): The name for your port schedule. Required
         port_schedule (PortScheduleModel): The schedule for switch port
             scheduling. Schedules are applied to days of the week.     When
             it's empty, default schedule with all days of a week are
             configured.     Any unspecified day in the schedule is added as a
             default schedule configuration of the day.
-        name (string): The name for your port schedule. Required
 
     """
 
@@ -36,8 +36,8 @@ class CreateNetworkSwitchPortScheduleModel(object):
         """Constructor for the CreateNetworkSwitchPortScheduleModel class"""
 
         # Initialize members of the class
-        self.port_schedule = port_schedule
         self.name = name
+        self.port_schedule = port_schedule
 
 
     @classmethod

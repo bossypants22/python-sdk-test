@@ -14,33 +14,33 @@ class ProviderConfigurationModel(object):
     TODO: type model description here.
 
     Attributes:
+        key (string): The key for an object in ProviderConfiguration
         mtype (string): The type for an object in ProviderConfiguration. Can
             be one of 'manual_string', 'manual_int', 'manual_boolean',
             'manual_choice', 'manual_multiselect', 'manual_list',
             'auto_username', 'auto_email', 'auto_mac_address',
             'auto_serial_number', 'auto_notes' or 'auto_name'
         value (string): The value for an object in ProviderConfiguration
-        key (string): The key for an object in ProviderConfiguration
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "mtype":'type',
         "key":'key',
+        "mtype":'type',
         "value":'value'
     }
 
     def __init__(self,
-                 mtype=None,
                  key=None,
+                 mtype=None,
                  value=None):
         """Constructor for the ProviderConfigurationModel class"""
 
         # Initialize members of the class
+        self.key = key
         self.mtype = mtype
         self.value = value
-        self.key = key
 
 
     @classmethod
@@ -61,13 +61,13 @@ class ProviderConfigurationModel(object):
             return None
 
         # Extract variables from the dictionary
-        mtype = dictionary.get('type')
         key = dictionary.get('key')
+        mtype = dictionary.get('type')
         value = dictionary.get('value')
 
         # Return an object of this model
-        return cls(mtype,
-                   key,
+        return cls(key,
+                   mtype,
                    value)
 
 

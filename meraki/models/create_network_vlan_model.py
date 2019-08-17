@@ -14,32 +14,32 @@ class CreateNetworkVlanModel(object):
     TODO: type model description here.
 
     Attributes:
-        subnet (string): The subnet of the VLAN
-        name (string): The name of the new VLAN
         id (string): The VLAN ID of the new VLAN (must be between 1 and 4094)
+        name (string): The name of the new VLAN
+        subnet (string): The subnet of the VLAN
         appliance_ip (string): The local IP of the appliance on the VLAN
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "subnet":'subnet',
-        "name":'name',
         "id":'id',
+        "name":'name',
+        "subnet":'subnet',
         "appliance_ip":'applianceIp'
     }
 
     def __init__(self,
-                 subnet=None,
-                 name=None,
                  id=None,
+                 name=None,
+                 subnet=None,
                  appliance_ip=None):
         """Constructor for the CreateNetworkVlanModel class"""
 
         # Initialize members of the class
-        self.subnet = subnet
-        self.name = name
         self.id = id
+        self.name = name
+        self.subnet = subnet
         self.appliance_ip = appliance_ip
 
 
@@ -61,15 +61,15 @@ class CreateNetworkVlanModel(object):
             return None
 
         # Extract variables from the dictionary
-        subnet = dictionary.get('subnet')
-        name = dictionary.get('name')
         id = dictionary.get('id')
+        name = dictionary.get('name')
+        subnet = dictionary.get('subnet')
         appliance_ip = dictionary.get('applianceIp')
 
         # Return an object of this model
-        return cls(subnet,
+        return cls(id,
                    name,
-                   id,
+                   subnet,
                    appliance_ip)
 
 

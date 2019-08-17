@@ -14,28 +14,28 @@ class RadiusServerModel(object):
     TODO: type model description here.
 
     Attributes:
-        port (int): UDP port the RADIUS server listens on for Access-requests
         host (string): IP address of your RADIUS server
+        port (int): UDP port the RADIUS server listens on for Access-requests
         secret (string): RADIUS client shared secret
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "port":'port',
         "host":'host',
+        "port":'port',
         "secret":'secret'
     }
 
     def __init__(self,
-                 port=None,
                  host=None,
+                 port=None,
                  secret=None):
         """Constructor for the RadiusServerModel class"""
 
         # Initialize members of the class
-        self.port = port
         self.host = host
+        self.port = port
         self.secret = secret
 
 
@@ -57,13 +57,13 @@ class RadiusServerModel(object):
             return None
 
         # Extract variables from the dictionary
-        port = dictionary.get('port')
         host = dictionary.get('host')
+        port = dictionary.get('port')
         secret = dictionary.get('secret')
 
         # Return an object of this model
-        return cls(port,
-                   host,
+        return cls(host,
+                   port,
                    secret)
 
 

@@ -14,27 +14,27 @@ class CombineOrganizationNetworksModel(object):
     TODO: type model description here.
 
     Attributes:
+        name (string): The name of the combined network
         network_ids (list of string): A list of the network IDs that will be
             combined. If an ID of a combined network is included in this list,
             the other networks in the list will be grouped into that network
-        name (string): The name of the combined network
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "network_ids":'networkIds',
-        "name":'name'
+        "name":'name',
+        "network_ids":'networkIds'
     }
 
     def __init__(self,
-                 network_ids=None,
-                 name=None):
+                 name=None,
+                 network_ids=None):
         """Constructor for the CombineOrganizationNetworksModel class"""
 
         # Initialize members of the class
-        self.network_ids = network_ids
         self.name = name
+        self.network_ids = network_ids
 
 
     @classmethod
@@ -55,11 +55,11 @@ class CombineOrganizationNetworksModel(object):
             return None
 
         # Extract variables from the dictionary
-        network_ids = dictionary.get('networkIds')
         name = dictionary.get('name')
+        network_ids = dictionary.get('networkIds')
 
         # Return an object of this model
-        return cls(network_ids,
-                   name)
+        return cls(name,
+                   network_ids)
 
 

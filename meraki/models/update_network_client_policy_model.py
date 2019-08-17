@@ -14,27 +14,27 @@ class UpdateNetworkClientPolicyModel(object):
     TODO: type model description here.
 
     Attributes:
-        group_policy_id (string): [optional] If devicePolicy param is set to
-            'Group policy' this param is used to specify the group ID.
         device_policy (string): The group policy (Whitelisted, Blocked,
             Normal, Group policy)
+        group_policy_id (string): [optional] If devicePolicy param is set to
+            'Group policy' this param is used to specify the group ID.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "group_policy_id":'groupPolicyId',
-        "device_policy":'devicePolicy'
+        "device_policy":'devicePolicy',
+        "group_policy_id":'groupPolicyId'
     }
 
     def __init__(self,
-                 group_policy_id=None,
-                 device_policy=None):
+                 device_policy=None,
+                 group_policy_id=None):
         """Constructor for the UpdateNetworkClientPolicyModel class"""
 
         # Initialize members of the class
-        self.group_policy_id = group_policy_id
         self.device_policy = device_policy
+        self.group_policy_id = group_policy_id
 
 
     @classmethod
@@ -55,11 +55,11 @@ class UpdateNetworkClientPolicyModel(object):
             return None
 
         # Extract variables from the dictionary
-        group_policy_id = dictionary.get('groupPolicyId')
         device_policy = dictionary.get('devicePolicy')
+        group_policy_id = dictionary.get('groupPolicyId')
 
         # Return an object of this model
-        return cls(group_policy_id,
-                   device_policy)
+        return cls(device_policy,
+                   group_policy_id)
 
 

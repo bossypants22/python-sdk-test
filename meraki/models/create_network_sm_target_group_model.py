@@ -14,28 +14,28 @@ class CreateNetworkSmTargetGroupModel(object):
     TODO: type model description here.
 
     Attributes:
+        name (string): The name of this target group
         scope (string): The scope and tag options of the target group. Comma
             separated values beginning with one of withAny, withAll,
             withoutAny, withoutAll, all, none, followed by tags. Default to
             none if empty.
-        name (string): The name of this target group
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "scope":'scope',
-        "name":'name'
+        "name":'name',
+        "scope":'scope'
     }
 
     def __init__(self,
-                 scope=None,
-                 name=None):
+                 name=None,
+                 scope=None):
         """Constructor for the CreateNetworkSmTargetGroupModel class"""
 
         # Initialize members of the class
-        self.scope = scope
         self.name = name
+        self.scope = scope
 
 
     @classmethod
@@ -56,11 +56,11 @@ class CreateNetworkSmTargetGroupModel(object):
             return None
 
         # Extract variables from the dictionary
-        scope = dictionary.get('scope')
         name = dictionary.get('name')
+        scope = dictionary.get('scope')
 
         # Return an object of this model
-        return cls(scope,
-                   name)
+        return cls(name,
+                   scope)
 
 

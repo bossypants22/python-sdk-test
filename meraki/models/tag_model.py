@@ -14,25 +14,26 @@ class TagModel(object):
     TODO: type model description here.
 
     Attributes:
-        access (string): The privilege of the SAML administrator on the tag
         tag (string): The name of the tag
+        access (string): The privilege of the dashboard administrator on the
+            tag
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "access":'access',
-        "tag":'tag'
+        "tag":'tag',
+        "access":'access'
     }
 
     def __init__(self,
-                 access=None,
-                 tag=None):
+                 tag=None,
+                 access=None):
         """Constructor for the TagModel class"""
 
         # Initialize members of the class
-        self.access = access
         self.tag = tag
+        self.access = access
 
 
     @classmethod
@@ -53,11 +54,11 @@ class TagModel(object):
             return None
 
         # Extract variables from the dictionary
-        access = dictionary.get('access')
         tag = dictionary.get('tag')
+        access = dictionary.get('access')
 
         # Return an object of this model
-        return cls(access,
-                   tag)
+        return cls(tag,
+                   access)
 
 

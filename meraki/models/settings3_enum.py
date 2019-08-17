@@ -10,19 +10,19 @@ class Settings3Enum(object):
 
     """Implementation of the 'Settings3' enum.
 
-    How URL categories are applied. Can be 'network default', 'append' or
-    'override'.
+    How Bonjour rules are applied. Can be 'network default', 'ignore' or
+    'custom'.
 
     Attributes:
         ENUM_NETWORK DEFAULT: TODO: type description here.
-        APPEND: TODO: type description here.
-        OVERRIDE: TODO: type description here.
+        IGNORE: TODO: type description here.
+        CUSTOM: TODO: type description here.
 
     """
 
     ENUM_NETWORK_DEFAULT = 'network default'
 
-    APPEND = 'append'
+    IGNORE = 'ignore'
 
-    OVERRIDE = 'override'
+    CUSTOM = 'custom'
 

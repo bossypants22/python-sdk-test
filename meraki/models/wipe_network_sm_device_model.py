@@ -14,34 +14,34 @@ class WipeNetworkSmDeviceModel(object):
     TODO: type model description here.
 
     Attributes:
-        pin (int): The pin number (a six digit value) for wiping a macOS
-            device. Required only for macOS devices.
-        serial (string): The serial of the device to be wiped.
         wifi_mac (string): The wifiMac of the device to be wiped.
         id (string): The id of the device to be wiped.
+        serial (string): The serial of the device to be wiped.
+        pin (int): The pin number (a six digit value) for wiping a macOS
+            device. Required only for macOS devices.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "pin":'pin',
-        "serial":'serial',
         "wifi_mac":'wifiMac',
-        "id":'id'
+        "id":'id',
+        "serial":'serial',
+        "pin":'pin'
     }
 
     def __init__(self,
-                 pin=None,
-                 serial=None,
                  wifi_mac=None,
-                 id=None):
+                 id=None,
+                 serial=None,
+                 pin=None):
         """Constructor for the WipeNetworkSmDeviceModel class"""
 
         # Initialize members of the class
-        self.pin = pin
-        self.serial = serial
         self.wifi_mac = wifi_mac
         self.id = id
+        self.serial = serial
+        self.pin = pin
 
 
     @classmethod
@@ -62,15 +62,15 @@ class WipeNetworkSmDeviceModel(object):
             return None
 
         # Extract variables from the dictionary
-        pin = dictionary.get('pin')
-        serial = dictionary.get('serial')
         wifi_mac = dictionary.get('wifiMac')
         id = dictionary.get('id')
+        serial = dictionary.get('serial')
+        pin = dictionary.get('pin')
 
         # Return an object of this model
-        return cls(pin,
+        return cls(wifi_mac,
+                   id,
                    serial,
-                   wifi_mac,
-                   id)
+                   pin)
 
 

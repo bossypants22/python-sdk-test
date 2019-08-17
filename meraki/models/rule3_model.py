@@ -14,58 +14,56 @@ class Rule3Model(object):
     TODO: type model description here.
 
     Attributes:
-        protocol (string): Either of the following: 'tcp', 'udp', 'icmp-ping'
-            or 'any'
-        uplink (string): The physical WAN interface on which the traffic will
-            arrive ('internet1' or, if available, 'internet2')
-        destination_ports (string): An array of ports or port ranges that will
-            be forwarded to the host on the LAN
-        allowed_ips (string): An array of ranges of WAN IP addresses that are
-            allowed to make inbound connections on the specified ports or port
-            ranges, or 'any'
-        name (string): A descriptive name for the rule
-        allowed_inbound (list of object): The ports this mapping will provide
-            access on, and the remote IPs that will be allowed access to the
-            resource
-        public_ip (string): The IP address that will be used to access the
-            internal resource from the WAN
-        lan_ip (string): The IP address of the server or device that hosts the
-            internal resource that you wish to make available on the WAN
+        comment (string): Description of the rule (optional)
+        policy (string): 'allow' or 'deny' traffic specified by this rule
+        protocol (string): The type of protocol (must be 'tcp', 'udp', 'icmp'
+            or 'any')
+        src_port (string): Comma-separated list of source port(s) (integer in
+            the range 1-65535), or 'any'
+        src_cidr (string): Comma-separated list of source IP address(es) (in
+            IP or CIDR notation), or 'any' (FQDN not supported)
+        dest_port (string): Comma-separated list of destination port(s)
+            (integer in the range 1-65535), or 'any'
+        dest_cidr (string): Comma-separated list of destination IP address(es)
+            (in IP or CIDR notation) or 'any' (FQDN not supported)
+        syslog_enabled (bool): Log this rule to syslog (true or false, boolean
+            value) - only applicable if a syslog has been configured
+            (optional)
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
+        "policy":'policy',
         "protocol":'protocol',
-        "uplink":'uplink',
-        "destination_ports":'destinationPorts',
-        "allowed_ips":'allowedIps',
-        "name":'name',
-        "allowed_inbound":'allowedInbound',
-        "public_ip":'publicIp',
-        "lan_ip":'lanIp'
+        "src_cidr":'srcCidr',
+        "dest_cidr":'destCidr',
+        "comment":'comment',
+        "src_port":'srcPort',
+        "dest_port":'destPort',
+        "syslog_enabled":'syslogEnabled'
     }
 
     def __init__(self,
+                 policy=None,
                  protocol=None,
-                 uplink=None,
-                 destination_ports=None,
-                 allowed_ips=None,
-                 name=None,
-                 allowed_inbound=None,
-                 public_ip=None,
-                 lan_ip=None):
+                 src_cidr=None,
+                 dest_cidr=None,
+                 comment=None,
+                 src_port=None,
+                 dest_port=None,
+                 syslog_enabled=None):
         """Constructor for the Rule3Model class"""
 
         # Initialize members of the class
+        self.comment = comment
+        self.policy = policy
         self.protocol = protocol
-        self.uplink = uplink
-        self.destination_ports = destination_ports
-        self.allowed_ips = allowed_ips
-        self.name = name
-        self.allowed_inbound = allowed_inbound
-        self.public_ip = public_ip
-        self.lan_ip = lan_ip
+        self.src_port = src_port
+        self.src_cidr = src_cidr
+        self.dest_port = dest_port
+        self.dest_cidr = dest_cidr
+        self.syslog_enabled = syslog_enabled
 
 
     @classmethod
@@ -86,23 +84,23 @@ class Rule3Model(object):
             return None
 
         # Extract variables from the dictionary
+        policy = dictionary.get('policy')
         protocol = dictionary.get('protocol')
-        uplink = dictionary.get('uplink')
-        destination_ports = dictionary.get('destinationPorts')
-        allowed_ips = dictionary.get('allowedIps')
-        name = dictionary.get('name')
-        allowed_inbound = dictionary.get('allowedInbound')
-        public_ip = dictionary.get('publicIp')
-        lan_ip = dictionary.get('lanIp')
+        src_cidr = dictionary.get('srcCidr')
+        dest_cidr = dictionary.get('destCidr')
+        comment = dictionary.get('comment')
+        src_port = dictionary.get('srcPort')
+        dest_port = dictionary.get('destPort')
+        syslog_enabled = dictionary.get('syslogEnabled')
 
         # Return an object of this model
-        return cls(protocol,
-                   uplink,
-                   destination_ports,
-                   allowed_ips,
-                   name,
-                   allowed_inbound,
-                   public_ip,
-                   lan_ip)
+        return cls(policy,
+                   protocol,
+                   src_cidr,
+                   dest_cidr,
+                   comment,
+                   src_port,
+                   dest_port,
+                   syslog_enabled)
 
 

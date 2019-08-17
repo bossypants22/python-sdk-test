@@ -14,7 +14,7 @@ class BlockedUrlPatternsModel(object):
     Settings for blacklisted URL patterns
 
     Attributes:
-        settings (Settings1Enum): How URL patterns are applied. Can be
+        settings (Settings2Enum): How URL patterns are applied. Can be
             'network default', 'append' or 'override'.
         patterns (list of string): A blacklist of URL patterns to block
 

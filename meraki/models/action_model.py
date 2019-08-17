@@ -15,8 +15,8 @@ class ActionModel(object):
 
     Attributes:
         resource (string): Unique identifier for the resource to be acted on
-        body (object): The body of the action
         operation (string): The operation to be used
+        body (object): The body of the action
 
     """
 
@@ -35,8 +35,8 @@ class ActionModel(object):
 
         # Initialize members of the class
         self.resource = resource
-        self.body = body
         self.operation = operation
+        self.body = body
 
 
     @classmethod

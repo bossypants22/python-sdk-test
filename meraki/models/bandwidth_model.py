@@ -15,7 +15,7 @@ class BandwidthModel(object):
     The bandwidth settings for clients bound to your group policy.
 
     Attributes:
-        settings (Settings5Enum): How bandwidth limits are enforced. Can be
+        settings (SettingsEnum): How bandwidth limits are enforced. Can be
             'network default', 'ignore' or 'custom'.
         bandwidth_limits (BandwidthLimitsModel): The bandwidth limits object,
             specifying upload and download speed for clients bound to the

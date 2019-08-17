@@ -6,7 +6,6 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
-import meraki.models.license_model
 
 class ClaimOrganizationModel(object):
 
@@ -15,31 +14,39 @@ class ClaimOrganizationModel(object):
     TODO: type model description here.
 
     Attributes:
-        serials (list of string): The serials of the devices that should be
-            claimed
-        licenses (list of LicenseModel): The licenses that should be claimed
-        orders (list of string): The numbers of the orders that should be
-            claimed
+        order (string): The order number that should be claimed
+        serial (string): The serial of the device that should be claimed
+        license_key (string): The license key that should be claimed
+        license_mode (string): Either 'renew' or 'addDevices'. 'addDevices'
+            will increase the license limit, while 'renew' will extend the
+            amount of time until expiration. This parameter is required when
+            claiming by licenseKey. Please see <a target='_blank'
+            href='https://documentation.meraki.com/zGeneral_Administration/Lice
+            nsing/Adding_an_Enterprise_license_to_an_existing_Dashboard_account
+            '>this article</a> for more information.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "serials":'serials',
-        "licenses":'licenses',
-        "orders":'orders'
+        "order":'order',
+        "serial":'serial',
+        "license_key":'licenseKey',
+        "license_mode":'licenseMode'
     }
 
     def __init__(self,
-                 serials=None,
-                 licenses=None,
-                 orders=None):
+                 order=None,
+                 serial=None,
+                 license_key=None,
+                 license_mode=None):
         """Constructor for the ClaimOrganizationModel class"""
 
         # Initialize members of the class
-        self.serials = serials
-        self.licenses = licenses
-        self.orders = orders
+        self.order = order
+        self.serial = serial
+        self.license_key = license_key
+        self.license_mode = license_mode
 
 
     @classmethod
@@ -60,17 +67,15 @@ class ClaimOrganizationModel(object):
             return None
 
         # Extract variables from the dictionary
-        serials = dictionary.get('serials')
-        licenses = None
-        if dictionary.get('licenses') != None:
-            licenses = list()
-            for structure in dictionary.get('licenses'):
-                licenses.append(meraki.models.license_model.LicenseModel.from_dictionary(structure))
-        orders = dictionary.get('orders')
+        order = dictionary.get('order')
+        serial = dictionary.get('serial')
+        license_key = dictionary.get('licenseKey')
+        license_mode = dictionary.get('licenseMode')
 
         # Return an object of this model
-        return cls(serials,
-                   licenses,
-                   orders)
+        return cls(order,
+                   serial,
+                   license_key,
+                   license_mode)
 
 

@@ -14,33 +14,33 @@ class UpdateNetworkSmAppPolarisModel(object):
     TODO: type model description here.
 
     Attributes:
-        uses_vpp (bool): optional: Whether or not the app should use VPP by
-            device assignment (one of true or false)
-        prevent_auto_install (bool): optional: Whether or not SM should
-            auto-install this app (one of true or false)
         scope (string): optional: The scope (one of all, none, automatic,
             withAny, withAll, withoutAny, or withoutAll) and a set of tags of
             the devices to be assigned
+        prevent_auto_install (bool): optional: Whether or not SM should
+            auto-install this app (one of true or false)
+        uses_vpp (bool): optional: Whether or not the app should use VPP by
+            device assignment (one of true or false)
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "uses_vpp":'usesVPP',
+        "scope":'scope',
         "prevent_auto_install":'preventAutoInstall',
-        "scope":'scope'
+        "uses_vpp":'usesVPP'
     }
 
     def __init__(self,
-                 uses_vpp=None,
+                 scope=None,
                  prevent_auto_install=None,
-                 scope=None):
+                 uses_vpp=None):
         """Constructor for the UpdateNetworkSmAppPolarisModel class"""
 
         # Initialize members of the class
-        self.uses_vpp = uses_vpp
-        self.prevent_auto_install = prevent_auto_install
         self.scope = scope
+        self.prevent_auto_install = prevent_auto_install
+        self.uses_vpp = uses_vpp
 
 
     @classmethod
@@ -61,13 +61,13 @@ class UpdateNetworkSmAppPolarisModel(object):
             return None
 
         # Extract variables from the dictionary
-        uses_vpp = dictionary.get('usesVPP')
-        prevent_auto_install = dictionary.get('preventAutoInstall')
         scope = dictionary.get('scope')
+        prevent_auto_install = dictionary.get('preventAutoInstall')
+        uses_vpp = dictionary.get('usesVPP')
 
         # Return an object of this model
-        return cls(uses_vpp,
+        return cls(scope,
                    prevent_auto_install,
-                   scope)
+                   uses_vpp)
 
 

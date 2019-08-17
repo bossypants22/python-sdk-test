@@ -14,40 +14,40 @@ class LockNetworkSmDevicesModel(object):
     TODO: type model description here.
 
     Attributes:
+        wifi_macs (string): The wifiMacs of the devices to be locked.
+        ids (string): The ids of the devices to be locked.
         serials (string): The serials of the devices to be locked.
-        pin (int): The pin number for locking macOS devices (a six digit
-            number). Required only for macOS devices.
         scope (string): The scope (one of all, none, withAny, withAll,
             withoutAny, or withoutAll) and a set of tags of the devices to be
             wiped.
-        ids (string): The ids of the devices to be locked.
-        wifi_macs (string): The wifiMacs of the devices to be locked.
+        pin (int): The pin number for locking macOS devices (a six digit
+            number). Required only for macOS devices.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "serials":'serials',
-        "pin":'pin',
-        "scope":'scope',
+        "wifi_macs":'wifiMacs',
         "ids":'ids',
-        "wifi_macs":'wifiMacs'
+        "serials":'serials',
+        "scope":'scope',
+        "pin":'pin'
     }
 
     def __init__(self,
-                 serials=None,
-                 pin=None,
-                 scope=None,
+                 wifi_macs=None,
                  ids=None,
-                 wifi_macs=None):
+                 serials=None,
+                 scope=None,
+                 pin=None):
         """Constructor for the LockNetworkSmDevicesModel class"""
 
         # Initialize members of the class
-        self.serials = serials
-        self.pin = pin
-        self.scope = scope
-        self.ids = ids
         self.wifi_macs = wifi_macs
+        self.ids = ids
+        self.serials = serials
+        self.scope = scope
+        self.pin = pin
 
 
     @classmethod
@@ -68,17 +68,17 @@ class LockNetworkSmDevicesModel(object):
             return None
 
         # Extract variables from the dictionary
-        serials = dictionary.get('serials')
-        pin = dictionary.get('pin')
-        scope = dictionary.get('scope')
-        ids = dictionary.get('ids')
         wifi_macs = dictionary.get('wifiMacs')
+        ids = dictionary.get('ids')
+        serials = dictionary.get('serials')
+        scope = dictionary.get('scope')
+        pin = dictionary.get('pin')
 
         # Return an object of this model
-        return cls(serials,
-                   pin,
-                   scope,
+        return cls(wifi_macs,
                    ids,
-                   wifi_macs)
+                   serials,
+                   scope,
+                   pin)
 
 

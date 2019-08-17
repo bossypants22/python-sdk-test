@@ -15,7 +15,7 @@ class CustomPieChartItemModel(object):
 
     Attributes:
         name (string): The name of the custom pie chart item.
-        mtype (TypeEnum): The signature type for the custom pie chart item.
+        mtype (Type7Enum): The signature type for the custom pie chart item.
             Can be one of 'host', 'port' or 'ipRange'.
         value (string): The value of the custom pie chart item. Valid syntax
             depends on the signature type of the chart item     (see sample

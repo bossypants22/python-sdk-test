@@ -10,7 +10,7 @@ class Policy1Enum(object):
 
     """Implementation of the 'Policy1' enum.
 
-    'Deny' traffic specified by this rule
+    The policy applied to matching traffic. Must be 'deny'.
 
     Attributes:
         DENY: TODO: type description here.

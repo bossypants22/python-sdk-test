@@ -15,12 +15,10 @@ class CreateOrganizationActionBatchModel(object):
     TODO: type model description here.
 
     Attributes:
-        synchronous (bool): Set to true to force the batch to run synchronous.
-            There can be at most 20 actions in synchronous batch. Defaults to
-            false.
         confirmed (bool): Set to true for immediate execution. Set to false if
-            the action should be previewed before executing. This property
-            cannot be unset once it is true. Defaults to false.
+            the action should be previewed before executing.
+        synchronous (bool): Force the batch to run synchronous. There can be
+            at most 20 actions in synchronous batch.
         actions (list of ActionModel): A set of changes to make as part of
             this action (<a
             href='https://developer.cisco.com/meraki/api/#/rest/guides/action-b
@@ -31,19 +29,19 @@ class CreateOrganizationActionBatchModel(object):
     # Create a mapping from Model property names to API property names
     _names = {
         "actions":'actions',
-        "synchronous":'synchronous',
-        "confirmed":'confirmed'
+        "confirmed":'confirmed',
+        "synchronous":'synchronous'
     }
 
     def __init__(self,
                  actions=None,
-                 synchronous=None,
-                 confirmed=None):
+                 confirmed=None,
+                 synchronous=None):
         """Constructor for the CreateOrganizationActionBatchModel class"""
 
         # Initialize members of the class
-        self.synchronous = synchronous
         self.confirmed = confirmed
+        self.synchronous = synchronous
         self.actions = actions
 
 
@@ -70,12 +68,12 @@ class CreateOrganizationActionBatchModel(object):
             actions = list()
             for structure in dictionary.get('actions'):
                 actions.append(meraki.models.action_model.ActionModel.from_dictionary(structure))
-        synchronous = dictionary.get('synchronous')
         confirmed = dictionary.get('confirmed')
+        synchronous = dictionary.get('synchronous')
 
         # Return an object of this model
         return cls(actions,
-                   synchronous,
-                   confirmed)
+                   confirmed,
+                   synchronous)
 
 

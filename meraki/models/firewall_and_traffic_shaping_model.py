@@ -17,7 +17,7 @@ class FirewallAndTrafficShapingModel(object):
     The firewall and traffic shaping rules and settings for your policy.
 
     Attributes:
-        settings (Settings6Enum): How firewall and traffic shaping rules are
+        settings (Settings1Enum): How firewall and traffic shaping rules are
             enforced. Can be 'network default', 'ignore' or 'custom'.
         traffic_shaping_rules (list of TrafficShapingRuleModel): An array of
             traffic shaping rules. Rules are applied in the order that    

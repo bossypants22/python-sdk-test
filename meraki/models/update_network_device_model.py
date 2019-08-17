@@ -14,6 +14,13 @@ class UpdateNetworkDeviceModel(object):
     TODO: type model description here.
 
     Attributes:
+        name (string): The name of a device
+        tags (string): The tags of a device
+        lat (float): The latitude of a device
+        lng (float): The longitude of a device
+        address (string): The address of a device
+        notes (string): The notes for the device. String. Limited to 255
+            characters.
         move_map_marker (bool): Whether or not to set the latitude and
             longitude of a device based on the new address. Only applies when
             lat and lng are not specified.
@@ -23,48 +30,41 @@ class UpdateNetworkDeviceModel(object):
             profile. For a device to be bindable to a switch profile, it must
             (1) be a switch, and (2) belong to a network that is bound to a
             configuration template.
-        address (string): The address of a device
-        notes (string): The notes for the device. String. Limited to 255
-            characters.
-        lng (float): The longitude of a device
-        name (string): The name of a device
-        lat (float): The latitude of a device
-        tags (string): The tags of a device
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "move_map_marker":'moveMapMarker',
-        "switch_profile_id":'switchProfileId',
+        "name":'name',
+        "tags":'tags',
+        "lat":'lat',
+        "lng":'lng',
         "address":'address',
         "notes":'notes',
-        "lng":'lng',
-        "name":'name',
-        "lat":'lat',
-        "tags":'tags'
+        "move_map_marker":'moveMapMarker',
+        "switch_profile_id":'switchProfileId'
     }
 
     def __init__(self,
-                 move_map_marker=None,
-                 switch_profile_id=None,
+                 name=None,
+                 tags=None,
+                 lat=None,
+                 lng=None,
                  address=None,
                  notes=None,
-                 lng=None,
-                 name=None,
-                 lat=None,
-                 tags=None):
+                 move_map_marker=None,
+                 switch_profile_id=None):
         """Constructor for the UpdateNetworkDeviceModel class"""
 
         # Initialize members of the class
-        self.move_map_marker = move_map_marker
-        self.switch_profile_id = switch_profile_id
+        self.name = name
+        self.tags = tags
+        self.lat = lat
+        self.lng = lng
         self.address = address
         self.notes = notes
-        self.lng = lng
-        self.name = name
-        self.lat = lat
-        self.tags = tags
+        self.move_map_marker = move_map_marker
+        self.switch_profile_id = switch_profile_id
 
 
     @classmethod
@@ -85,23 +85,23 @@ class UpdateNetworkDeviceModel(object):
             return None
 
         # Extract variables from the dictionary
-        move_map_marker = dictionary.get('moveMapMarker')
-        switch_profile_id = dictionary.get('switchProfileId')
+        name = dictionary.get('name')
+        tags = dictionary.get('tags')
+        lat = dictionary.get('lat')
+        lng = dictionary.get('lng')
         address = dictionary.get('address')
         notes = dictionary.get('notes')
-        lng = dictionary.get('lng')
-        name = dictionary.get('name')
-        lat = dictionary.get('lat')
-        tags = dictionary.get('tags')
+        move_map_marker = dictionary.get('moveMapMarker')
+        switch_profile_id = dictionary.get('switchProfileId')
 
         # Return an object of this model
-        return cls(move_map_marker,
-                   switch_profile_id,
+        return cls(name,
+                   tags,
+                   lat,
+                   lng,
                    address,
                    notes,
-                   lng,
-                   name,
-                   lat,
-                   tags)
+                   move_map_marker,
+                   switch_profile_id)
 
 

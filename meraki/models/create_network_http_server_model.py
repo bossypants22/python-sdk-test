@@ -15,10 +15,10 @@ class CreateNetworkHttpServerModel(object):
 
     Attributes:
         name (string): A name for easy reference to the HTTP server
+        url (string): The URL of the HTTP server
         shared_secret (string): A shared secret that will be included in POSTs
             sent to the HTTP server. This secret can be used to verify that
             the request was sent by Meraki.
-        url (string): The URL of the HTTP server
 
     """
 
@@ -37,8 +37,8 @@ class CreateNetworkHttpServerModel(object):
 
         # Initialize members of the class
         self.name = name
-        self.shared_secret = shared_secret
         self.url = url
+        self.shared_secret = shared_secret
 
 
     @classmethod

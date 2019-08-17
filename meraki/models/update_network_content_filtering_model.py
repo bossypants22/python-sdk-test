@@ -14,37 +14,37 @@ class UpdateNetworkContentFilteringModel(object):
     TODO: type model description here.
 
     Attributes:
+        allowed_url_patterns (list of string): A whitelist of URL patterns to
+            allow
         blocked_url_patterns (list of string): A blacklist of URL patterns to
+            block
+        blocked_url_categories (list of string): A list of URL categories to
             block
         url_category_list_size (string): URL category list size which is
             either 'topSites' or 'fullList'
-        allowed_url_patterns (list of string): A whitelist of URL patterns to
-            allow
-        blocked_url_categories (list of string): A list of URL categories to
-            block
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "blocked_url_patterns":'blockedUrlPatterns',
-        "url_category_list_size":'urlCategoryListSize',
         "allowed_url_patterns":'allowedUrlPatterns',
-        "blocked_url_categories":'blockedUrlCategories'
+        "blocked_url_patterns":'blockedUrlPatterns',
+        "blocked_url_categories":'blockedUrlCategories',
+        "url_category_list_size":'urlCategoryListSize'
     }
 
     def __init__(self,
-                 blocked_url_patterns=None,
-                 url_category_list_size=None,
                  allowed_url_patterns=None,
-                 blocked_url_categories=None):
+                 blocked_url_patterns=None,
+                 blocked_url_categories=None,
+                 url_category_list_size=None):
         """Constructor for the UpdateNetworkContentFilteringModel class"""
 
         # Initialize members of the class
-        self.blocked_url_patterns = blocked_url_patterns
-        self.url_category_list_size = url_category_list_size
         self.allowed_url_patterns = allowed_url_patterns
+        self.blocked_url_patterns = blocked_url_patterns
         self.blocked_url_categories = blocked_url_categories
+        self.url_category_list_size = url_category_list_size
 
 
     @classmethod
@@ -65,15 +65,15 @@ class UpdateNetworkContentFilteringModel(object):
             return None
 
         # Extract variables from the dictionary
-        blocked_url_patterns = dictionary.get('blockedUrlPatterns')
-        url_category_list_size = dictionary.get('urlCategoryListSize')
         allowed_url_patterns = dictionary.get('allowedUrlPatterns')
+        blocked_url_patterns = dictionary.get('blockedUrlPatterns')
         blocked_url_categories = dictionary.get('blockedUrlCategories')
+        url_category_list_size = dictionary.get('urlCategoryListSize')
 
         # Return an object of this model
-        return cls(blocked_url_patterns,
-                   url_category_list_size,
-                   allowed_url_patterns,
-                   blocked_url_categories)
+        return cls(allowed_url_patterns,
+                   blocked_url_patterns,
+                   blocked_url_categories,
+                   url_category_list_size)
 
 

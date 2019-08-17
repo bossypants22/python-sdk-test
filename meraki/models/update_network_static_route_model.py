@@ -14,43 +14,43 @@ class UpdateNetworkStaticRouteModel(object):
     TODO: type model description here.
 
     Attributes:
-        subnet (string): The subnet of the static route
         name (string): The name of the static route
+        subnet (string): The subnet of the static route
         gateway_ip (string): The gateway IP (next hop) of the static route
         enabled (string): The enabled state of the static route
-        reserved_ip_ranges (string): The DHCP reserved IP ranges on the static
-            route
         fixed_ip_assignments (string): The DHCP fixed IP assignments on the
             static route
+        reserved_ip_ranges (string): The DHCP reserved IP ranges on the static
+            route
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "subnet":'subnet',
         "name":'name',
+        "subnet":'subnet',
         "gateway_ip":'gatewayIp',
         "enabled":'enabled',
-        "reserved_ip_ranges":'reservedIpRanges',
-        "fixed_ip_assignments":'fixedIpAssignments'
+        "fixed_ip_assignments":'fixedIpAssignments',
+        "reserved_ip_ranges":'reservedIpRanges'
     }
 
     def __init__(self,
-                 subnet=None,
                  name=None,
+                 subnet=None,
                  gateway_ip=None,
                  enabled=None,
-                 reserved_ip_ranges=None,
-                 fixed_ip_assignments=None):
+                 fixed_ip_assignments=None,
+                 reserved_ip_ranges=None):
         """Constructor for the UpdateNetworkStaticRouteModel class"""
 
         # Initialize members of the class
-        self.subnet = subnet
         self.name = name
+        self.subnet = subnet
         self.gateway_ip = gateway_ip
         self.enabled = enabled
-        self.reserved_ip_ranges = reserved_ip_ranges
         self.fixed_ip_assignments = fixed_ip_assignments
+        self.reserved_ip_ranges = reserved_ip_ranges
 
 
     @classmethod
@@ -71,19 +71,19 @@ class UpdateNetworkStaticRouteModel(object):
             return None
 
         # Extract variables from the dictionary
-        subnet = dictionary.get('subnet')
         name = dictionary.get('name')
+        subnet = dictionary.get('subnet')
         gateway_ip = dictionary.get('gatewayIp')
         enabled = dictionary.get('enabled')
-        reserved_ip_ranges = dictionary.get('reservedIpRanges')
         fixed_ip_assignments = dictionary.get('fixedIpAssignments')
+        reserved_ip_ranges = dictionary.get('reservedIpRanges')
 
         # Return an object of this model
-        return cls(subnet,
-                   name,
+        return cls(name,
+                   subnet,
                    gateway_ip,
                    enabled,
-                   reserved_ip_ranges,
-                   fixed_ip_assignments)
+                   fixed_ip_assignments,
+                   reserved_ip_ranges)
 
 

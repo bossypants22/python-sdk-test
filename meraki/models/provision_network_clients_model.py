@@ -14,38 +14,38 @@ class ProvisionNetworkClientsModel(object):
     TODO: type model description here.
 
     Attributes:
+        mac (string): The MAC address of the client. Required.
         name (string): The display name for the client. Optional. Limited to
             255 bytes.
-        group_policy_id (string): The ID of the desired group policy to apply
-            to the client. Required if 'devicePolicy' is set to "Group
-            policy". Otherwise this is ignored.
-        mac (string): The MAC address of the client. Required.
         device_policy (string): The policy to apply to the specified client.
             Can be 'Whitelisted', 'Blocked', 'Normal' or 'Group policy'.
             Required.
+        group_policy_id (string): The ID of the desired group policy to apply
+            to the client. Required if 'devicePolicy' is set to "Group
+            policy". Otherwise this is ignored.
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "name":'name',
-        "group_policy_id":'groupPolicyId',
         "mac":'mac',
-        "device_policy":'devicePolicy'
+        "name":'name',
+        "device_policy":'devicePolicy',
+        "group_policy_id":'groupPolicyId'
     }
 
     def __init__(self,
-                 name=None,
-                 group_policy_id=None,
                  mac=None,
-                 device_policy=None):
+                 name=None,
+                 device_policy=None,
+                 group_policy_id=None):
         """Constructor for the ProvisionNetworkClientsModel class"""
 
         # Initialize members of the class
-        self.name = name
-        self.group_policy_id = group_policy_id
         self.mac = mac
+        self.name = name
         self.device_policy = device_policy
+        self.group_policy_id = group_policy_id
 
 
     @classmethod
@@ -66,15 +66,15 @@ class ProvisionNetworkClientsModel(object):
             return None
 
         # Extract variables from the dictionary
-        name = dictionary.get('name')
-        group_policy_id = dictionary.get('groupPolicyId')
         mac = dictionary.get('mac')
+        name = dictionary.get('name')
         device_policy = dictionary.get('devicePolicy')
+        group_policy_id = dictionary.get('groupPolicyId')
 
         # Return an object of this model
-        return cls(name,
-                   group_policy_id,
-                   mac,
-                   device_policy)
+        return cls(mac,
+                   name,
+                   device_policy,
+                   group_policy_id)
 
 
