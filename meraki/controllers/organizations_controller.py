@@ -241,11 +241,10 @@ class OrganizationsController(BaseController):
                            options=dict()):
         """Does a POST request to /organizations/{organizationId}/claim.
 
-        Claim a device, license key, or order into an organization. When
-        claiming by order, all devices and licenses in the order will be
+        Claim a list of devices, licenses, and/or orders into an organization.
+        When claiming by order, all devices and licenses in the order will be
         claimed; licenses will be added to the organization and devices will
-        be placed in the organization's inventory. These three types of claims
-        are mutually exclusive and cannot be performed in one request.
+        be placed in the organization's inventory.
 
         Args:
             options (dict, optional): Key-value pairs for any of the
@@ -260,7 +259,7 @@ class OrganizationsController(BaseController):
                         description here. Example: 
 
         Returns:
-            void: Response from the API. Successful operation
+            mixed: Response from the API. Successful operation
 
         Raises:
             APIException: When an error occurs while fetching the data from
@@ -284,6 +283,7 @@ class OrganizationsController(BaseController):
 
         # Prepare headers
         _headers = {
+            'accept': 'application/json',
             'content-type': 'application/json; charset=utf-8'
         }
 
@@ -292,6 +292,9 @@ class OrganizationsController(BaseController):
         CustomHeaderAuth.apply(_request)
         _context = self.execute_request(_request)
         self.validate_response(_context)
+
+        # Return appropriate type
+        return APIHelper.json_deserialize(_context.response.raw_body)
 
     def clone_organization(self,
                            options=dict()):
