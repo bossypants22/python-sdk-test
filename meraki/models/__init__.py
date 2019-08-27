@@ -124,6 +124,7 @@ __all__ = [
     'reserved_ip_range_model',
     'dhcp_option_model',
     'update_network_vlans_enabled_state_model',
+    'update_network_warm_spare_settings_model',
     'lock_network_sm_devices_model',
     'create_organization_model',
     'update_organization_model',
@@ -135,6 +136,7 @@ __all__ = [
     'network_model',
     'update_organization_admin_model',
     'claim_organization_model',
+    'license_model',
     'clone_organization_model',
     'create_organization_network_model',
     'combine_organization_networks_model',
@@ -179,6 +181,7 @@ __all__ = [
     'power_type_enum',
     'mode_enum',
     'type7_enum',
+    'mode1_enum',
     'v3_auth_mode_enum',
     'v3_priv_mode_enum',
 ]

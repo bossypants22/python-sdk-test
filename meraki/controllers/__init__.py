@@ -26,6 +26,7 @@ __all__ = [
     'mxvpn_firewall_controller',
     'mx_cellular_firewall_controller',
     'mx_port_forwarding_rules_controller',
+    'mx_warm_spare_settings_controller',
     'malware_settings_controller',
     'management_interface_settings_controller',
     'meraki_auth_users_controller',

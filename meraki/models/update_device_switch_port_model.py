@@ -18,7 +18,8 @@ class UpdateDeviceSwitchPortModel(object):
         tags (string): The tags of the switch port
         enabled (bool): The status of the switch port
         mtype (string): The type of the switch port ("access" or "trunk")
-        vlan (int): The VLAN of the switch port
+        vlan (int): The VLAN of the switch port. A null value will clear the
+            value set for trunk ports.
         voice_vlan (int): The voice VLAN of the switch port. Only applicable
             to access ports.
         allowed_vlans (string): The VLANs allowed on the switch port. Only

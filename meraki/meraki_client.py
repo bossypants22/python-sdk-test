@@ -34,6 +34,7 @@ from meraki.controllers.mxvlan_ports_controller import MXVLANPortsController
 from meraki.controllers.mxvpn_firewall_controller import MXVPNFirewallController
 from meraki.controllers.mx_cellular_firewall_controller import MXCellularFirewallController
 from meraki.controllers.mx_port_forwarding_rules_controller import MXPortForwardingRulesController
+from meraki.controllers.mx_warm_spare_settings_controller import MXWarmSpareSettingsController
 from meraki.controllers.malware_settings_controller import MalwareSettingsController
 from meraki.controllers.management_interface_settings_controller import ManagementInterfaceSettingsController
 from meraki.controllers.meraki_auth_users_controller import MerakiAuthUsersController
@@ -173,6 +174,10 @@ class MerakiClient(object):
     @lazy_property
     def mx_port_forwarding_rules(self):
         return MXPortForwardingRulesController()
+
+    @lazy_property
+    def mx_warm_spare_settings(self):
+        return MXWarmSpareSettingsController()
 
     @lazy_property
     def malware_settings(self):
