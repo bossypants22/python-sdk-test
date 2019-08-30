@@ -34,6 +34,9 @@ class UpdateDeviceSwitchPortModel(object):
         link_negotiation (string): The link speed for the switch port
         port_schedule_id (string): The ID of the port schedule. A value of
             null will clear the port schedule.
+        udld (UdldEnum): The action to take when Unidirectional Link is
+            detected (Alert only, Enforce). Default configuration is Alert
+            only.
 
     """
 
@@ -52,7 +55,8 @@ class UpdateDeviceSwitchPortModel(object):
         "stp_guard":'stpGuard',
         "access_policy_number":'accessPolicyNumber',
         "link_negotiation":'linkNegotiation',
-        "port_schedule_id":'portScheduleId'
+        "port_schedule_id":'portScheduleId',
+        "udld":'udld'
     }
 
     def __init__(self,
@@ -69,7 +73,8 @@ class UpdateDeviceSwitchPortModel(object):
                  stp_guard=None,
                  access_policy_number=None,
                  link_negotiation=None,
-                 port_schedule_id=None):
+                 port_schedule_id=None,
+                 udld=None):
         """Constructor for the UpdateDeviceSwitchPortModel class"""
 
         # Initialize members of the class
@@ -87,6 +92,7 @@ class UpdateDeviceSwitchPortModel(object):
         self.access_policy_number = access_policy_number
         self.link_negotiation = link_negotiation
         self.port_schedule_id = port_schedule_id
+        self.udld = udld
 
 
     @classmethod
@@ -121,6 +127,7 @@ class UpdateDeviceSwitchPortModel(object):
         access_policy_number = dictionary.get('accessPolicyNumber')
         link_negotiation = dictionary.get('linkNegotiation')
         port_schedule_id = dictionary.get('portScheduleId')
+        udld = dictionary.get('udld')
 
         # Return an object of this model
         return cls(name,
@@ -136,6 +143,7 @@ class UpdateDeviceSwitchPortModel(object):
                    stp_guard,
                    access_policy_number,
                    link_negotiation,
-                   port_schedule_id)
+                   port_schedule_id,
+                   udld)
 
 
