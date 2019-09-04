@@ -86,6 +86,10 @@ class MVSenseController(BaseController):
                         specify parameters t0 and t1. The value must be in
                         seconds and be less than or equal to 7 days. The
                         default is 1 hour.
+                    object_type -- ObjectTypeEnum -- [optional] The object
+                        type for which analytics will be retrieved. The
+                        default object type is person. The available types are
+                        [person, vehicle].
 
         Returns:
             mixed: Response from the API. Successful operation
@@ -111,7 +115,8 @@ class MVSenseController(BaseController):
         _query_parameters = {
             't0': options.get('t0', None),
             't1': options.get('t1', None),
-            'timespan': options.get('timespan', None)
+            'timespan': options.get('timespan', None),
+            'objectType': options.get('object_type', None)
         }
         _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
             _query_parameters, Configuration.array_serialization)
@@ -132,13 +137,23 @@ class MVSenseController(BaseController):
         return APIHelper.json_deserialize(_context.response.raw_body)
 
     def get_device_camera_analytics_recent(self,
-                                           serial):
+                                           options=dict()):
         """Does a GET request to /devices/{serial}/camera/analytics/recent.
 
         Returns most recent record for analytics zones
 
         Args:
-            serial (string): TODO: type description here. Example: 
+            options (dict, optional): Key-value pairs for any of the
+                parameters to this API Endpoint. All parameters to the
+                endpoint are supplied through the dictionary with their names
+                being the key and their desired values being the value. A list
+                of parameters that can be used are::
+
+                    serial -- string -- TODO: type description here. Example:
+                                            object_type -- ObjectTypeEnum -- [optional] The object
+                        type for which analytics will be retrieved. The
+                        default object type is person. The available types are
+                        [person, vehicle].
 
         Returns:
             mixed: Response from the API. Successful operation
@@ -152,15 +167,20 @@ class MVSenseController(BaseController):
         """
 
         # Validate required parameters
-        self.validate_parameters(serial=serial)
+        self.validate_parameters(serial=options.get("serial"))
 
         # Prepare query URL
         _url_path = '/devices/{serial}/camera/analytics/recent'
         _url_path = APIHelper.append_url_with_template_parameters(_url_path, { 
-            'serial': serial
+            'serial': options.get('serial', None)
         })
         _query_builder = Configuration.base_uri
         _query_builder += _url_path
+        _query_parameters = {
+            'objectType': options.get('object_type', None)
+        }
+        _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
+            _query_parameters, Configuration.array_serialization)
         _query_url = APIHelper.clean_url(_query_builder)
 
         # Prepare headers
@@ -251,6 +271,10 @@ class MVSenseController(BaseController):
                     resolution -- int -- The time resolution in seconds for
                         returned data. The valid resolutions are: 60. The
                         default is 60.
+                    object_type -- ObjectTypeEnum -- [optional] The object
+                        type for which analytics will be retrieved. The
+                        default object type is person. The available types are
+                        [person, vehicle].
 
         Returns:
             mixed: Response from the API. Successful operation
@@ -279,7 +303,8 @@ class MVSenseController(BaseController):
             't0': options.get('t0', None),
             't1': options.get('t1', None),
             'timespan': options.get('timespan', None),
-            'resolution': options.get('resolution', None)
+            'resolution': options.get('resolution', None),
+            'objectType': options.get('object_type', None)
         }
         _query_builder = APIHelper.append_url_with_query_parameters(_query_builder,
             _query_parameters, Configuration.array_serialization)

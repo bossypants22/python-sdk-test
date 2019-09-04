@@ -160,6 +160,7 @@ __all__ = [
     'ipsec_policies_model',
     'update_organization_vpn_firewall_rules_model',
     'rule11_model',
+    'object_type_enum',
     'udld_enum',
     'wan_enabled_enum',
     'access_enum',
