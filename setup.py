@@ -12,7 +12,7 @@ else:
 
 setup(
     name='meraki',
-    version='1.7.0',
+    version='1.8.0',
     description='Python client library for Meraki Dashboard API',
     long_description=long_description,
     long_description_content_type="text/markdown",
