@@ -37,6 +37,13 @@ class UpdateDeviceSwitchPortModel(object):
         udld (UdldEnum): The action to take when Unidirectional Link is
             detected (Alert only, Enforce). Default configuration is Alert
             only.
+        mac_whitelist (list of string): Only devices with MAC addresses
+            specified in this list will have access to this port.  Up to 20
+            MAC addresses can be defined.
+        sticky_mac_whitelist (list of string): The initial list of MAC
+            addresses for sticky Mac whitelist.
+        sticky_mac_whitelist_limit (int): The maximum number of MAC addresses
+            for sticky MAC whitelist.
 
     """
 
@@ -56,7 +63,10 @@ class UpdateDeviceSwitchPortModel(object):
         "access_policy_number":'accessPolicyNumber',
         "link_negotiation":'linkNegotiation',
         "port_schedule_id":'portScheduleId',
-        "udld":'udld'
+        "udld":'udld',
+        "mac_whitelist":'macWhitelist',
+        "sticky_mac_whitelist":'stickyMacWhitelist',
+        "sticky_mac_whitelist_limit":'stickyMacWhitelistLimit'
     }
 
     def __init__(self,
@@ -74,7 +84,10 @@ class UpdateDeviceSwitchPortModel(object):
                  access_policy_number=None,
                  link_negotiation=None,
                  port_schedule_id=None,
-                 udld=None):
+                 udld=None,
+                 mac_whitelist=None,
+                 sticky_mac_whitelist=None,
+                 sticky_mac_whitelist_limit=None):
         """Constructor for the UpdateDeviceSwitchPortModel class"""
 
         # Initialize members of the class
@@ -93,6 +106,9 @@ class UpdateDeviceSwitchPortModel(object):
         self.link_negotiation = link_negotiation
         self.port_schedule_id = port_schedule_id
         self.udld = udld
+        self.mac_whitelist = mac_whitelist
+        self.sticky_mac_whitelist = sticky_mac_whitelist
+        self.sticky_mac_whitelist_limit = sticky_mac_whitelist_limit
 
 
     @classmethod
@@ -128,6 +144,9 @@ class UpdateDeviceSwitchPortModel(object):
         link_negotiation = dictionary.get('linkNegotiation')
         port_schedule_id = dictionary.get('portScheduleId')
         udld = dictionary.get('udld')
+        mac_whitelist = dictionary.get('macWhitelist')
+        sticky_mac_whitelist = dictionary.get('stickyMacWhitelist')
+        sticky_mac_whitelist_limit = dictionary.get('stickyMacWhitelistLimit')
 
         # Return an object of this model
         return cls(name,
@@ -144,6 +163,9 @@ class UpdateDeviceSwitchPortModel(object):
                    access_policy_number,
                    link_negotiation,
                    port_schedule_id,
-                   udld)
+                   udld,
+                   mac_whitelist,
+                   sticky_mac_whitelist,
+                   sticky_mac_whitelist_limit)
 
 

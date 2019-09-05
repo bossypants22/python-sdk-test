@@ -11,7 +11,6 @@ __all__ = [
     'content_filtering_categories_controller',
     'content_filtering_rules_controller',
     'devices_controller',
-    'events_controller',
     'firewalled_services_controller',
     'group_policies_controller',
     'http_servers_controller',

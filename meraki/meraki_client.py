@@ -19,7 +19,6 @@ from meraki.controllers.config_templates_controller import ConfigTemplatesContro
 from meraki.controllers.content_filtering_categories_controller import ContentFilteringCategoriesController
 from meraki.controllers.content_filtering_rules_controller import ContentFilteringRulesController
 from meraki.controllers.devices_controller import DevicesController
-from meraki.controllers.events_controller import EventsController
 from meraki.controllers.firewalled_services_controller import FirewalledServicesController
 from meraki.controllers.group_policies_controller import GroupPoliciesController
 from meraki.controllers.http_servers_controller import HTTPServersController
@@ -115,10 +114,6 @@ class MerakiClient(object):
     @lazy_property
     def devices(self):
         return DevicesController()
-
-    @lazy_property
-    def events(self):
-        return EventsController()
 
     @lazy_property
     def firewalled_services(self):
