@@ -281,10 +281,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 17
+timespan = 183
 collect['timespan'] = timespan
 
-per_page = 17
+per_page = 183
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -302,7 +302,7 @@ collect['path'] = path
 method = 'method'
 collect['method'] = method
 
-response_code = 17
+response_code = 183
 collect['response_code'] = response_code
 
 
@@ -758,7 +758,7 @@ collect = {}
 network_id = 'networkId'
 collect['network_id'] = network_id
 
-per_page = 17
+per_page = 20
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -767,7 +767,7 @@ collect['starting_after'] = starting_after
 ending_before = 'endingBefore'
 collect['ending_before'] = ending_before
 
-timespan = 17
+timespan = 20
 collect['timespan'] = timespan
 
 include_connectivity_history = False
@@ -813,7 +813,7 @@ collect['bluetooth_client_id'] = bluetooth_client_id
 include_connectivity_history = False
 collect['include_connectivity_history'] = include_connectivity_history
 
-connectivity_history_timespan = 17
+connectivity_history_timespan = 20
 collect['connectivity_history_timespan'] = connectivity_history_timespan
 
 
@@ -954,7 +954,7 @@ collect['serial'] = serial
 t0 = 't0'
 collect['t0'] = t0
 
-timespan = 17
+timespan = 20
 collect['timespan'] = timespan
 
 
@@ -996,10 +996,10 @@ collect['network_id'] = network_id
 t0 = 't0'
 collect['t0'] = t0
 
-timespan = 17
+timespan = 20
 collect['timespan'] = timespan
 
-per_page = 17
+per_page = 20
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -1116,7 +1116,7 @@ collect['network_id'] = network_id
 client_id = 'clientId'
 collect['client_id'] = client_id
 
-per_page = 17
+per_page = 20
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -1170,10 +1170,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 17
+timespan = 20
 collect['timespan'] = timespan
 
-resolution = 17
+resolution = 20
 collect['resolution'] = resolution
 
 
@@ -1362,7 +1362,7 @@ collect['network_id'] = network_id
 client_id = 'clientId'
 collect['client_id'] = client_id
 
-per_page = 17
+per_page = 20
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -1816,7 +1816,7 @@ collect['network_id'] = network_id
 serial = 'serial'
 collect['serial'] = serial
 
-timespan = 230
+timespan = 20
 collect['timespan'] = timespan
 
 
@@ -1869,10 +1869,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 230
+timespan = 20
 collect['timespan'] = timespan
 
-resolution = 230
+resolution = 20
 collect['resolution'] = resolution
 
 uplink = 'uplink'
@@ -2052,7 +2052,7 @@ collect = {}
 organization_id = 'organizationId'
 collect['organization_id'] = organization_id
 
-per_page = 230
+per_page = 20
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -2912,7 +2912,7 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 230
+timespan = 233
 collect['timespan'] = timespan
 
 object_type = ObjectTypeEnum.PERSON
@@ -3026,10 +3026,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 230
+timespan = 233
 collect['timespan'] = timespan
 
-resolution = 230
+resolution = 233
 collect['resolution'] = resolution
 
 object_type = ObjectTypeEnum.PERSON
@@ -4084,7 +4084,7 @@ collect = {}
 network_id = 'networkId'
 collect['network_id'] = network_id
 
-with_details = False
+with_details = True
 collect['with_details'] = with_details
 
 
@@ -4158,7 +4158,7 @@ collect['network_id'] = network_id
 target_group_id = 'targetGroupId'
 collect['target_group_id'] = target_group_id
 
-with_details = False
+with_details = True
 collect['with_details'] = with_details
 
 
@@ -4473,7 +4473,7 @@ collect['network_id'] = network_id
 t0 = 't0'
 collect['t0'] = t0
 
-timespan = 67
+timespan = 233
 collect['timespan'] = timespan
 
 
@@ -5274,7 +5274,7 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 158
+timespan = 70
 collect['timespan'] = timespan
 
 uplink = 'uplink'
@@ -5753,7 +5753,7 @@ collect = {}
 network_id = 'networkId'
 collect['network_id'] = network_id
 
-include_template_profiles = True
+include_template_profiles = False
 collect['include_template_profiles'] = include_template_profiles
 
 
@@ -7944,10 +7944,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 117
+timespan = 161
 collect['timespan'] = timespan
 
-per_page = 117
+per_page = 161
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -7999,10 +7999,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 117
+timespan = 161
 collect['timespan'] = timespan
 
-per_page = 117
+per_page = 161
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -8054,10 +8054,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 117
+timespan = 161
 collect['timespan'] = timespan
 
-per_page = 117
+per_page = 161
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -8118,7 +8118,7 @@ collect['ssid_number'] = ssid_number
 login_identifier = 'loginIdentifier'
 collect['login_identifier'] = login_identifier
 
-timespan = 117
+timespan = 161
 collect['timespan'] = timespan
 
 
@@ -9719,10 +9719,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-per_page = 208
+per_page = 119
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -9789,13 +9789,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-ssid = 208
+ssid = 119
 collect['ssid'] = ssid
 
-vlan = 208
+vlan = 119
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -9845,13 +9845,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-ssid = 208
+ssid = 119
 collect['ssid'] = ssid
 
-vlan = 208
+vlan = 119
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -9907,13 +9907,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-ssid = 208
+ssid = 119
 collect['ssid'] = ssid
 
-vlan = 208
+vlan = 119
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -9967,13 +9967,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-ssid = 208
+ssid = 119
 collect['ssid'] = ssid
 
-vlan = 208
+vlan = 119
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10025,13 +10025,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-ssid = 208
+ssid = 119
 collect['ssid'] = ssid
 
-vlan = 208
+vlan = 119
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10080,13 +10080,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-ssid = 208
+ssid = 119
 collect['ssid'] = ssid
 
-vlan = 208
+vlan = 119
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10136,13 +10136,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-ssid = 208
+ssid = 119
 collect['ssid'] = ssid
 
-vlan = 208
+vlan = 119
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10198,13 +10198,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-ssid = 208
+ssid = 119
 collect['ssid'] = ssid
 
-vlan = 208
+vlan = 119
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10258,13 +10258,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-ssid = 208
+ssid = 119
 collect['ssid'] = ssid
 
-vlan = 208
+vlan = 119
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10318,13 +10318,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-ssid = 208
+ssid = 119
 collect['ssid'] = ssid
 
-vlan = 208
+vlan = 119
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10380,13 +10380,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 208
+timespan = 119
 collect['timespan'] = timespan
 
-ssid = 208
+ssid = 119
 collect['ssid'] = ssid
 
-vlan = 208
+vlan = 119
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
