@@ -393,7 +393,7 @@ class DevicesController(BaseController):
                     resolution -- int -- The time resolution in seconds for
                         returned data. The valid resolutions are: 60, 600,
                         3600, 86400. The default is 60.
-                    uplink -- string -- The WAN uplink used to obtain the
+                    uplink -- UplinkEnum -- The WAN uplink used to obtain the
                         requested stats. Valid uplinks are wan1, wan2,
                         cellular. The default is wan1.
 

@@ -6,32 +6,35 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
-import meraki.models.bandwidth_limits6_model
 
-class UpdateNetworkUplinkSettingsModel(object):
+class Wan21Model(object):
 
-    """Implementation of the 'updateNetworkUplinkSettings' model.
+    """Implementation of the 'Wan21' model.
 
-    TODO: type model description here.
+    The bandwidth settings for the 'wan2' uplink
 
     Attributes:
-        bandwidth_limits (BandwidthLimits6Model): A mapping of uplinks to
-            their bandwidth settings (be sure to check which uplinks are
-            supported for your network)
+        limit_up (int): The maximum upload limit (integer, in Kbps). null
+            indicates no limit
+        limit_down (int): The maximum download limit (integer, in Kbps). null
+            indicates no limit
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "bandwidth_limits":'bandwidthLimits'
+        "limit_up":'limitUp',
+        "limit_down":'limitDown'
     }
 
     def __init__(self,
-                 bandwidth_limits=None):
-        """Constructor for the UpdateNetworkUplinkSettingsModel class"""
+                 limit_up=None,
+                 limit_down=None):
+        """Constructor for the Wan21Model class"""
 
         # Initialize members of the class
-        self.bandwidth_limits = bandwidth_limits
+        self.limit_up = limit_up
+        self.limit_down = limit_down
 
 
     @classmethod
@@ -52,9 +55,11 @@ class UpdateNetworkUplinkSettingsModel(object):
             return None
 
         # Extract variables from the dictionary
-        bandwidth_limits = meraki.models.bandwidth_limits6_model.BandwidthLimits6Model.from_dictionary(dictionary.get('bandwidthLimits')) if dictionary.get('bandwidthLimits') else None
+        limit_up = dictionary.get('limitUp')
+        limit_down = dictionary.get('limitDown')
 
         # Return an object of this model
-        return cls(bandwidth_limits)
+        return cls(limit_up,
+                   limit_down)
 
 

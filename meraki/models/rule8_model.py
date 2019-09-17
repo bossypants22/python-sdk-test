@@ -15,9 +15,9 @@ class Rule8Model(object):
 
     Attributes:
         comment (string): Description of the rule (optional)
-        policy (string): 'allow' or 'deny' traffic specified by this rule
-        protocol (string): The type of protocol (must be 'tcp', 'udp', 'icmp'
-            or 'any')
+        policy (PolicyEnum): 'allow' or 'deny' traffic specified by this rule
+        protocol (ProtocolEnum): The type of protocol (must be 'tcp', 'udp',
+            'icmp' or 'any')
         dest_port (string): Comma-separated list of destination port(s)
             (integer in the range 1-65535), or 'any'
         dest_cidr (string): Comma-separated list of destination IP address(es)

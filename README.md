@@ -281,10 +281,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 109
+timespan = 189
 collect['timespan'] = timespan
 
-per_page = 109
+per_page = 189
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -302,7 +302,7 @@ collect['path'] = path
 method = 'method'
 collect['method'] = method
 
-response_code = 109
+response_code = 189
 collect['response_code'] = response_code
 
 
@@ -742,10 +742,11 @@ def get_network_bluetooth_clients(self,
 | Parameter | Tags | Description |
 |-----------|------|-------------|
 | networkId |  ``` Required ```  | TODO: Add a parameter description |
+| t0 |  ``` Optional ```  | The beginning of the timespan for the data. The maximum lookback period is 7 days from today. |
+| timespan |  ``` Optional ```  | The timespan for which the information will be fetched. If specifying timespan, do not specify parameter t0. The value must be in seconds and be less than or equal to 7 days. The default is 1 day. |
 | perPage |  ``` Optional ```  | The number of entries per page returned. Acceptable range is 5 - 1000. Default is 10. |
 | startingAfter |  ``` Optional ```  | A token used by the server to indicate the start of the page. Often this is a timestamp or an ID but it is not limited to those. This parameter should not be defined by client applications. The link for the first, last, prev, or next page in the HTTP Link header should define it. |
 | endingBefore |  ``` Optional ```  | A token used by the server to indicate the end of the page. Often this is a timestamp or an ID but it is not limited to those. This parameter should not be defined by client applications. The link for the first, last, prev, or next page in the HTTP Link header should define it. |
-| timespan |  ``` Optional ```  | The timespan, in seconds, used to look back from now for bluetooth clients |
 | includeConnectivityHistory |  ``` Optional ```  | Include the connectivity history for this client |
 
 
@@ -758,7 +759,13 @@ collect = {}
 network_id = 'networkId'
 collect['network_id'] = network_id
 
-per_page = 109
+t0 = 't0'
+collect['t0'] = t0
+
+timespan = 189
+collect['timespan'] = timespan
+
+per_page = 189
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -767,10 +774,7 @@ collect['starting_after'] = starting_after
 ending_before = 'endingBefore'
 collect['ending_before'] = ending_before
 
-timespan = 109
-collect['timespan'] = timespan
-
-include_connectivity_history = False
+include_connectivity_history = True
 collect['include_connectivity_history'] = include_connectivity_history
 
 
@@ -810,10 +814,10 @@ collect['network_id'] = network_id
 bluetooth_client_id = 'bluetoothClientId'
 collect['bluetooth_client_id'] = bluetooth_client_id
 
-include_connectivity_history = False
+include_connectivity_history = True
 collect['include_connectivity_history'] = include_connectivity_history
 
-connectivity_history_timespan = 109
+connectivity_history_timespan = 189
 collect['connectivity_history_timespan'] = connectivity_history_timespan
 
 
@@ -954,7 +958,7 @@ collect['serial'] = serial
 t0 = 't0'
 collect['t0'] = t0
 
-timespan = 109
+timespan = 189
 collect['timespan'] = timespan
 
 
@@ -996,10 +1000,10 @@ collect['network_id'] = network_id
 t0 = 't0'
 collect['t0'] = t0
 
-timespan = 109
+timespan = 189
 collect['timespan'] = timespan
 
-per_page = 109
+per_page = 189
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -1116,7 +1120,7 @@ collect['network_id'] = network_id
 client_id = 'clientId'
 collect['client_id'] = client_id
 
-per_page = 109
+per_page = 189
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -1170,10 +1174,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 109
+timespan = 189
 collect['timespan'] = timespan
 
-resolution = 109
+resolution = 189
 collect['resolution'] = resolution
 
 
@@ -1362,7 +1366,7 @@ collect['network_id'] = network_id
 client_id = 'clientId'
 collect['client_id'] = client_id
 
-per_page = 109
+per_page = 189
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -1816,7 +1820,7 @@ collect['network_id'] = network_id
 serial = 'serial'
 collect['serial'] = serial
 
-timespan = 201
+timespan = 189
 collect['timespan'] = timespan
 
 
@@ -1869,13 +1873,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 201
+timespan = 189
 collect['timespan'] = timespan
 
-resolution = 201
+resolution = 189
 collect['resolution'] = resolution
 
-uplink = 'uplink'
+uplink = UplinkEnum.WAN1
 collect['uplink'] = uplink
 
 
@@ -2052,7 +2056,7 @@ collect = {}
 organization_id = 'organizationId'
 collect['organization_id'] = organization_id
 
-per_page = 201
+per_page = 189
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -2912,7 +2916,7 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 201
+timespan = 25
 collect['timespan'] = timespan
 
 object_type = ObjectTypeEnum.PERSON
@@ -3026,10 +3030,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 201
+timespan = 25
 collect['timespan'] = timespan
 
-resolution = 201
+resolution = 25
 collect['resolution'] = resolution
 
 object_type = ObjectTypeEnum.PERSON
@@ -4084,7 +4088,7 @@ collect = {}
 network_id = 'networkId'
 collect['network_id'] = network_id
 
-with_details = True
+with_details = False
 collect['with_details'] = with_details
 
 
@@ -4158,7 +4162,7 @@ collect['network_id'] = network_id
 target_group_id = 'targetGroupId'
 collect['target_group_id'] = target_group_id
 
-with_details = True
+with_details = False
 collect['with_details'] = with_details
 
 
@@ -4473,7 +4477,7 @@ collect['network_id'] = network_id
 t0 = 't0'
 collect['t0'] = t0
 
-timespan = 251
+timespan = 117
 collect['timespan'] = timespan
 
 
@@ -5274,10 +5278,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 251
+timespan = 117
 collect['timespan'] = timespan
 
-uplink = 'uplink'
+uplink = UplinkEnum.WAN1
 collect['uplink'] = uplink
 
 ip = 'ip'
@@ -5741,7 +5745,7 @@ def get_network_wireless_rf_profiles(self,
 |-----------|------|-------------|
 | networkId |  ``` Required ```  | TODO: Add a parameter description |
 | includeTemplateProfiles |  ``` Optional ```  | If the network is bound to a template, this parameter controls whether or not the non-basic RF profiles defined on the template
-      should be included in the response alongside the non-basic profiles defined on the bound network. Defaults to false. |
+    should be included in the response alongside the non-basic profiles defined on the bound network. Defaults to false. |
 
 
 
@@ -7944,10 +7948,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 45
+timespan = 11
 collect['timespan'] = timespan
 
-per_page = 45
+per_page = 11
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -7999,10 +8003,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 45
+timespan = 11
 collect['timespan'] = timespan
 
-per_page = 45
+per_page = 11
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -8054,10 +8058,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 45
+timespan = 11
 collect['timespan'] = timespan
 
-per_page = 45
+per_page = 11
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -8118,7 +8122,7 @@ collect['ssid_number'] = ssid_number
 login_identifier = 'loginIdentifier'
 collect['login_identifier'] = login_identifier
 
-timespan = 45
+timespan = 11
 collect['timespan'] = timespan
 
 
@@ -9719,10 +9723,10 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-per_page = 137
+per_page = 102
 collect['per_page'] = per_page
 
 starting_after = 'startingAfter'
@@ -9789,13 +9793,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-ssid = 137
+ssid = 102
 collect['ssid'] = ssid
 
-vlan = 137
+vlan = 102
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -9845,13 +9849,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-ssid = 137
+ssid = 102
 collect['ssid'] = ssid
 
-vlan = 137
+vlan = 102
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -9907,13 +9911,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-ssid = 137
+ssid = 102
 collect['ssid'] = ssid
 
-vlan = 137
+vlan = 102
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -9967,13 +9971,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-ssid = 137
+ssid = 102
 collect['ssid'] = ssid
 
-vlan = 137
+vlan = 102
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10025,13 +10029,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-ssid = 137
+ssid = 102
 collect['ssid'] = ssid
 
-vlan = 137
+vlan = 102
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10080,13 +10084,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-ssid = 137
+ssid = 102
 collect['ssid'] = ssid
 
-vlan = 137
+vlan = 102
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10136,13 +10140,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-ssid = 137
+ssid = 102
 collect['ssid'] = ssid
 
-vlan = 137
+vlan = 102
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10198,13 +10202,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-ssid = 137
+ssid = 102
 collect['ssid'] = ssid
 
-vlan = 137
+vlan = 102
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10258,13 +10262,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-ssid = 137
+ssid = 102
 collect['ssid'] = ssid
 
-vlan = 137
+vlan = 102
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10318,13 +10322,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-ssid = 137
+ssid = 102
 collect['ssid'] = ssid
 
-vlan = 137
+vlan = 102
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'
@@ -10380,13 +10384,13 @@ collect['t0'] = t0
 t1 = 't1'
 collect['t1'] = t1
 
-timespan = 137
+timespan = 102
 collect['timespan'] = timespan
 
-ssid = 137
+ssid = 102
 collect['ssid'] = ssid
 
-vlan = 137
+vlan = 102
 collect['vlan'] = vlan
 
 ap_tag = 'apTag'

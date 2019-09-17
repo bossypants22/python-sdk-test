@@ -623,7 +623,7 @@ class OrganizationsController(BaseController):
                         specify parameters t0 and t1. The value must be in
                         seconds and be less than or equal to 5 minutes. The
                         default is 5 minutes.
-                    uplink -- string -- Optional filter for a specific WAN
+                    uplink -- UplinkEnum -- Optional filter for a specific WAN
                         uplink. Valid uplinks are wan1, wan2, cellular.
                         Default will return all uplinks.
                     ip -- string -- Optional filter for a specific destination

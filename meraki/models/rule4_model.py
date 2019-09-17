@@ -14,7 +14,7 @@ class Rule4Model(object):
     TODO: type model description here.
 
     Attributes:
-        policy (Policy2Enum): 'Deny' traffic specified by this rule
+        policy (Policy4Enum): 'Deny' traffic specified by this rule
         mtype (Type4Enum): Type of the L7 rule. One of: 'application',
             'applicationCategory', 'host', 'port', 'ipRange'
         value (string): The 'value' of what you want to block. Format of

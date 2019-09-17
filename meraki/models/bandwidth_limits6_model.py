@@ -6,37 +6,42 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
+import meraki.models.wan11_model
+import meraki.models.wan21_model
+import meraki.models.cellular_model
 
 class BandwidthLimits6Model(object):
 
     """Implementation of the 'BandwidthLimits6' model.
 
-    A mapping of uplinks ('wan1', 'wan2' or 'cellular') to their bandwidth
-    settings (be sure to check which uplinks are supported for your network).
-    Bandwidth setting objects have the following structure
+    A mapping of uplinks to their bandwidth settings (be sure to check which
+    uplinks are supported for your network)
 
     Attributes:
-        limit_up (int): The maximum upload limit (integer, in Kbps). null
-            indicates no limit
-        limit_down (int): The maximum download limit (integer, in Kbps). null
-            indicates no limit
+        wan_1 (Wan11Model): The bandwidth settings for the 'wan1' uplink
+        wan_2 (Wan21Model): The bandwidth settings for the 'wan2' uplink
+        cellular (CellularModel): The bandwidth settings for the 'cellular'
+            uplink
 
     """
 
     # Create a mapping from Model property names to API property names
     _names = {
-        "limit_up":'limitUp',
-        "limit_down":'limitDown'
+        "wan1":'wan1',
+        "wan2":'wan2',
+        "cellular":'cellular'
     }
 
     def __init__(self,
-                 limit_up=None,
-                 limit_down=None):
+                 wan1=None,
+                 wan2=None,
+                 cellular=None):
         """Constructor for the BandwidthLimits6Model class"""
 
         # Initialize members of the class
-        self.limit_up = limit_up
-        self.limit_down = limit_down
+        self.wan1 = wan1
+        self.wan2 = wan2
+        self.cellular = cellular
 
 
     @classmethod
@@ -57,11 +62,13 @@ class BandwidthLimits6Model(object):
             return None
 
         # Extract variables from the dictionary
-        limit_up = dictionary.get('limitUp')
-        limit_down = dictionary.get('limitDown')
+        wan1 = meraki.models.wan11_model.Wan11Model.from_dictionary(dictionary.get('wan1')) if dictionary.get('wan1') else None
+        wan2 = meraki.models.wan21_model.Wan21Model.from_dictionary(dictionary.get('wan2')) if dictionary.get('wan2') else None
+        cellular = meraki.models.cellular_model.CellularModel.from_dictionary(dictionary.get('cellular')) if dictionary.get('cellular') else None
 
         # Return an object of this model
-        return cls(limit_up,
-                   limit_down)
+        return cls(wan1,
+                   wan2,
+                   cellular)
 
 
