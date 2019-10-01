@@ -6,7 +6,7 @@
     This file was automatically generated for meraki by APIMATIC v2.0 ( https://apimatic.io ).
 """
 
-import meraki.models.bandwidth_limits6_model
+import meraki.models.bandwidth_limits_6_model
 
 class UpdateNetworkUplinkSettingsModel(object):
 
@@ -52,7 +52,7 @@ class UpdateNetworkUplinkSettingsModel(object):
             return None
 
         # Extract variables from the dictionary
-        bandwidth_limits = meraki.models.bandwidth_limits6_model.BandwidthLimits6Model.from_dictionary(dictionary.get('bandwidthLimits')) if dictionary.get('bandwidthLimits') else None
+        bandwidth_limits = meraki.models.bandwidth_limits_6_model.BandwidthLimits6Model.from_dictionary(dictionary.get('bandwidthLimits')) if dictionary.get('bandwidthLimits') else None
 
         # Return an object of this model
         return cls(bandwidth_limits)

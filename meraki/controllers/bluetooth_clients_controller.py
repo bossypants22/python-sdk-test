@@ -34,11 +34,11 @@ class BluetoothClientsController(BaseController):
                     t_0 -- string -- The beginning of the timespan for the
                         data. The maximum lookback period is 7 days from
                         today.
-                    timespan -- int -- The timespan for which the information
-                        will be fetched. If specifying timespan, do not
-                        specify parameter t0. The value must be in seconds and
-                        be less than or equal to 7 days. The default is 1
-                        day.
+                    timespan -- float -- The timespan for which the
+                        information will be fetched. If specifying timespan,
+                        do not specify parameter t0. The value must be in
+                        seconds and be less than or equal to 7 days. The
+                        default is 1 day.
                     per_page -- int -- The number of entries per page
                         returned. Acceptable range is 5 - 1000. Default is
                         10.
@@ -79,7 +79,7 @@ class BluetoothClientsController(BaseController):
         _query_builder = Configuration.base_uri
         _query_builder += _url_path
         _query_parameters = {
-            't0': options.get('t0', None),
+            't0': options.get('t_0', None),
             'timespan': options.get('timespan', None),
             'perPage': options.get('per_page', None),
             'startingAfter': options.get('starting_after', None),
